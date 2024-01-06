@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">StudyMate</string>
+    <string name="login">로그인</string>
+    <string name="id">아이디</string>
+    <string name="passwd">비밀번호</string>
+    <string name="logo1">다양한 멘티,멘토와의 협력을</string>
+    <string name="logo2">통해 함께 공부하고 성장하세요</string>
+    <string name="logo3">공부는 스터디메이트</string>
+    <string name="emailSignUp">이메일 회원가입</string>
+    <string name="emailLogin">이메일 로그인</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    이메일 회원가입
+</resources>
