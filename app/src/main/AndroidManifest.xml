@@ -14,9 +14,12 @@
         android:theme="@style/Theme.StudyMate"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".ProfileSetting"
             android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

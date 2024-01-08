@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="#00498c"
-            android:hint="123456@gmail.com"
+            android:hint="@string/hintEmail"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -61,7 +61,7 @@
             android:layout_marginEnd="125dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:text="비밀번호"/>
+            android:text="@string/passwd"/>
 
         <EditText
             android:id="@+id/editPass"
@@ -80,7 +80,7 @@
             android:layout_gravity="center"
             android:background="@drawable/next_button"
             android:layout_marginTop="10dp"
-            android:text="다음"
+            android:text="@string/login"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>

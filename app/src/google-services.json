@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198050516650",
+    "project_id": "studymate-c4bf8",
+    "storage_bucket": "studymate-c4bf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198050516650:android:2a58a8ef8e1d392b86cad3",
+        "android_client_info": {
+          "package_name": "com.example.studymate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDanE5jtb0gr8h3_nIBLBcY4S3AENcIGNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

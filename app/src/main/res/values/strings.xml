@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StudyMate</string>
     <string name="login">로그인</string>
+    <string name="email">이메일</string>
     <string name="id">아이디</string>
     <string name="passwd">비밀번호</string>
     <string name="logo1">다양한 멘티,멘토와의 협력을</string>
@@ -8,8 +9,27 @@
     <string name="logo3">공부는 스터디메이트</string>
     <string name="emailSignUp">이메일 회원가입</string>
     <string name="emailLogin">이메일 로그인</string>
+    <string name="hintEmail">123456@gmail.com</string>
+    <string name="next">다음</string>
+    //시작 프래그먼트
+    <string name="fragmentStart">처음 오셧군요, 반가워요!\n멘토이신가요 멘티이신가요?</string>
+    //이메일 프래그먼트
+    <string name="insertEmail">이메일과 비밀번호를\n입력해주세요!</string>
+    //닉네임 프래그먼트
+    <string name="insertNickname">닉네임을 입력해주세요!</string>
+    <string name="maxlength">최대8자</string>
+    //메이저 프래그먼트
+    <string name="chooseMajor">회원님의 전공은 무엇인가요?</string>
+    <string name="math">수학</string>
+    <string name="english">영어</string>
+    <string name="korean">국어</string>
+    <string name="science">과탐</string>
+    <string name="coding">코딩</string>
+    <string name="society">사탐</string>
+    //피니쉬 프래그먼트
+    <string name="finishSignup">가입을 축하합니다!</string>
+    //프로필세팅 엑티비티 다음 버튼
+    <string name="activity_profile_setting_next_button">다음</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    이메일 회원가입
 </resources>
