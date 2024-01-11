@@ -4,19 +4,24 @@
     <string name="email">이메일</string>
     <string name="id">아이디</string>
     <string name="passwd">비밀번호</string>
+    <string name="passwdHint">********</string>
+    <string name="checkPasswd">비밀번호 확인</string>
     <string name="logo1">다양한 멘티,멘토와의 협력을</string>
     <string name="logo2">통해 함께 공부하고 성장하세요</string>
     <string name="logo3">공부는 스터디메이트</string>
     <string name="emailSignUp">이메일 회원가입</string>
     <string name="emailLogin">이메일 로그인</string>
     <string name="hintEmail">123456@gmail.com</string>
+    <string name="hintPhoneNumber">01012341234</string>
     <string name="next">다음</string>
+
+
     //시작 프래그먼트
     <string name="fragmentStart">처음 오셧군요, 반가워요!\n멘토이신가요 멘티이신가요?</string>
-    //이메일 프래그먼트
-    <string name="insertEmail">이메일과 비밀번호를\n입력해주세요!</string>
+    //이메일 비밀번호 프래그먼트
+    <string name="insertEmail">이메일과 비밀번호를\n입력해주세요</string>
     //닉네임 프래그먼트
-    <string name="insertNickname">닉네임을 입력해주세요!</string>
+    <string name="insertNickname">닉네임을 입력해주세요</string>
     <string name="maxlength">최대8자</string>
     //메이저 프래그먼트
     <string name="chooseMajor">회원님의 전공은 무엇인가요?</string>
@@ -28,6 +33,28 @@
     <string name="society">사탐</string>
     //피니쉬 프래그먼트
     <string name="finishSignup">가입을 축하합니다!</string>
+    //지역 프래그먼트
+    <string name="rgf1">주로 활동하는 지역이 어디인가요?</string>
+    <string name="rgf2">선택하신 지역의 멘티,멘토들을 만날 수 있어요.</string>
+    <string name="activityRegion_fragment_region1">서울</string>
+    <string name="activityRegion_fragment_region2">강원도</string>
+    <string name="activityRegion_fragment_region3">경기도</string>
+    <string name="activityRegion_fragment_region4">인천</string>
+    <string name="activityRegion_fragment_region5">충청남도</string>
+    <string name="activityRegion_fragment_region6">충청북도</string>
+    <string name="activityRegion_fragment_region7">대전</string>
+    <string name="activityRegion_fragment_region8">경상북도</string>
+    <string name="activityRegion_fragment_region9">전라북도</string>
+    <string name="activityRegion_fragment_region10">경상남도</string>
+    <string name="activityRegion_fragment_region11">울산</string>
+    <string name="activityRegion_fragment_region12">부산</string>
+    <string name="activityRegion_fragment_region13">전라남도</string>
+
+    //휴대폰 번호 프래그먼트
+    <string name="insertPhoneNumber">휴대폰 번호를 입력해주세요</string>
+    <string name="phoneNumber">휴대폰 번호</string>
+    <string name="phoneNumberHint">01012345678</string>
+
     //프로필세팅 엑티비티 다음 버튼
     <string name="activity_profile_setting_next_button">다음</string>
     <!-- TODO: Remove or change this placeholder text -->

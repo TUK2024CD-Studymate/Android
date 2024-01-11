@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.signupText.setOnClickListener {
+            val intent = Intent(this, ProfileSetting::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
