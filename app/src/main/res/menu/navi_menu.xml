@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="멘토검색"
+        android:icon="@drawable/search"/>
+    <item
+        android:title="채팅"
+        android:icon="@drawable/talk"/>
+
+    <item
+        android:title="게시판"
+        android:icon="@drawable/home"/>
+
+    <item
+        android:title="스터디기록"
+        android:icon="@drawable/pencil"/>
+
+</menu>
