@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".loginFragment.PhoneNumberFragment">
+    tools:context=".loginFragment.NameFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_marginTop="40dp"
@@ -26,15 +27,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/phoneNumber"
+            android:text="@string/name"
             android:textColor="@color/gray"/>
 
         <EditText
-            android:layout_width="320dp"
+            android:id="@+id/editName"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:hint="@string/phoneNumberHint"
-            android:inputType="number" />
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 

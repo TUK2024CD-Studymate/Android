@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import com.example.studymate.ProfileSetting
 import com.example.studymate.R
 import com.example.studymate.databinding.FragmentEmailBinding
 import com.example.studymate.databinding.FragmentStartBinding
@@ -16,23 +17,17 @@ import com.example.studymate.databinding.FragmentStartBinding
 class EmailFragment : Fragment() {
     lateinit var binding: FragmentEmailBinding
 
-    @SuppressLint("SuspiciousIndentation")
+    override fun onStop() {
+        super.onStop()
+        val mainActivity = activity as ProfileSetting
+        mainActivity.receiveData(this, mapOf("email" to binding.editEmail.text.toString()) )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmailBinding.inflate(inflater, container, false)
-
-        binding.editPasswd2.addTextChangedListener { editable ->
-            val password1 = binding.editPasswd1.text.toString()
-            val password2 = editable?.toString() ?: ""
-
-            binding.pwConfirm.text = if (password1 == password2) {
-                "비밀번호가 일치합니다"
-            } else {
-                "비밀번호가 일치하지 않습니다"
-            }
-        }
 
 
         return binding.root

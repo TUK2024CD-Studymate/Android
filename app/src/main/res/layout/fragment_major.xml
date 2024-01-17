@@ -20,6 +20,14 @@
             android:text="@string/chooseMajor"
             android:textColor="@color/black"
             android:textStyle="bold"/>
+
+<!--        <EditText-->
+<!--            android:id="@+id/editMajor"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="text" />-->
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -29,6 +37,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,6 +48,7 @@
             android:background="@drawable/selector_button"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,6 +69,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,6 +80,7 @@
             android:background="@drawable/selector_button"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -89,6 +101,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -99,6 +112,7 @@
             android:background="@drawable/selector_button"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/majorBtn6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

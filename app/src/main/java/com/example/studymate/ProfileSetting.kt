@@ -3,9 +3,8 @@ package com.example.studymate
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
+import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.studymate.databinding.ActivityMainBinding
 import com.example.studymate.databinding.ActivityProfileSettingBinding
 import com.example.studymate.loginFragment.*
 
@@ -13,10 +12,10 @@ class ProfileSetting : AppCompatActivity() {
     private lateinit var binding: ActivityProfileSettingBinding
 
     private val fragmentList : List<Fragment> = listOf(
-        StartFragment(),
-        PhoneNumberFragment(),
+        PartFragment(),
+        NameFragment(),
         EmailFragment(),
-        RegionFragment(),
+        PasswordFragment(),
         NicknameFragment(),
         MajorFragment(),
         FinishFragment()
@@ -24,7 +23,9 @@ class ProfileSetting : AppCompatActivity() {
 
     private var cursor = 1
 
-    private val stepProgressAmount = 6
+    private var userData : MutableMap<String,List<String>> = mutableMapOf()
+
+    private val stepProgressAmount = 8
 
     private fun increaseProgress(){
         binding.progressBar.progress += stepProgressAmount
@@ -46,7 +47,7 @@ class ProfileSetting : AppCompatActivity() {
         //시작 프래그먼트 로드
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.frameLayout,StartFragment())
+            .add(R.id.frameLayout,PartFragment())
             //백스택에 저장하는 이유는 사용자가 활동에서 뒤로 이동하면 다시 이전 프래그먼트 로드 가능 원래는 백스택에 저장되지 않음
             .addToBackStack(null)
             .commit()
@@ -66,11 +67,11 @@ class ProfileSetting : AppCompatActivity() {
             if (cursor < fragmentList.size){
                 changeFragment(fragmentList[cursor++])
                 increaseProgress()
+                changeState()
             //커서의 크기가 프래그먼트리스트 사이즈랑 같다면 화면 스택을 전체 제거하고 메인엑티비티로 이동
             }else if(cursor ==fragmentList.size){
                 ++cursor
-                finishAffinity() // 화면 스택 전체 제거
-                startActivity(Intent(this,MainActivity::class.java))
+                changeState()
             }
         }
     }
@@ -83,4 +84,83 @@ class ProfileSetting : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-}
+
+    private fun changeState() {
+        when(cursor) {
+            1 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            2 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            3 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            4 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            5 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            6 -> {
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            7 ->{
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            8->{
+                val user = User(
+                    part = userData.values.toList()[0][0],
+                    name = userData.values.toList()[1][0],
+                    email = userData.values.toList()[2][0],
+                    password = userData.values.toList()[3][0],
+                    nickname = userData.values.toList()[4][0],
+                    interests = userData.values.toList()[5][0]
+                )
+
+                finishAffinity()  // 화면 스택 전체 제거
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+        }
+    }
+
+    fun receiveData(fragment: Fragment, data: Map<String, String>) {
+        Log.d("parkHwan", "${fragment.toString()} 프라그먼트의 데이터: ${data}")
+        Log.d("parkHwan", "${fragment.toString()} key: ${data.keys}")
+
+        val value = getValue(data = data)
+        when(val key = getKey(data = data)) {
+            "part" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+            "name" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+            "email" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+            "password" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+            "nickname" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+            "interests" -> {
+                userData[key] = value
+                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
+            }
+
+        }
+    }
+
+    private fun getValue(data: Map<String, String>) = data.values.toList()
+    private fun getKey(data: Map<String, String>) = data.keys.toList()[0]
+
+
+    }
+
