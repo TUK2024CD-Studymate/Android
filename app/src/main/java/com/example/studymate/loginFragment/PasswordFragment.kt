@@ -10,7 +10,7 @@ import com.example.studymate.ProfileSetting
 import com.example.studymate.R
 import com.example.studymate.databinding.ActivityProfileSettingBinding
 import com.example.studymate.databinding.FragmentPasswordBinding
-import com.example.studymate.databinding.FragmentPhoneNumberBinding
+import org.json.JSONObject
 
 class PasswordFragment : Fragment() {
     lateinit var binding: FragmentPasswordBinding
@@ -18,8 +18,12 @@ class PasswordFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         val mainActivity = activity as ProfileSetting
-        mainActivity.receiveData(this, mapOf("password" to binding.editPasswd1.text.toString()) )
+        val jsonData = JSONObject().apply {
+            put("password", binding.editPasswd1.text.toString())
+        }.toString()
+        mainActivity.receiveData(this, jsonData)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

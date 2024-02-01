@@ -1,3 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="my_array">
+        <item>수학</item>
+        <item>코딩</item>
+        <item>국어</item>
+        <item>영어</item>
+        <item>과탐</item>
+        <item>사탐</item>
+    </string-array>
+
+
+    <string-array name="calendar_day">
+        <item>일</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+    </string-array>
 </resources>

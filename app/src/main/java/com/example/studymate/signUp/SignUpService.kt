@@ -1,12 +1,14 @@
-package com.example.studymate
+package com.example.studymate.signUp
 
+import com.example.studymate.User
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface SignUpService {
     @Headers("Content-Type: application/json")
-    @POST("/api/sign-in/")
-    fun addUserByEnqueue(@Body userInfo: MutableMap<String, List<String>>): Call<SignUpResponseBody>
+    @POST("/api/signIn")
+    fun addUserByEnqueue(@Body userInfo: User): Call<SignUpResponseBody>
 }

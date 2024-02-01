@@ -21,11 +21,6 @@
             android:textColor="@color/black"
             android:textStyle="bold"/>
 
-<!--        <EditText-->
-<!--            android:id="@+id/editMajor"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:inputType="text" />-->
 
 
     </LinearLayout>
@@ -41,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/math"
+            android:text="maths"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -53,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:text="@string/coding"
+            android:text="coding"
             android:layout_marginStart="10dp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -73,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/korean"
+            android:text="KOREAN"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -84,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/science"
+            android:text="science"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
             android:textColor="@drawable/selector_text"
@@ -105,7 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/english"
+            android:text="english"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -116,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/society"
+            android:text="society"
             android:layout_marginStart="10dp"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"

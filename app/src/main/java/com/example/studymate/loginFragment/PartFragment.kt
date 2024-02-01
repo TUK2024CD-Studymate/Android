@@ -7,24 +7,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.studymate.ProfileSetting
-import com.example.studymate.databinding.FragmentStartBinding
+import com.example.studymate.databinding.FragmentPartBinding
+import org.json.JSONObject
 
 class PartFragment : Fragment() {
-    lateinit var binding: FragmentStartBinding
+    lateinit var binding: FragmentPartBinding
 
     override fun onStop() {
         super.onStop()
-        Log.d("daeYoung", "성별 프라그먼트 onStop() 호출")
+        Log.d("parkhwan", "성별 프라그먼트 onStop() 호출")
         val mainActivity = activity as ProfileSetting
-        if(binding.mentiBtn.isSelected) { mainActivity.receiveData(this, mapOf("part" to binding.mentiBtn.text.toString()) ) }
-        else { mainActivity.receiveData(this, mapOf("part" to binding.mentorBtn.text.toString())) }
+        val partValue = if(binding.mentiBtn.isSelected) {
+            binding.mentiBtn.text.toString()
+        } else {
+            binding.mentorBtn.text.toString()
+        }
+        val jsonData = JSONObject().apply {
+            put("part", partValue)
+        }.toString()
+        mainActivity.receiveData(this, jsonData)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStartBinding.inflate(inflater, container, false)
+        binding = FragmentPartBinding.inflate(inflater, container, false)
 
         binding.mentorBtn.setOnClickListener {
             it.isSelected = !(it.isSelected)

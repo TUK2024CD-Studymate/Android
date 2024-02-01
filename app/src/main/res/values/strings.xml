@@ -18,6 +18,10 @@
     <string name="chat">채팅</string>
     <string name="board">게시판</string>
     <string name="record">스터디기록</string>
+    <string name="assign">등록</string>
+    <string name="title">제목</string>
+    <string name="insertContent">내용을 입력해주세요</string>
+    <string name="insertStudyContent">스터디 내용을 입력해주세요</string>
 
 
     //시작 프래그먼트
@@ -48,4 +52,5 @@
     <string name="activity_profile_setting_next_button">다음</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

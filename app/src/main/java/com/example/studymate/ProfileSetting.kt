@@ -7,23 +7,27 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.studymate.databinding.ActivityProfileSettingBinding
 import com.example.studymate.loginFragment.*
+import com.example.studymate.signUp.RetrofitWork
+import com.google.gson.Gson
+import org.json.JSONObject
 
 class ProfileSetting : AppCompatActivity() {
     private lateinit var binding: ActivityProfileSettingBinding
 
     private val fragmentList : List<Fragment> = listOf(
-        PartFragment(),
-        NameFragment(),
         EmailFragment(),
         PasswordFragment(),
-        NicknameFragment(),
+        NameFragment(),
+        PartFragment(),
         MajorFragment(),
+        NicknameFragment(),
         FinishFragment()
     )
 
+
     private var cursor = 1
 
-    private var userData : MutableMap<String,List<String>> = mutableMapOf()
+    private var signUpData: User = User(null, null, null, null, null, null)
 
     private val stepProgressAmount = 8
 
@@ -47,7 +51,7 @@ class ProfileSetting : AppCompatActivity() {
         //시작 프래그먼트 로드
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.frameLayout,PartFragment())
+            .add(R.id.frameLayout,EmailFragment())
             //백스택에 저장하는 이유는 사용자가 활동에서 뒤로 이동하면 다시 이전 프래그먼트 로드 가능 원래는 백스택에 저장되지 않음
             .addToBackStack(null)
             .commit()
@@ -109,57 +113,53 @@ class ProfileSetting : AppCompatActivity() {
                 Log.d("parkHwan", "cursor는 ${cursor}번째")
             }
             8->{
-                val user = User(
-                    part = userData.values.toList()[0][0],
-                    name = userData.values.toList()[1][0],
-                    email = userData.values.toList()[2][0],
-                    password = userData.values.toList()[3][0],
-                    nickname = userData.values.toList()[4][0],
-                    interests = userData.values.toList()[5][0]
-                )
 
+                val retrofitWork = RetrofitWork(signUpData)
+                retrofitWork.work()
                 finishAffinity()  // 화면 스택 전체 제거
                 startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }
 
-    fun receiveData(fragment: Fragment, data: Map<String, String>) {
-        Log.d("parkHwan", "${fragment.toString()} 프라그먼트의 데이터: ${data}")
-        Log.d("parkHwan", "${fragment.toString()} key: ${data.keys}")
+    fun receiveData(fragment: Fragment, data: String) {
+        Log.d("parkHwan", "${fragment.toString()} 프라그먼트의 데이터: $data")
 
-        val value = getValue(data = data)
-        when(val key = getKey(data = data)) {
-            "part" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
-            "name" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
-            "email" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
-            "password" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
-            "nickname" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
-            "interests" -> {
-                userData[key] = value
-                Log.d("parkHwan", "key: ${data.keys}, value: ${data.values}, userData: $userData")
-            }
+        // JSON 문자열을 JSONObject로 파싱
+        val jsonObject = JSONObject(data)
 
+        when (fragment) {
+            is EmailFragment -> {
+                // EmailFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.email = jsonObject.optString("email", "")
+            }
+            is PasswordFragment -> {
+                // PasswordFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.password = jsonObject.optString("password", "")
+            }
+            is NameFragment -> {
+                // NameFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.name = jsonObject.optString("name", "")
+            }
+            is PartFragment -> {
+                // PartFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.part = jsonObject.optString("part", "")
+            }
+            is MajorFragment -> {
+                // InterestsFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.interests = jsonObject.optString("interests", "")
+            }
+            is NicknameFragment -> {
+                // NicknameFragment에서 필요한 데이터만 가져와서 User에 저장
+                signUpData.nickname = jsonObject.optString("nickname", "")
+            }
+            // 추가적인 프래그먼트에 대한 처리 추가
         }
+
+        // 로그에 출력
+        Log.d("parkHwan", "userData: $signUpData")
     }
 
-    private fun getValue(data: Map<String, String>) = data.values.toList()
-    private fun getKey(data: Map<String, String>) = data.keys.toList()[0]
 
 
     }

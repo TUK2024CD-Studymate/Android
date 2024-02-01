@@ -17,4 +17,21 @@
     <style name="NumberPickerTheme" parent="Theme.StudyMate">
         <item name="colorControlNormal">@color/black</item>
     </style>
+    //탭 레이아웃
+    <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">         <!-- 배경 -->
+        <item name="android:textColorPrimary">@android:color/white</item>       <!-- 탭바 선택된 텍스트 -->
+        <item name="android:textColorSecondary">@android:color/black</item>     <!-- 탭바 텍스트 -->
+
+        <item name="colorAccent">@android:color/black</item>                    <!-- 하단 움직이는 바 색-->
+    </style>
+
+    <style name="tab_text" parent="TextAppearance.Design.Tab">    <item name="android:textSize">18sp</item></style> //탭 레이아웃 텍스트 사이즈
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/black</item> <!-- divider 색 -->
+        <item name="android:dividerHeight">1dp</item> <!-- divider 높이 -->
+    </style>
+    <style name="SpinnerTheme">
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+    </style>
 </resources>

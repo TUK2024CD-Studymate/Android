@@ -1,4 +1,4 @@
-package com.example.studymate
+package com.example.studymate.signUp
 
 import com.google.gson.annotations.SerializedName
 

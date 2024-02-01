@@ -1,9 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".board.BoardWriteActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:orientation="horizontal"
+        android:gravity="center"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/x"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="NestedWeights" />
+
+
+        <android.widget.Button
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            android:text="@string/assign"
+            android:layout_marginEnd="10dp"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:background="@drawable/assign_button"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.1"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="390dp"
+            android:layout_height="50dp"
+            android:theme="@style/SpinnerTheme"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+
+        <View
+            android:layout_width="377dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="50dp"
+            android:hint="@string/title"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:hint="@string/insertContent"
+            android:gravity="top"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

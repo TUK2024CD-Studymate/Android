@@ -1,13 +1,14 @@
-package com.example.studymate.signUp
+package com.example.studymate.StudyRecord
 
-import com.google.gson.Gson
+import com.example.studymate.signUp.RetrofitAPI
+import com.example.studymate.signUp.SignUpService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitAPI {
+object StudyRetrofitAPI {
     private const val BASE_URL = "http://10.0.2.2:8080"
 
 
@@ -31,7 +32,7 @@ object RetrofitAPI {
             .build()
     }
 
-    val emgMedService: SignUpService by lazy {
-        retrofit.create(SignUpService::class.java)
+    val emgMedService: RecordService by lazy {
+        retrofit.create(RecordService::class.java)
     }
 }

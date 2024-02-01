@@ -1,4 +1,4 @@
-package com.example.studymate.board
+package com.example.studymate.calendar
 
 data class CalendarVO(
     var cl_date: String = "", // 날짜
