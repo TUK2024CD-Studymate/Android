@@ -1,5 +1,6 @@
 package com.example.studymate.HomeFragment
 
+import android.annotation.SuppressLint
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Build
@@ -14,13 +15,17 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.Login.LoginApi.Companion.gson
 import com.example.studymate.R
-import com.example.studymate.StudyRecord.RecordRetrofitWork
-import com.example.studymate.StudyRecord.StudyModel
+import com.example.studymate.StudyRecord.*
 import com.example.studymate.calendar.CalendarVO
 import com.example.studymate.calendar.CalendarAdapter
 import com.example.studymate.databinding.FragmentRecordBinding
+import com.example.studymate.signUp.SignUpResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDateTime
@@ -38,8 +43,9 @@ class RecordFragment : Fragment() {
     private var running : Boolean = false
     private lateinit var sharedPreferences: SharedPreferences
     var pauseTime = 0L
+    var studyList = listOf<StudyModel>()
 
-
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +53,8 @@ class RecordFragment : Fragment() {
     ): View {
         binding = FragmentRecordBinding.inflate(inflater, container, false)
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+       val listAdapter = RecordListAdapter()
+
 
         val studyData = StudyModel(null,null,null,null)
 
@@ -126,13 +133,33 @@ class RecordFragment : Fragment() {
             }
         }
 
+        //@post
         binding.saveBtn.setOnClickListener {
             studyData.content = binding.editMemo.text.toString()
             updateStudyData(studyData)
             Log.d("park", userToken.toString())
             val retrofitWork = RecordRetrofitWork(userToken.toString(),studyData)
             retrofitWork.work()
+
         }
+
+        //@delete
+        binding.deleteBtn.setOnClickListener {
+            deleteRecord("3")
+            listAdapter.notifyDataSetChanged()
+        }
+
+
+        //리싸이클러뷰에 어뎁터 적용
+        binding.recyclerView.apply {
+            listAdapter.setList(studyList)
+            listAdapter.notifyDataSetChanged()
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+        }
+        //@get
+        initList("3")
 
         return binding.root
     }
@@ -173,6 +200,63 @@ class RecordFragment : Fragment() {
         val json = gson.toJson(studyData)
         Log.d("studymodel", json)
     }
+
+    private fun initList(calenderId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = StudyRetrofitAPI.emgMedService.getRecordByEnqueue("Bearer $userToken", calenderId)
+        val listAdapter = RecordListAdapter()
+
+        call.enqueue(object : Callback<StudyModel> {
+            override fun onResponse(call: Call<StudyModel>, response: Response<StudyModel>) {
+                if (response.isSuccessful) {
+                    // 서버 응답을 StudyModel 객체로 변환
+                    val studyModel: StudyModel? = response.body()
+
+                    if (studyModel != null) {
+                        // 성공적으로 변환되었다면 원하는 작업을 수행
+                        studyList = listOf(studyModel)
+                        listAdapter.setList(studyList)
+
+                        // UI 작업을 UI 스레드에서 수행
+                        activity?.runOnUiThread {
+                            binding.recyclerView.adapter = listAdapter // RecyclerView에 어댑터 설정
+                        }
+                    } else {
+                        Log.e("initList", "Failed to convert response to StudyModel")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<StudyModel>, t: Throwable) {
+                // 실패 처리를 원하면 여기에 코드를 추가할 수 있습니다.
+                Log.e("initList", "Network request failed", t)
+            }
+        })
+    }
+
+
+    private fun deleteRecord(calenderId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = StudyRetrofitAPI.emgMedService.deleteRecordByEnqueue("Bearer $userToken", calenderId)
+
+        call.enqueue(object : Callback<SignUpResponseBody> {
+            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
+                if (response.isSuccessful) {
+                    Log.d("deleteRecord", "Record deleted successfully")
+                } else {
+                    Log.e("deleteRecord", "Failed to delete record. Response code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
+                // 실패 처리를 원하면 여기에 코드를 추가할 수 있습니다.
+                Log.e("deleteRecord", "Network request failed", t)
+            }
+        })
+    }
+
+
+
 
 
 

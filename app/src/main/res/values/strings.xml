@@ -20,6 +20,8 @@
     <string name="record">스터디기록</string>
     <string name="assign">등록</string>
     <string name="title">제목</string>
+    <string name="delete">삭제</string>
+    <string name="save">저장</string>
     <string name="insertContent">내용을 입력해주세요</string>
     <string name="insertStudyContent">스터디 내용을 입력해주세요</string>
 
