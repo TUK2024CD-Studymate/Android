@@ -16,7 +16,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studymate.Login.LoginApi.Companion.gson
+import com.example.studymate.signUp.LoginApi.Companion.gson
 import com.example.studymate.R
 import com.example.studymate.StudyRecord.*
 import com.example.studymate.calendar.CalendarVO
@@ -62,6 +62,7 @@ class RecordFragment : Fragment() {
         val userToken = sharedPreferences.getString("userToken", "")
 
 
+        //시작버튼
         binding.startBtn.setOnClickListener {
             if (!running) {
                 binding.chronometer.base = SystemClock.elapsedRealtime() - pauseTime
@@ -74,6 +75,7 @@ class RecordFragment : Fragment() {
             }
         }
 
+        //멈춤버튼
         binding.stopBtn.setOnClickListener {
             if (running) {
                 binding.chronometer.stop()
@@ -88,7 +90,7 @@ class RecordFragment : Fragment() {
 
 
 
-        val items = resources.getStringArray(R.array.my_array)
+        val items = resources.getStringArray(R.array.interests_array)
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         binding.spinner.adapter = myAdapter
 
@@ -145,7 +147,7 @@ class RecordFragment : Fragment() {
 
         //@delete
         binding.deleteBtn.setOnClickListener {
-            deleteRecord("3")
+            deleteRecord("1")
             listAdapter.notifyDataSetChanged()
         }
 
@@ -159,7 +161,7 @@ class RecordFragment : Fragment() {
             setHasFixedSize(true)
         }
         //@get
-        initList("3")
+        initList("1")
 
         return binding.root
     }

@@ -2,12 +2,16 @@ package com.example.studymate.board
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.studymate.R
+import com.example.studymate.StudyRecord.StudyModel
+import com.example.studymate.StudyRecord.StudyRetrofitAPI.gson
 import com.example.studymate.databinding.ActivityBoardWriteBinding
 import com.example.studymate.databinding.ActivityHomeBinding
+import com.example.studymate.signUp.LoginApi
 
 class BoardWriteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardWriteBinding
@@ -17,38 +21,76 @@ class BoardWriteActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val items = resources.getStringArray(R.array.my_array)
-        val myAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
-        binding.spinner.adapter = myAdapter
+        val boardModel = BoardModel(null,null,null,null)
+
+        val interests = resources.getStringArray(R.array.interests_array)
+        val category = resources.getStringArray(R.array.category_array)
+        val interestsAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, interests)
+        val categoryAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, category)
+        binding.spinner1.adapter = interestsAdapter
+        binding.spinner2.adapter = categoryAdapter
 
 
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        // 처리 코드
+                        boardModel.interests = "MATH"
                     }
                     1 -> {
-                        // 처리 코드
+                        boardModel.interests = "PROGRAMMING"
                     }
                     2 -> {
-                        // 처리 코드
+                        boardModel.interests = "KOREAN"
                     }
                     3 -> {
-                        // 처리 코드
+                        boardModel.interests = "ENGLISH"
                     }
                     4 -> {
-                        // 처리 코드
+                        boardModel.interests = "SCIENCE"
                     }
-                    // ...
-                    else -> {
-                        // 처리 코드
+                    5 -> {
+                        boardModel.interests = "SOCIETY"
                     }
                 }
             }
 
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+
+        binding.spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when(p2){
+                    0->{
+                        boardModel.category = "QUESTION"
+                    }
+                    1->{
+                        boardModel.category = "STUDY"
+                    }
+                    2->{
+                        boardModel.category = "FREE"
+                    }
+            }
+
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
+
+        binding.postBtn.setOnClickListener {
+            boardModel.title = binding.editTitle.text.toString()
+            boardModel.content = binding.editContent.text.toString()
+            updateBoardData(boardModel)
+        }
+
+
+    }
+
+    private fun updateBoardData(boardData: BoardModel) {
+        val json = gson.toJson(boardData)
+        Log.d("studymodel", json)
     }
 }

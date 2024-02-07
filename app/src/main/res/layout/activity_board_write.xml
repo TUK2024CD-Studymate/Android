@@ -29,6 +29,7 @@
 
 
         <android.widget.Button
+            android:id="@+id/postBtn"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:textColor="@color/black"
@@ -40,25 +41,30 @@
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.1"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="390dp"
+            android:id="@+id/spinner1"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:theme="@style/SpinnerTheme"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal" />
 
-        <View
-            android:layout_width="377dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/black"/>
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:theme="@style/SpinnerTheme"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+
 
     </LinearLayout>
 
@@ -70,6 +76,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/editTitle"
             android:layout_width="380dp"
             android:layout_height="50dp"
             android:hint="@string/title"
@@ -88,6 +95,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/editContent"
             android:layout_width="380dp"
             android:layout_height="match_parent"
             android:hint="@string/insertContent"

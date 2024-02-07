@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="my_array">
+    <string-array name="interests_array">
         <item>수학</item>
         <item>코딩</item>
         <item>국어</item>
         <item>영어</item>
         <item>과탐</item>
         <item>사탐</item>
+    </string-array>
+
+    <string-array name="category_array">
+        <item>질문 게시판</item>
+        <item>스터디 게시판</item>
+        <item>자유 게시판</item>
     </string-array>
 
 

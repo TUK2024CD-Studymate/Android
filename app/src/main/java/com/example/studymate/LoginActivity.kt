@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.studymate.HomeActivity
-import com.example.studymate.Login.LoginApi
-import com.example.studymate.Login.LoginBackendResponse
-import com.example.studymate.Login.UserModel
+import com.example.studymate.signUp.LoginApi
+import com.example.studymate.signUp.LoginBackendResponse
+import com.example.studymate.signUp.UserModel
 import com.example.studymate.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Response

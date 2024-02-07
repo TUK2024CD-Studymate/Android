@@ -1,4 +1,4 @@
-package com.example.studymate.Login
+package com.example.studymate.signUp
 
 data class LoginBackendResponse(
     val code : String,

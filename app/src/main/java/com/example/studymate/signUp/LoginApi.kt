@@ -1,4 +1,4 @@
-package com.example.studymate.Login
+package com.example.studymate.signUp
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
