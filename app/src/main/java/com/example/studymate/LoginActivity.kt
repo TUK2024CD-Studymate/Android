@@ -29,9 +29,9 @@ class LoginActivity : AppCompatActivity() {
         // SharedPreferences 초기화
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        binding.btn.setOnClickListener {
-            startActivity(intent)
-        }
+//        binding.btn.setOnClickListener {
+//            startActivity(intent)
+//        }
 
         binding.loginBtn.setOnClickListener {
             val email = binding.editEmail.text.toString().trim()
