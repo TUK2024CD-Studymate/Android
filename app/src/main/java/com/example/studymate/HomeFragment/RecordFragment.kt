@@ -161,7 +161,7 @@ class RecordFragment : Fragment() {
             setHasFixedSize(true)
         }
         //@get
-        initList("1")
+        getList("1")
 
         return binding.root
     }
@@ -203,7 +203,7 @@ class RecordFragment : Fragment() {
         Log.d("studymodel", json)
     }
 
-    private fun initList(calenderId: String) {
+    private fun getList(calenderId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = StudyRetrofitAPI.emgMedService.getRecordByEnqueue("Bearer $userToken", calenderId)
         val listAdapter = RecordListAdapter()

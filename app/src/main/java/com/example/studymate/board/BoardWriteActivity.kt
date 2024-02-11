@@ -1,11 +1,13 @@
 package com.example.studymate.board
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.studymate.R
 import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.StudyRecord.StudyRetrofitAPI.gson
@@ -15,11 +17,15 @@ import com.example.studymate.signUp.LoginApi
 
 class BoardWriteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardWriteBinding
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardWriteBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        val userToken = sharedPreferences.getString("userToken", "")
 
         val boardModel = BoardModel(null,null,null,null)
 
@@ -80,10 +86,15 @@ class BoardWriteActivity : AppCompatActivity() {
 
         }
 
+        // @post
         binding.postBtn.setOnClickListener {
             boardModel.title = binding.editTitle.text.toString()
             boardModel.content = binding.editContent.text.toString()
             updateBoardData(boardModel)
+
+            val retrofitWork = StudyRetrofitWork(userToken.toString(),boardModel)
+            retrofitWork.work()
+            finish()
         }
 
 

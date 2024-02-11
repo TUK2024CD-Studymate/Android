@@ -10,49 +10,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="검색어를 입력해주세요"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:theme="@style/TabTheme"
+            app:tabMinWidth="80dp"
+            app:tabGravity="center"
             app:tabTextAppearance="@style/tab_text"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/black"
             >
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수학"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="국어"/>
+                android:text="자유게시판"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="코딩"/>
+                android:text="질문게시판"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="과학"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="영어"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사탐"/>
-
-
+                android:text="스터디게시판"/>
 
         </com.google.android.material.tabs.TabLayout>
 
