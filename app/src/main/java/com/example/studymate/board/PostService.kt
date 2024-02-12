@@ -19,6 +19,7 @@ interface PostService {
 
     @GET("/api/posts")
     fun getPostByEnqueue(
-        @Header("Authorization") authorization: String,
-    ): Call<GetBoardModel>
+        @Header("Authorization") authorization: String
+    ): Call<List<GetBoardModel>>
+
 }

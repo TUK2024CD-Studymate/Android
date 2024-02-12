@@ -10,14 +10,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
+        android:gravity="center"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STUDY \n MATE"
+            android:layout_marginStart="10dp"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
 
         <androidx.appcompat.widget.SearchView
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:iconifiedByDefault="true"
             app:queryHint="검색어를 입력해주세요"/>
 
     </LinearLayout>
@@ -25,14 +40,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:theme="@style/TabTheme"
-            app:tabMinWidth="80dp"
+            app:tabMinWidth="130dp"
             app:tabGravity="center"
             app:tabTextAppearance="@style/tab_text"
             app:tabMode="scrollable"
@@ -41,19 +56,22 @@
 
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabFree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="자유게시판"/>
+                android:text="자유"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabQues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="질문게시판"/>
+                android:text="질문"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabStudy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="스터디게시판"/>
+                android:text="스터디"/>
 
         </com.google.android.material.tabs.TabLayout>
 
