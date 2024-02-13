@@ -3,11 +3,7 @@ package com.example.studymate.board
 import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface PostService {
 
@@ -19,8 +15,10 @@ interface PostService {
 
     @GET("/api/posts")
     fun getPostByEnqueue(
-        @Header("Authorization") authorization: String
+        @Header("Authorization") authorization: String,
+        @Query("category") category: String // 카테고리를 추가한 부분
     ): Call<List<GetBoardModel>>
+
 
     @GET("/api/posts/{id}")
     fun getPostIdByEnqueue(

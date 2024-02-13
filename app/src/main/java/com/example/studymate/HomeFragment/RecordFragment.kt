@@ -147,7 +147,7 @@ class RecordFragment : Fragment() {
 
         //@delete
         binding.deleteBtn.setOnClickListener {
-            deleteRecord("1")
+            deleteRecord("2")
             listAdapter.notifyDataSetChanged()
         }
 
@@ -161,7 +161,7 @@ class RecordFragment : Fragment() {
             setHasFixedSize(true)
         }
         //@get
-        getList("1")
+        getList("2")
 
         return binding.root
     }

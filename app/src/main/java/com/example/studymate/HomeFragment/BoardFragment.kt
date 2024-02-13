@@ -17,6 +17,7 @@ import com.example.studymate.HomeActivity
 import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.board.*
 import com.example.studymate.databinding.FragmentBoardBinding
+import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,8 +55,22 @@ class BoardFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        //@get
-        getBoardList()
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                // 클릭된 탭에 따라서 해당 카테고리에 대한 게시글을 불러옴
+                when (tab.position) {
+                    0 -> getBoardList("FREE")
+                    1 -> getBoardList("QUESTION")
+                    2 -> getBoardList("STUDY")
+                    // 다른 탭 추가 가능
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
@@ -71,12 +86,11 @@ class BoardFragment : Fragment() {
 
 
 
-    private fun getBoardList() {
+    private fun getBoardList(category: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getPostByEnqueue("Bearer $userToken")
+        val call = PostRetrofitAPI.emgMedService.getPostByEnqueue("Bearer $userToken", category)
         val listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
             override fun onItemClick(boardModel: GetBoardModel) {
-
                 val intent = Intent(requireContext(), BoardInsideActivity::class.java)
                 intent.putExtra("boardId", boardModel.id)
                 startActivity(intent)
@@ -92,7 +106,10 @@ class BoardFragment : Fragment() {
                     val boardModelList: List<GetBoardModel>? = response.body()
 
                     if (boardModelList != null) {
-                        boardList = boardModelList
+                        // 해당 카테고리에 맞게 필터링
+                        val filteredList = boardModelList.filter { it.category == category }
+
+                        boardList = filteredList
                         listAdapter.setList(boardList)
 
                         activity?.runOnUiThread {
@@ -108,8 +125,9 @@ class BoardFragment : Fragment() {
                 Log.e("getBoardList", "Network request failed", t)
             }
         })
-
     }
 
 
 }
+
+
