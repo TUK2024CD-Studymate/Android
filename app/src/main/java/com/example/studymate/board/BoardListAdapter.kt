@@ -15,7 +15,6 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
             binding.titleText.text = boardModel.title
             binding.dateText.text = boardModel.createdAt
             binding.nicknameText.text = boardModel.nickname
-            binding.idText.text = boardModel.id
 
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(boardModel)

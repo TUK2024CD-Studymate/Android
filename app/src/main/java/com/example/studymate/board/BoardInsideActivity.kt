@@ -38,8 +38,6 @@ class BoardInsideActivity : AppCompatActivity() {
         getBoardItem(boardId)
 
 
-
-
     }
 
     private fun getBoardItem(id: String) {
@@ -52,7 +50,8 @@ class BoardInsideActivity : AppCompatActivity() {
                     val boardModel: GetBoardModel? = response.body()
 
                     if(boardModel != null){
-                        binding.category.text =  boardModel.category
+                        val korCategory = BoardCategory.fromEngName(boardModel.category ?: "")?.korName
+                        binding.category.text =  korCategory
                         binding.title.text = boardModel.title
                         binding.nickname.text = boardModel.nickname
                         binding.date.text = boardModel.createdAt
@@ -70,6 +69,18 @@ class BoardInsideActivity : AppCompatActivity() {
                 Log.e("getPostById", "네트워크 요청 실패", t)
             }
         })
+    }
+
+    enum class BoardCategory(val korName: String) {
+        FREE("자유게시판"),
+        QUESTION("질문게시판"),
+        STUDY("스터디게시판");
+
+        companion object {
+            fun fromEngName(engName: String): BoardCategory? {
+                return values().find { it.name == engName }
+            }
+        }
     }
 
 
