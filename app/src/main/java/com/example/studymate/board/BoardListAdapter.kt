@@ -3,32 +3,33 @@ package com.example.studymate.board
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.databinding.BoardItemListBinding
 
-class BoardListAdapter() : RecyclerView.Adapter<BoardListAdapter.MyView>() {
+class BoardListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<BoardListAdapter.MyView>() {
 
     private var boardList = listOf<GetBoardModel>()
 
-    inner class MyView(private val binding :BoardItemListBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyView(private val binding: BoardItemListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pos: Int){
-            binding.titleText.text = boardList[pos].title
-            binding.dateText.text = boardList[pos].createdAt
-            binding.nicknameText.text = boardList[pos].nickname
+        fun bind(boardModel: GetBoardModel) {
+            binding.titleText.text = boardModel.title
+            binding.dateText.text = boardModel.createdAt
+            binding.nicknameText.text = boardModel.nickname
+            binding.idText.text = boardModel.id
+
+            itemView.setOnClickListener {
+                itemClickListener.onItemClick(boardModel)
+            }
         }
     }
 
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardListAdapter.MyView {
-        val view = BoardItemListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = BoardItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyView(view)
     }
 
     override fun onBindViewHolder(holder: BoardListAdapter.MyView, position: Int) {
-        holder.bind(position)
+        holder.bind(boardList[position])
     }
 
     override fun getItemCount(): Int {
@@ -37,5 +38,10 @@ class BoardListAdapter() : RecyclerView.Adapter<BoardListAdapter.MyView>() {
 
     fun setList(list: List<GetBoardModel>) {
         boardList = list
+        notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(boardModel: GetBoardModel)
     }
 }

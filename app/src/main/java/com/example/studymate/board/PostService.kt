@@ -22,4 +22,10 @@ interface PostService {
         @Header("Authorization") authorization: String
     ): Call<List<GetBoardModel>>
 
+    @GET("/api/posts/{id}")
+    fun getPostIdByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String // 또는 필요에 따라 다른 데이터 타입을 사용
+    ):  Call<GetBoardModel>
+
 }

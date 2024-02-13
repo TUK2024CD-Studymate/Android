@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.HomeActivity
 import com.example.studymate.StudyRecord.StudyModel
-import com.example.studymate.board.BoardListAdapter
-import com.example.studymate.board.BoardWriteActivity
-import com.example.studymate.board.GetBoardModel
-import com.example.studymate.board.PostRetrofitAPI
+import com.example.studymate.board.*
 import com.example.studymate.databinding.FragmentBoardBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +36,15 @@ class BoardFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        val listAdapter = BoardListAdapter()
+        val listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
+            override fun onItemClick(boardModel: GetBoardModel) {
+                // 클릭한 아이템에 대한 정보를 가지고 BoardInsideActivity로 이동
+                val intent = Intent(requireContext(), BoardInsideActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
 
         binding.recyclerView.apply {
@@ -59,13 +64,24 @@ class BoardFragment : Fragment() {
 
 
 
+
+
         return binding.root
     }
+
+
 
     private fun getBoardList() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getPostByEnqueue("Bearer $userToken")
-        val listAdapter = BoardListAdapter()
+        val listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
+            override fun onItemClick(boardModel: GetBoardModel) {
+
+                val intent = Intent(requireContext(), BoardInsideActivity::class.java)
+                intent.putExtra("boardId", boardModel.id)
+                startActivity(intent)
+            }
+        })
 
         call.enqueue(object : Callback<List<GetBoardModel>> {
             override fun onResponse(

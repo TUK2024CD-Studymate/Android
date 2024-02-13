@@ -3,10 +3,7 @@ package com.example.studymate
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.studymate.HomeFragment.BoardFragment
-import com.example.studymate.HomeFragment.ChatFragment
-import com.example.studymate.HomeFragment.RecordFragment
-import com.example.studymate.HomeFragment.SearchFragment
+import com.example.studymate.HomeFragment.*
 import com.example.studymate.databinding.ActivityHomeBinding
 import com.example.studymate.databinding.ActivityMainBinding
 
@@ -39,6 +36,10 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.record->{
                     loadFragment(RecordFragment())
+                    true
+                }
+                R.id.mypage->{
+                    loadFragment(MypageFragment())
                     true
                 }
                 else -> false

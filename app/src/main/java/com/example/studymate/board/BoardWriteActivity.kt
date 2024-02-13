@@ -34,6 +34,10 @@ class BoardWriteActivity : AppCompatActivity() {
 
         val boardModel = BoardModel(null,null,null,null)
 
+        binding.backImg.setOnClickListener {
+            finish()
+        }
+
         val interests = resources.getStringArray(R.array.interests_array)
         val category = resources.getStringArray(R.array.category_array)
         val interestsAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, interests)
