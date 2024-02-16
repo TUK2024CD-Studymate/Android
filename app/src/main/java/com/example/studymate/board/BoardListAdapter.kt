@@ -1,15 +1,23 @@
 package com.example.studymate.board
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.databinding.BoardItemListBinding
 
 class BoardListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<BoardListAdapter.MyView>() {
 
     private var boardList = listOf<GetBoardModel>()
+    private var filteredList = listOf<GetBoardModel>()
 
-    inner class MyView(private val binding: BoardItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    inner class MyView(private val binding: BoardItemListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(boardModel: GetBoardModel) {
             binding.titleText.text = boardModel.title
@@ -21,6 +29,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardListAdapter.MyView {
         val view = BoardItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,4 +52,8 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
     interface OnItemClickListener {
         fun onItemClick(boardModel: GetBoardModel)
     }
+
+
+
+
 }

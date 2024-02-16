@@ -24,6 +24,7 @@
             android:textStyle="bold"/>
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="270dp"
             android:layout_height="60dp"
             app:iconifiedByDefault="false"

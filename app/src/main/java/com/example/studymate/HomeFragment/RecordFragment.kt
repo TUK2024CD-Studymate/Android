@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Chronometer
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDateTime
@@ -42,6 +44,7 @@ class RecordFragment : Fragment() {
     private var calendarList = ArrayList<CalendarVO>()
     private var running : Boolean = false
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var boardId : String
     var pauseTime = 0L
     var studyList = listOf<StudyModel>()
 
@@ -54,7 +57,6 @@ class RecordFragment : Fragment() {
         binding = FragmentRecordBinding.inflate(inflater, container, false)
 
        val listAdapter = RecordListAdapter()
-
 
         val studyData = StudyModel(null,null,null,null)
 
@@ -94,35 +96,38 @@ class RecordFragment : Fragment() {
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         binding.spinner.adapter = myAdapter
 
+        //스피너 과목 선택
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
+
+                    }
+                    1 -> {
                         studyData.studyClass = "MATH"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    1 -> {
+                    2 -> {
                         studyData.studyClass = "CODING"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    2 -> {
+                    3 -> {
                         studyData.studyClass = "KOREAN"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    3 -> {
+                    4 -> {
                         studyData.studyClass = "ENGLISH"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    4 -> {
+                    5 -> {
                         studyData.studyClass = "SCIENCE"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    // ...
                     else -> {
                         studyData.studyClass = "SOCIETY"
                         updateStudyData(studyData)
@@ -145,9 +150,12 @@ class RecordFragment : Fragment() {
 
         }
 
+        //@get
+        getList("1")
+
         //@delete
         binding.deleteBtn.setOnClickListener {
-            deleteRecord("2")
+            deleteRecord("1")
             listAdapter.notifyDataSetChanged()
         }
 
@@ -160,8 +168,6 @@ class RecordFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        //@get
-        getList("2")
 
         return binding.root
     }
@@ -213,6 +219,8 @@ class RecordFragment : Fragment() {
                 if (response.isSuccessful) {
                     // 서버 응답을 StudyModel 객체로 변환
                     val studyModel: StudyModel? = response.body()
+                    boardId = studyModel!!.id.toString()
+                    Log.e("boardId", boardId)
 
                     if (studyModel != null) {
                         // 성공적으로 변환되었다면 원하는 작업을 수행
@@ -257,9 +265,10 @@ class RecordFragment : Fragment() {
         })
     }
 
-
-
-
-
-
 }
+
+
+
+
+
+

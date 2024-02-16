@@ -1,6 +1,7 @@
 package com.example.studymate.HomeFragment
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +29,9 @@ class BoardFragment : Fragment() {
     lateinit var binding: FragmentBoardBinding
     var boardList = listOf<GetBoardModel>()
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var listAdapter: BoardListAdapter
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -37,13 +42,15 @@ class BoardFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        val listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
+
+
+        listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
             override fun onItemClick(boardModel: GetBoardModel) {
-                // 클릭한 아이템에 대한 정보를 가지고 BoardInsideActivity로 이동
                 val intent = Intent(requireContext(), BoardInsideActivity::class.java)
                 startActivity(intent)
             }
         })
+
 
 
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
