@@ -50,21 +50,24 @@ class BoardWriteActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        boardModel.interests = "MATH"
+
                     }
                     1 -> {
-                        boardModel.interests = "PROGRAMMING"
+                        boardModel.interests = "MATH"
                     }
                     2 -> {
-                        boardModel.interests = "KOREAN"
+                        boardModel.interests = "PROGRAMMING"
                     }
                     3 -> {
-                        boardModel.interests = "ENGLISH"
+                        boardModel.interests = "KOREAN"
                     }
                     4 -> {
-                        boardModel.interests = "SCIENCE"
+                        boardModel.interests = "ENGLISH"
                     }
                     5 -> {
+                        boardModel.interests = "SCIENCE"
+                    }
+                    6 -> {
                         boardModel.interests = "SOCIETY"
                     }
                 }
@@ -79,12 +82,15 @@ class BoardWriteActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when(p2){
                     0->{
-                        boardModel.category = "QUESTION"
+
                     }
                     1->{
-                        boardModel.category = "STUDY"
+                        boardModel.category = "QUESTION"
                     }
                     2->{
+                        boardModel.category = "STUDY"
+                    }
+                    3->{
                         boardModel.category = "FREE"
                     }
             }

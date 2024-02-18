@@ -2,6 +2,7 @@ package com.example.studymate.HomeFragment
 
 import android.annotation.SuppressLint
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -74,6 +75,9 @@ class RecordFragment : Fragment() {
                 val zonedDateTime = startTime.atZone(ZoneId.systemDefault())
                 studyData.startTime = zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
                 updateStudyData(studyData)
+
+                val intent = Intent(requireContext(),RecordInsideActivity::class.java)
+                startActivity(intent)
             }
         }
 
