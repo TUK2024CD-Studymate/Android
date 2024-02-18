@@ -25,8 +25,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="#FF5722"
+        android:layout_height="130dp"
+        android:background="#FF7525"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -54,14 +54,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/start2"
+            android:src="@drawable/baseline_play_arrow_24"
             android:background="@drawable/start_button"/>
 
         <ImageButton
             android:id="@+id/stopBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/pause2"
+            android:src="@drawable/baseline_pause_24"
             android:background="@drawable/pause_button"/>
 
         <Spinner
@@ -92,23 +92,22 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveBtn"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
             android:background="@drawable/assign_button"
+            android:textColor="@color/white"
             android:text="@string/save"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
-        <View
-            android:layout_width="180dp"
-            android:layout_height="0dp"
-            tools:ignore="NestedWeights" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/deleteBtn"
             android:background="@drawable/assign_button"
             android:text="@string/delete"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
