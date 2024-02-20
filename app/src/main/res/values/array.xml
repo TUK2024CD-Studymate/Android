@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="interests_array">
-        <item>과목선택</item>
+        <item>관심분야 선택</item>
         <item>수학</item>
         <item>코딩</item>
         <item>국어</item>

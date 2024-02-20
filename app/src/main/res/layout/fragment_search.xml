@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HomeFragment.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/startMatching"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-</FrameLayout>
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:theme="@style/SpinnerTheme"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+        
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_line"
+            android:textColorHint="@color/lightGray"
+            android:hint="@string/searchTitle"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchMento"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/assign_button"
+            android:textColor="@color/white"
+            android:text="@string/matchingStart"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
