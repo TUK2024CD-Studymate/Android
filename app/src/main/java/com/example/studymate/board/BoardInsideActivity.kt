@@ -1,9 +1,11 @@
 package com.example.studymate.board
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.R
 import com.example.studymate.StudyRecord.RecordListAdapter
 import com.example.studymate.StudyRecord.StudyModel
@@ -18,7 +20,9 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBoardInsideBinding
     private lateinit var sharedPreferences: SharedPreferences
+    var commentList = listOf<GetCommentModel>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardInsideBinding.inflate(layoutInflater)
@@ -26,6 +30,11 @@ class BoardInsideActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        val userToken = sharedPreferences.getString("userToken", "")
+
+        val postCommentModel = PostCommentModel(null)
+
+        val listAdapter = CommentListAdapter()
 
         //보드아이디
         val boardId = intent.getStringExtra("boardId").toString()
@@ -36,6 +45,26 @@ class BoardInsideActivity : AppCompatActivity() {
             finish()
         }
         getBoardItem(boardId)
+
+        // 댓글 post
+        binding.postBtn.setOnClickListener {
+            postCommentModel.content = binding.editComment.text.toString()
+            val retrofitWork = CommentRetrofitWork(userToken.toString(), boardId ,postCommentModel)
+            retrofitWork.work()
+            binding.editComment.text = null
+            binding.recyclerView.apply { listAdapter.notifyDataSetChanged() }
+        }
+        //댓글 get
+        getCommentList(boardId)
+
+        //adapter적용
+        binding.recyclerView.apply {
+            listAdapter.setList(commentList)
+            listAdapter.notifyDataSetChanged()
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(this@BoardInsideActivity)
+            setHasFixedSize(true)
+        }
 
 
     }
@@ -83,6 +112,31 @@ class BoardInsideActivity : AppCompatActivity() {
         }
     }
 
+    private fun getCommentList(postId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getCommentByEnqueue("Bearer $userToken", postId)
+        val listAdapter = CommentListAdapter()
 
+        call.enqueue(object : Callback<List<GetCommentModel>> {
+            override fun onResponse(
+                call: Call<List<GetCommentModel>>,
+                response: Response<List<GetCommentModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val boardModelList: List<GetCommentModel>? = response.body()
 
+                    if (boardModelList != null) {
+                        commentList = boardModelList
+                        listAdapter.setList(commentList)
+
+                        binding.recyclerView.adapter = listAdapter
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetCommentModel>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 }

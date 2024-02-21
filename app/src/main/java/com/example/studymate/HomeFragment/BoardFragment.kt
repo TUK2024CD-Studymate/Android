@@ -106,8 +106,7 @@ class BoardFragment : Fragment() {
 
         call.enqueue(object : Callback<List<GetBoardModel>> {
             override fun onResponse(
-                call: Call<List<GetBoardModel>>,
-                response: Response<List<GetBoardModel>>
+                call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>
             ) {
                 if (response.isSuccessful) {
                     val boardModelList: List<GetBoardModel>? = response.body()
