@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.R
 import com.example.studymate.StudyRecord.RecordListAdapter
@@ -61,9 +62,10 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             listAdapter.setList(commentList)
             listAdapter.notifyDataSetChanged()
-            adapter = listAdapter
             layoutManager = LinearLayoutManager(this@BoardInsideActivity)
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = listAdapter
         }
 
 

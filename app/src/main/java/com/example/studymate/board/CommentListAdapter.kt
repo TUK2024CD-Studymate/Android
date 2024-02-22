@@ -13,6 +13,7 @@ class CommentListAdapter() : RecyclerView.Adapter<CommentListAdapter.MyView>() {
         fun bind(pos: Int){
             binding.nickname.text = commentList[pos].nickname
             binding.content.text = commentList[pos].content
+            binding.time.text = commentList[pos].createdAt
         }
     }
 
