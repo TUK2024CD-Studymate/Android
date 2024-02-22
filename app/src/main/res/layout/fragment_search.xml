@@ -37,6 +37,14 @@
             android:textColorHint="@color/lightGray"
             android:hint="@string/searchTitle"/>
 
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_line"
+            android:textColorHint="@color/lightGray"
+            android:hint="@string/mentoQuestion"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchMento"
             android:layout_width="150dp"

@@ -35,8 +35,9 @@ class RecordInsideActivity : AppCompatActivity() {
             val intent = Intent(this,HomeActivity::class.java)
             intent.putExtra("content",studyMemo)
             intent.putExtra("endTime",stopTime)
-            startActivityForResult(intent,REQUEST_CODE)
+            setResult(RESULT_OK, intent)
             finish()
+
         }
 
 
