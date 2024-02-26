@@ -1,12 +1,8 @@
 package com.example.studymate.board
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.databinding.BoardItemListBinding
 
@@ -44,6 +40,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
         return boardList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<GetBoardModel>) {
         boardList = list
         notifyDataSetChanged()

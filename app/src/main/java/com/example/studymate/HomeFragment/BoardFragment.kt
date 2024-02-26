@@ -1,7 +1,6 @@
 package com.example.studymate.HomeFragment
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,12 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studymate.HomeActivity
-import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.board.*
 import com.example.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout

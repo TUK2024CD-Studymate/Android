@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.databinding.MentoListBinding
+
 
 class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
-    private var mentoList = listOf<MentoModel>()
+    private var mentoList = listOf<GetMatchingModel>()
 
     inner class MyView(private val binding : MentoListBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -36,7 +38,7 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<MentoModel>){
+    fun setList(list: List<GetMatchingModel>){
         mentoList = list
         notifyDataSetChanged()
     }

@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
-import com.example.studymate.StudyRecord.StudyModel
+import com.example.studymate.search.GetMatchingModel
+import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -36,6 +37,19 @@ interface PostService {
     @GET("/api/posts/{post_id}/comments")
     fun getCommentByEnqueue(
         @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String, // post_id를 직접 전달
+        @Path("post_id") postId: String // post_id를 직접 전달
     ): Call<List<GetCommentModel>>
+
+    @POST("/api/question")
+    fun addQuesByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Body quesInfo: QuesModel
+    ): Call<SignUpResponseBody>
+
+    @GET("/api/matching/{questionId}")
+    fun getMatchingList(
+        @Header("Authorization") authorization: String,
+        @Path("questionId") questionId : String
+    ): Call<List<GetMatchingModel>>
+
 }
