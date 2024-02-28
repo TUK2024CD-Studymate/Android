@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
 import com.example.studymate.search.GetMatchingModel
+import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
@@ -50,6 +51,6 @@ interface PostService {
     fun getMatchingList(
         @Header("Authorization") authorization: String,
         @Path("questionId") questionId : String
-    ): Call<List<GetMatchingModel>>
+    ): Call<GetMatchingResponse>
 
 }

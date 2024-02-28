@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.board.BoardInsideActivity
 import com.example.studymate.databinding.MentoListBinding
 
 
 class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
     private var mentoList = listOf<GetMatchingModel>()
-    private var dummyList = listOf<MentoModel>()
 
     interface OnItemClickListener{
         fun onItemClick(v: View, data: Int, pos: Int)
@@ -24,8 +24,8 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
     inner class MyView(private val binding : MentoListBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Int){
-            binding.name.text = dummyList[item].name
-            binding.interests.text = dummyList[item].interests
+            binding.name.text = mentoList[item].name
+            binding.interests.text = mentoList[item].interests
 
             binding.mentoImg.setOnClickListener {
                 val pos = bindingAdapterPosition
@@ -49,15 +49,16 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
     }
 
     override fun getItemCount(): Int {
-        return dummyList.size
+        return mentoList.size
     }
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<MentoModel>){
-        dummyList = list
+    fun setList(list: List<GetMatchingModel>){
+        mentoList = list
         notifyDataSetChanged()
     }
+
 
 
 }

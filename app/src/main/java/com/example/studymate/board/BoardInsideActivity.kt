@@ -137,7 +137,6 @@ class BoardInsideActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<GetCommentModel>>, t: Throwable) {
-                TODO("Not yet implemented")
             }
         })
     }

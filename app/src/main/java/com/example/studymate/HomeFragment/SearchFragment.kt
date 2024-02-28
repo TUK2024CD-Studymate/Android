@@ -23,6 +23,7 @@ import com.example.studymate.board.GetCommentModel
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.FragmentSearchBinding
 import com.example.studymate.search.*
+import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,48 +41,12 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        val dummyData = listOf(
-            MentoModel("최지혜","코딩"),
-            MentoModel("박환","코딩"),
-            MentoModel("김선재재","코딩"),
-            MentoModel("김희수","코딩"),
-            MentoModel("정우혁","코딩"),
-
-            )
-
         val quesData = QuesModel(null,null,null)
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
-
-        val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("멘토를 선택해주세요")
-        val inflater = layoutInflater
-        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
-
-        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
-        recyclerView.apply {
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            val adapter = MentoListAdapter()
-            adapter.setList(dummyData)
-
-            adapter.setOnItemClickListener(object :
-            MentoListAdapter.OnItemClickListener{
-                override fun onItemClick(v: View, data: Int, pos: Int) {
-                    Intent(requireContext(),MentoInfoActivity::class.java).run { startActivity(this) }
-                }
-
-            }
-            )
-
-            recyclerView.adapter = adapter
-            addItemDecoration(itemDecoration)
-        }
-
-        builder.setView(dialogView)
-        val alertDialog = builder.create()
+        listAdapter = MentoListAdapter() // Initialize listAdapter here
 
         val items = resources.getStringArray(R.array.interests_array)
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
@@ -128,54 +93,72 @@ class SearchFragment : Fragment() {
         binding.searchMento.setOnClickListener {
             quesData.title = binding.titleEdit.text.toString()
             quesData.content = binding.contentEdit.text.toString()
-//            val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
-//            retrofitWork.work(object : SearchRetrofitWork.Callback {
-//                override fun onQuestionPosted(questionId: String?) {
-//                    Log.d("Question ID", questionId.toString())
-//                    getMatchingList(questionId.toString())
-//                }
-//
-//                override fun onFailure(message: String) {
-//                }
-//            })
+            val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
+            retrofitWork.work(object : SearchRetrofitWork.Callback {
+                override fun onQuestionPosted(questionId: String?) {
+                    Log.d("Question ID", questionId.toString())
+                    getMatchingList(questionId.toString())
+                }
 
-            alertDialog.show()
+                override fun onFailure(message: String) {
+                }
+            })
         }
 
 
         return binding.root
     }
 
-//    private fun getMatchingList(quesId: String) {
-//        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-//        val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
-//        val inflater = layoutInflater
-//        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
-//
-//        call.enqueue(object : Callback<List<GetMatchingModel>> {
-//            override fun onResponse(
-//                call: Call<List<GetMatchingModel>>,
-//                response: Response<List<GetMatchingModel>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val matchingModelList: List<GetMatchingModel>? = response.body()
-//
-//                    if (matchingModelList != null) {
-//                        matchingList = matchingModelList
-//                        val listAdapter = MentoListAdapter()
-//                        listAdapter.setList(matchingList)
-//
-//                        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
-//                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//                        recyclerView.adapter = listAdapter
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
-//            }
-//        })
-//    }
+    private fun getMatchingList(quesId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
+
+        call.enqueue(object : Callback<GetMatchingResponse> {
+            override fun onResponse(
+                call: Call<GetMatchingResponse>,
+                response: Response<GetMatchingResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val matchingResponse: GetMatchingResponse? = response.body()
+
+                    if (matchingResponse != null) {
+                        matchingList = matchingResponse.memberList
+                        listAdapter.setList(matchingList)
+                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                        listAdapter.setOnItemClickListener(object :
+                            MentoListAdapter.OnItemClickListener{
+                            override fun onItemClick(v: View, data: Int, pos: Int) {
+                                val intent = Intent(requireContext(),MentoInfoActivity::class.java)
+                                intent.putExtra("name",matchingList[pos].name)
+                                intent.putExtra("nickname",matchingList[pos].nickname)
+                                intent.putExtra("interests",matchingList[pos].interests)
+                                intent.putExtra("email",matchingList[pos].email)
+                                intent.putExtra("url",matchingList[pos].blogUrl)
+                                intent.putExtra("job",matchingList[pos].job)
+                                intent.putExtra("info",matchingList[pos].publicRelations)
+                                startActivity(intent)
+                            }
+                        })
+                        recyclerView.adapter = listAdapter
+                        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
+                        // 다이얼로그를 표시
+                        val builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("멘토를 선택해주세요")
+                            .setView(dialogView)
+                            .create()
+                            .show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetMatchingResponse>, t: Throwable) {
+            }
+        })
+    }
 
 
 }
