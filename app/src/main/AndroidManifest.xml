@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MentoInfo"
+            android:name=".search.MentoInfoActivity"
             android:exported="false" />
         <activity
             android:name=".StudyRecord.RecordInsideActivity"

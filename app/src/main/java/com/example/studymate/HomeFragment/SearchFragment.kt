@@ -3,6 +3,7 @@ package com.example.studymate.HomeFragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.R
+import com.example.studymate.StudyRecord.RecordInsideActivity
 import com.example.studymate.board.CommentListAdapter
 import com.example.studymate.board.GetCommentModel
 import com.example.studymate.board.PostRetrofitAPI
@@ -38,6 +40,15 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
+        val dummyData = listOf(
+            MentoModel("최지혜","코딩"),
+            MentoModel("박환","코딩"),
+            MentoModel("김선재재","코딩"),
+            MentoModel("김희수","코딩"),
+            MentoModel("정우혁","코딩"),
+
+            )
+
         val quesData = QuesModel(null,null,null)
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -50,8 +61,24 @@ class SearchFragment : Fragment() {
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
 
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
+        recyclerView.apply {
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            val adapter = MentoListAdapter()
+            adapter.setList(dummyData)
 
+            adapter.setOnItemClickListener(object :
+            MentoListAdapter.OnItemClickListener{
+                override fun onItemClick(v: View, data: Int, pos: Int) {
+                    Intent(requireContext(),MentoInfoActivity::class.java).run { startActivity(this) }
+                }
 
+            }
+            )
+
+            recyclerView.adapter = adapter
+            addItemDecoration(itemDecoration)
+        }
 
         builder.setView(dialogView)
         val alertDialog = builder.create()
@@ -101,16 +128,16 @@ class SearchFragment : Fragment() {
         binding.searchMento.setOnClickListener {
             quesData.title = binding.titleEdit.text.toString()
             quesData.content = binding.contentEdit.text.toString()
-            val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
-            retrofitWork.work(object : SearchRetrofitWork.Callback {
-                override fun onQuestionPosted(questionId: String?) {
-                    Log.d("Question ID", questionId.toString())
-                    getMatchingList(questionId.toString())
-                }
-
-                override fun onFailure(message: String) {
-                }
-            })
+//            val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
+//            retrofitWork.work(object : SearchRetrofitWork.Callback {
+//                override fun onQuestionPosted(questionId: String?) {
+//                    Log.d("Question ID", questionId.toString())
+//                    getMatchingList(questionId.toString())
+//                }
+//
+//                override fun onFailure(message: String) {
+//                }
+//            })
 
             alertDialog.show()
         }
@@ -119,36 +146,36 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    private fun getMatchingList(quesId: String) {
-        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
-        val inflater = layoutInflater
-        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
-
-        call.enqueue(object : Callback<List<GetMatchingModel>> {
-            override fun onResponse(
-                call: Call<List<GetMatchingModel>>,
-                response: Response<List<GetMatchingModel>>
-            ) {
-                if (response.isSuccessful) {
-                    val matchingModelList: List<GetMatchingModel>? = response.body()
-
-                    if (matchingModelList != null) {
-                        matchingList = matchingModelList
-                        val listAdapter = MentoListAdapter()
-                        listAdapter.setList(matchingList)
-
-                        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
-                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                        recyclerView.adapter = listAdapter
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
-            }
-        })
-    }
+//    private fun getMatchingList(quesId: String) {
+//        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+//        val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
+//        val inflater = layoutInflater
+//        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
+//
+//        call.enqueue(object : Callback<List<GetMatchingModel>> {
+//            override fun onResponse(
+//                call: Call<List<GetMatchingModel>>,
+//                response: Response<List<GetMatchingModel>>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val matchingModelList: List<GetMatchingModel>? = response.body()
+//
+//                    if (matchingModelList != null) {
+//                        matchingList = matchingModelList
+//                        val listAdapter = MentoListAdapter()
+//                        listAdapter.setList(matchingList)
+//
+//                        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
+//                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//                        recyclerView.adapter = listAdapter
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
+//            }
+//        })
+//    }
 
 
 }
