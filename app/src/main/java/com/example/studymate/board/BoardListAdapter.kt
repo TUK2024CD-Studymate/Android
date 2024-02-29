@@ -9,7 +9,6 @@ import com.example.studymate.databinding.BoardItemListBinding
 class BoardListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<BoardListAdapter.MyView>() {
 
     private var boardList = listOf<GetBoardModel>()
-    private var filteredList = listOf<GetBoardModel>()
 
 
     inner class MyView(private val binding: BoardItemListBinding) :
@@ -19,6 +18,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
             binding.titleText.text = boardModel.title
             binding.dateText.text = boardModel.createdAt
             binding.nicknameText.text = boardModel.nickname
+
 
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(boardModel)

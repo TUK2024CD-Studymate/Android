@@ -1,7 +1,7 @@
 package com.example.studymate.board
 
 class GetBoardModel(
-    var id: String? = null,
+    var post_id: String? = null,
     var title: String? = null,
     var content: String? = null,
     var createdAt : String? = null,

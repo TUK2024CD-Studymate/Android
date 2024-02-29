@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.board.*
 import com.example.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout
@@ -26,8 +27,6 @@ class BoardFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var listAdapter: BoardListAdapter
 
-
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +36,12 @@ class BoardFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-
+        getBoardList("FREE")
 
         listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
             override fun onItemClick(boardModel: GetBoardModel) {
                 val intent = Intent(requireContext(), BoardInsideActivity::class.java)
+                intent.putExtra("boardId", boardModel.post_id)
                 startActivity(intent)
             }
         })
@@ -57,6 +57,7 @@ class BoardFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
+
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 // 클릭된 탭에 따라서 해당 카테고리에 대한 게시글을 불러옴
@@ -68,6 +69,7 @@ class BoardFragment : Fragment() {
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {
+                getBoardList("FREE")
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -87,22 +89,12 @@ class BoardFragment : Fragment() {
     }
 
 
-
     private fun getBoardList(category: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getPostByEnqueue("Bearer $userToken", category)
-        val listAdapter = BoardListAdapter(object : BoardListAdapter.OnItemClickListener {
-            override fun onItemClick(boardModel: GetBoardModel) {
-                val intent = Intent(requireContext(), BoardInsideActivity::class.java)
-                intent.putExtra("boardId", boardModel.id)
-                startActivity(intent)
-            }
-        })
 
         call.enqueue(object : Callback<List<GetBoardModel>> {
-            override fun onResponse(
-                call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>
-            ) {
+            override fun onResponse(call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>) {
                 if (response.isSuccessful) {
                     val boardModelList: List<GetBoardModel>? = response.body()
 

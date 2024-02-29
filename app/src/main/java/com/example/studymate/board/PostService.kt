@@ -1,6 +1,5 @@
 package com.example.studymate.board
 
-import com.example.studymate.search.GetMatchingModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
@@ -12,7 +11,7 @@ interface PostService {
     @POST("/api/posts")
     fun addPostByEnqueue(
         @Header("Authorization") authorization: String,
-        @Body recordInfo: BoardModel
+        @Body recordInfo: BoardWriteModel
     ): Call<SignUpResponseBody>
 
     @GET("/api/posts")

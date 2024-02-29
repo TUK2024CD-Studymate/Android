@@ -25,7 +25,7 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
         fun bind(item: Int){
             binding.name.text = mentoList[item].name
-            binding.interests.text = mentoList[item].interests
+            binding.interests.text = mapInterestsToKorean(mentoList[item].interests)
 
             binding.mentoImg.setOnClickListener {
                 val pos = bindingAdapterPosition
@@ -59,6 +59,12 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
         notifyDataSetChanged()
     }
 
-
+    private fun mapInterestsToKorean(interests: String): String {
+        // 간단한 매핑 예시
+        return when (interests) {
+            "PROGRAMMING" -> "코딩"
+            else -> interests
+        }
+    }
 
 }

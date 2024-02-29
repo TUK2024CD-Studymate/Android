@@ -7,18 +7,9 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.studymate.R
-import com.example.studymate.StudyRecord.RecordListAdapter
-import com.example.studymate.StudyRecord.StudyModel
-import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.StudyRecord.StudyRetrofitAPI.gson
 import com.example.studymate.databinding.ActivityBoardWriteBinding
-import com.example.studymate.databinding.ActivityHomeBinding
-import com.example.studymate.signUp.LoginApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class BoardWriteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardWriteBinding
@@ -32,7 +23,7 @@ class BoardWriteActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
-        val boardModel = BoardModel(null,null,null,null)
+        val boardModel = BoardWriteModel(null,null,null,null)
 
         binding.backImg.setOnClickListener {
             finish()
@@ -117,7 +108,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
 
 
-    private fun updateBoardData(boardData: BoardModel) {
+    private fun updateBoardData(boardData: BoardWriteModel) {
         val json = gson.toJson(boardData)
         Log.d("studymodel", json)
     }

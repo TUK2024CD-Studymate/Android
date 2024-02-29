@@ -103,6 +103,9 @@ class SearchFragment : Fragment() {
                 override fun onFailure(message: String) {
                 }
             })
+
+            binding.titleEdit.text = null
+            binding.contentEdit.text = null
         }
 
 
