@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        //6xPQ5NRy4ZwF/wEgljduNuH2ob8=  해시코드
 
         //gif 이미지 넣기
         Glide.with(this).load(R.drawable.study).into(binding.gifImage)

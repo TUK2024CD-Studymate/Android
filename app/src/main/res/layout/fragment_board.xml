@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="STUDY \n MATE"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
 
@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/ringImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ring"/>
     </LinearLayout>

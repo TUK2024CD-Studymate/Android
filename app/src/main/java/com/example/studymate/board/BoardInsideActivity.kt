@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.databinding.ActivityBoardInsideBinding
 import com.example.studymate.databinding.ActivityBoardWriteBinding
+import com.example.studymate.search.MentoInfoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +48,12 @@ class BoardInsideActivity : AppCompatActivity() {
             finish()
         }
         getBoardItem(boardId)
+
+        //게시글 이미지 클릭 이벤트
+//        binding.userImg.setOnClickListener {
+//            val intent = Intent(this,MentoInfoActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // 댓글 post
         binding.postBtn.setOnClickListener {
