@@ -8,7 +8,8 @@ data class StudyModel(
     var content: String? = null,
     var studyClass: String? = null,
     var startTime: String? = null,
-    var endTime: String? = null
+    var endTime: String? = null,
+    var entireTime: String? = null,
 )
 
 fun StudyModel.toJson(): String {

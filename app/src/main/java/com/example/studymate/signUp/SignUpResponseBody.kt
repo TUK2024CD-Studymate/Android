@@ -7,6 +7,6 @@ data class SignUpResponseBody(
     val result: String?,
     @SerializedName("status")
     val status: String?,
-    val calendarId : String?,
+    val calender_id : String?,
     val id : String?
 )

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import com.example.studymate.R
 import com.example.studymate.databinding.ActivityMentoInfoBinding
-import com.example.studymate.databinding.ActivityRecordInsideBinding
 
 class MentoInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMentoInfoBinding

@@ -1,6 +1,7 @@
 package com.example.studymate.HomeFragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
@@ -48,6 +49,7 @@ class RecordFragment : Fragment() {
     private lateinit var boardId : String
     var pauseTime = 0L
     var studyList = listOf<StudyModel>()
+    val studyData = StudyModel(null,null,null,null)
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -59,13 +61,12 @@ class RecordFragment : Fragment() {
 
        val listAdapter = RecordListAdapter()
 
-        val studyData = StudyModel(null,null,null,null)
-
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs",MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
 
         //시작버튼
+        // 시작버튼
         binding.startBtn.setOnClickListener {
             if (!running) {
                 binding.chronometer.base = SystemClock.elapsedRealtime() - pauseTime
@@ -73,15 +74,12 @@ class RecordFragment : Fragment() {
                 running = true
                 val startTime = Instant.now()
                 val zonedDateTime = startTime.atZone(ZoneId.systemDefault())
-                studyData.startTime = zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                studyData.startTime = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault()))
                 updateStudyData(studyData)
-
-                val intent = Intent(requireContext(),RecordInsideActivity::class.java)
-                startActivity(intent)
             }
         }
 
-        //멈춤버튼
+// 멈춤버튼
         binding.stopBtn.setOnClickListener {
             if (running) {
                 binding.chronometer.stop()
@@ -89,10 +87,11 @@ class RecordFragment : Fragment() {
                 running = false
                 val stopTime = Instant.now()
                 val zonedDateTime = stopTime.atZone(ZoneId.systemDefault())
-                studyData.endTime = zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                studyData.endTime = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault()))
                 updateStudyData(studyData)
             }
         }
+
 
 
 
@@ -144,6 +143,7 @@ class RecordFragment : Fragment() {
             }
         }
 
+
         //@post
         binding.saveBtn.setOnClickListener {
             studyData.content = binding.editMemo.text.toString()
@@ -155,11 +155,11 @@ class RecordFragment : Fragment() {
         }
 
         //@get
-        getList("1")
+        getList("2")
 
         //@delete
         binding.deleteBtn.setOnClickListener {
-            deleteRecord("1")
+            deleteRecord("2")
             listAdapter.notifyDataSetChanged()
         }
 
@@ -223,7 +223,8 @@ class RecordFragment : Fragment() {
                 if (response.isSuccessful) {
                     // 서버 응답을 StudyModel 객체로 변환
                     val studyModel: StudyModel? = response.body()
-                    boardId = studyModel!!.id.toString()
+                    binding.totalTime.text = studyModel!!.entireTime
+                    boardId = studyModel.id.toString()
                     Log.e("boardId", boardId)
 
                     if (studyModel != null) {
@@ -268,6 +269,10 @@ class RecordFragment : Fragment() {
             }
         })
     }
+
+
+
+
 
 }
 

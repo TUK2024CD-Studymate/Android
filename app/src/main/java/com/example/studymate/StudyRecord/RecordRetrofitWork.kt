@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 class RecordRetrofitWork(private val userToken: String, private val recordInfo: StudyModel) {
-
+    var calendarId: String? = null
     fun work() {
 
         if (userToken.isEmpty()) {
@@ -26,7 +26,11 @@ class RecordRetrofitWork(private val userToken: String, private val recordInfo: 
                     Log.d("저장 통신 성공", response.toString())
                     Log.d("저장 통신 성공", response.body().toString())
                     if (response.isSuccessful) {
-                        val result = response.body()
+                        val createdStudyModel = response.body()
+                        val calendarIdFromResponse = createdStudyModel?.calender_id
+                        calendarId = calendarIdFromResponse
+                        Log.d("calendarId", "Calendar ID: $calendarId")
+
 
                     }
                 }

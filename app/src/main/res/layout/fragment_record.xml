@@ -30,15 +30,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Chronometer
-            android:id="@+id/chronometer"
+        <TextView
+            android:id="@+id/totalTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="50sp" />
+            android:text="00:16"
+            android:textSize="50sp"
+            android:textColor="@color/white"/>
+
     </LinearLayout>
-
-
 
 
     <LinearLayout
@@ -68,25 +68,34 @@
             android:id="@+id/spinner"
             android:layout_width="130dp"
             android:layout_height="50dp"
+            android:layout_marginStart="10dp"
             android:theme="@style/SpinnerTheme"
             android:layout_gravity="center_horizontal" />
 
-    </LinearLayout>
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginStart="25dp"
+            android:textSize="30sp"
+            tools:ignore="MissingConstraints" />
 
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editMemo"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:hint="@string/insertStudyContent"
         android:gravity="top"
-        android:layout_margin="10dp"
         android:importantForAutofill="no"
         android:inputType="text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 

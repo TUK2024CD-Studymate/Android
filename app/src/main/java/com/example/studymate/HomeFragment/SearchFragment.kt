@@ -17,13 +17,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.R
-import com.example.studymate.StudyRecord.RecordInsideActivity
-import com.example.studymate.board.CommentListAdapter
-import com.example.studymate.board.GetCommentModel
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.FragmentSearchBinding
 import com.example.studymate.search.*
-import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
