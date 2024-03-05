@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.studymate.databinding.ActivityProfileSettingBinding
 import com.example.studymate.loginFragment.*
 import com.example.studymate.signUp.RetrofitWork
-import com.google.gson.Gson
+import com.example.studymate.signUp.User
 import org.json.JSONObject
 
 class ProfileSetting : AppCompatActivity() {
@@ -21,13 +21,14 @@ class ProfileSetting : AppCompatActivity() {
         PartFragment(),
         MajorFragment(),
         NicknameFragment(),
+        InfoFragment(),
         FinishFragment()
     )
 
 
     private var cursor = 1
 
-    private var signUpData: User = User(null, null, null, null, null, null)
+    private var signUpData: User = User(null, null, null, null, null, null,null,null,null)
 
     private val stepProgressAmount = 8
 
@@ -113,6 +114,9 @@ class ProfileSetting : AppCompatActivity() {
                 Log.d("parkHwan", "cursor는 ${cursor}번째")
             }
             8->{
+                Log.d("parkHwan", "cursor는 ${cursor}번째")
+            }
+            9->{
 
                 val retrofitWork = RetrofitWork(signUpData)
                 retrofitWork.work()
@@ -153,7 +157,11 @@ class ProfileSetting : AppCompatActivity() {
                 // NicknameFragment에서 필요한 데이터만 가져와서 User에 저장
                 signUpData.nickname = jsonObject.optString("nickname", "")
             }
-            // 추가적인 프래그먼트에 대한 처리 추가
+            is InfoFragment -> {
+                signUpData.blogUrl = jsonObject.optString("blogUrl","")
+                signUpData.publicRelations = jsonObject.optString("publicRelations","")
+                signUpData.job = jsonObject.optString("job","")
+            }
         }
 
         // 로그에 출력

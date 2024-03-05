@@ -36,6 +36,10 @@
     //닉네임 프래그먼트
     <string name="insertNickname">닉네임을 입력해주세요</string>
     <string name="maxlength">최대8자</string>
+    //정보 프래그먼트
+    <string name="insertInfo">수상경력과 직업,\n 블로그 주소를 입력해주세요</string>
+    <string name="blog">블로그 주소</string>
+    <string name="relation">수상경력</string>
     //메이저 프래그먼트
     <string name="chooseMajor">회원님의 전공을 입력해주세요</string>
     <string name="math">수학</string>

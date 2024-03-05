@@ -1,6 +1,5 @@
 package com.example.studymate.StudyRecord
 
-import com.example.studymate.User
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.http.*

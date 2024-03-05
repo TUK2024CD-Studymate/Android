@@ -181,8 +181,10 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val weekDay: Array<String> = resources.getStringArray(R.array.calendar_day)
-
-        calendarAdapter = CalendarAdapter(calendarList)
+        //켈린더 날짜 클릭
+        calendarAdapter = CalendarAdapter(calendarList){ clickedDate ->
+            Log.d("ClickedDate", "Clicked date: $clickedDate")
+        }
 
         calendarList.apply {
             val dateFormat = DateTimeFormatter.ofPattern("dd").withLocale(Locale.forLanguageTag("ko"))

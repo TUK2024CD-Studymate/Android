@@ -15,7 +15,6 @@ class PartFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.d("parkhwan", "성별 프라그먼트 onStop() 호출")
         val mainActivity = activity as ProfileSetting
         val partValue = if(binding.mentiBtn.isSelected) {
             binding.mentiBtn.text.toString()

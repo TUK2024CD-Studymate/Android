@@ -14,8 +14,6 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         fun bind(pos: Int) {
             binding.text01.text = recordList[pos].studyClass
             binding.text02.text = recordList[pos].content
-            binding.text03.text = recordList[pos].startTime
-            binding.text04.text = recordList[pos].endTime
         }
     }
 
