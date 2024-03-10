@@ -44,7 +44,7 @@
             android:text="프로그래밍"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:textColor="@color/board"
+            android:textColor="@color/main_color"
             android:textSize="20sp"/>
 
 

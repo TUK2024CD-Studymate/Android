@@ -64,7 +64,7 @@
                   android:src="@drawable/baseline_perm_identity_24" />
 
               <LinearLayout
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:orientation="vertical">
                   <TextView
@@ -86,6 +86,15 @@
 
 
               </LinearLayout>
+              <android.widget.Button
+                  android:id="@+id/deleteBtn"
+                  android:layout_width="70dp"
+                  android:layout_height="40dp"
+                  android:text="삭제"
+                  android:background="@drawable/shape_clicked"
+                  android:layout_marginStart="50dp"
+                  android:layout_gravity="center"
+                  tools:ignore="ContentDescription" />
 
           </LinearLayout>
 

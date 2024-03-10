@@ -52,4 +52,10 @@ interface PostService {
         @Path("questionId") questionId : String
     ): Call<GetMatchingResponse>
 
+    @DELETE("/api/posts/{post_id}")
+    fun deletePostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
+    ):  Call<SignUpResponseBody>
+
 }
