@@ -26,7 +26,10 @@ class BoardFragment : Fragment() {
     var boardList = listOf<GetBoardModel>()
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var listAdapter: BoardListAdapter
-
+    enum class SortOrder {
+        TIME_ASCENDING, TIME_DESCENDING
+    }
+    private var currentSortOrder: SortOrder = SortOrder.TIME_DESCENDING
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +48,15 @@ class BoardFragment : Fragment() {
                 startActivity(intent)
             }
         })
+        // 게시글 시간으로 정렬
+        binding.sortImage.setOnClickListener {
+            currentSortOrder = if (currentSortOrder == SortOrder.TIME_DESCENDING) {
+                SortOrder.TIME_ASCENDING
+            } else {
+                SortOrder.TIME_DESCENDING
+            }
+            sortAndRefreshList()
+        }
 
 
 
@@ -119,7 +131,18 @@ class BoardFragment : Fragment() {
             }
         })
     }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun sortAndRefreshList() {
+        // 시간순으로 정렬
+        when (currentSortOrder) {
+            SortOrder.TIME_ASCENDING -> boardList = boardList.sortedBy { it.createdAt }
+            SortOrder.TIME_DESCENDING -> boardList = boardList.sortedByDescending { it.createdAt }
+        }
 
+        // 어댑터에 정렬된 리스트 설정 및 갱신
+        listAdapter.setList(boardList)
+        listAdapter.notifyDataSetChanged()
+    }
 
 }
 

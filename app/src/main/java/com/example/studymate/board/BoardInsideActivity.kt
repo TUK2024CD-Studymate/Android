@@ -74,7 +74,7 @@ class BoardInsideActivity : AppCompatActivity() {
         getCommentList(boardId)
 
         //댓글삭제
-        binding.deleteBtn.setOnClickListener {
+        binding.deleteText.setOnClickListener {
             deletePost(boardId) { isSuccess ->
                 if (isSuccess) {
                     finish()
@@ -84,6 +84,13 @@ class BoardInsideActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        //댓글 수정
+        binding.putText.setOnClickListener {
+            val intent = Intent(this, BoardWriteActivity::class.java)
+            intent.putExtra("boardId", boardId)
+            startActivity(intent)
         }
 
         //adapter적용

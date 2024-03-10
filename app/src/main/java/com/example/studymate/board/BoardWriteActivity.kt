@@ -25,6 +25,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
         val boardModel = BoardWriteModel(null,null,null,null)
 
+        val boardId = intent.getStringExtra("boardId").toString()
+
         binding.backImg.setOnClickListener {
             finish()
         }
