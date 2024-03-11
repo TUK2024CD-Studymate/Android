@@ -47,6 +47,7 @@ class RecordFragment : Fragment() {
     private var running : Boolean = false
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var boardId : String
+    private lateinit var newRecordId : String
     var pauseTime = 0L
     var studyList = listOf<StudyModel>()
     val studyData = StudyModel(null,null,null,null)
@@ -150,18 +151,22 @@ class RecordFragment : Fragment() {
             updateStudyData(studyData)
             Log.d("park", userToken.toString())
             val retrofitWork = RecordRetrofitWork(userToken.toString(),studyData)
-            retrofitWork.work()
+            retrofitWork.work{ recordId ->
+                newRecordId = recordId
+
+                //@get
+                getList(newRecordId)
+
+                //@delete
+                binding.deleteBtn.setOnClickListener {
+                    deleteRecord(newRecordId)
+                    listAdapter.notifyDataSetChanged()
+                }
+            }
 
         }
 
-        //@get
-        getList("2")
 
-        //@delete
-        binding.deleteBtn.setOnClickListener {
-            deleteRecord("2")
-            listAdapter.notifyDataSetChanged()
-        }
 
 
         //리싸이클러뷰에 어뎁터 적용
