@@ -17,6 +17,7 @@ class NameFragment : Fragment() {
         val mainActivity = activity as ProfileSetting
         val jsonData = JSONObject().apply {
             put("name", binding.editName.text.toString())
+            put("tel",binding.editTel.text.toString())
         }.toString()
         mainActivity.receiveData(this, jsonData)
     }

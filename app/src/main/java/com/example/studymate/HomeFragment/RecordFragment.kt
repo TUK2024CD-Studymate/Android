@@ -150,6 +150,7 @@ class RecordFragment : Fragment() {
             studyData.content = binding.editMemo.text.toString()
             updateStudyData(studyData)
             Log.d("park", userToken.toString())
+            binding.editMemo.text = null
             val retrofitWork = RecordRetrofitWork(userToken.toString(),studyData)
             retrofitWork.work{ recordId ->
                 newRecordId = recordId

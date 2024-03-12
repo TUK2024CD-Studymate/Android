@@ -6,6 +6,7 @@ data class User(
     var name: String? = null,
     var part: String? = null,
     var interests: String? = null,
+    var tel: String? = null,
     var nickname: String? = null,
     var blogUrl: String? = null,
     var publicRelations: String? = null,

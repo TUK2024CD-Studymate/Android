@@ -28,7 +28,7 @@ class ProfileSetting : AppCompatActivity() {
 
     private var cursor = 1
 
-    private var signUpData: User = User(null, null, null, null, null, null,null,null,null)
+    private var signUpData: User = User(null, null, null,null, null, null, null,null,null,null)
 
     private val stepProgressAmount = 8
 
@@ -144,6 +144,7 @@ class ProfileSetting : AppCompatActivity() {
             is NameFragment -> {
                 // NameFragment에서 필요한 데이터만 가져와서 User에 저장
                 signUpData.name = jsonObject.optString("name", "")
+                signUpData.tel = jsonObject.optString("tel","")
             }
             is PartFragment -> {
                 // PartFragment에서 필요한 데이터만 가져와서 User에 저장

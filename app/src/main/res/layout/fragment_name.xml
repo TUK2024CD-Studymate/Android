@@ -39,6 +39,23 @@
             android:inputType="text"
             android:importantForAutofill="no" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="전화번호"
+            android:textColor="@color/gray"/>
+
+        <EditText
+            android:id="@+id/editTel"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:hint="01075577557"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+
     </LinearLayout>
 
 
