@@ -1,5 +1,6 @@
 package com.example.studymate.StudyRecord
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ListAdapter
@@ -31,7 +32,9 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         return recordList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<StudyModel>) {
         recordList = list
+        notifyDataSetChanged()
     }
 }

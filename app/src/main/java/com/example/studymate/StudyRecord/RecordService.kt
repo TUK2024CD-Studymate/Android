@@ -1,5 +1,7 @@
 package com.example.studymate.StudyRecord
 
+import com.example.studymate.board.GetBoardModel
+import com.example.studymate.search.GetMatchingModel
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -22,4 +24,10 @@ interface RecordService {
         @Header("Authorization") authorization: String,
         @Path("calender_id") calenderId: String
     ): Call<SignUpResponseBody>
+
+    @GET("/api/calender")
+    fun getRecordListByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Query("startTime") startTime: String // 카테고리를 추가한 부분
+    ): Call<GetRecordResponse>
 }
