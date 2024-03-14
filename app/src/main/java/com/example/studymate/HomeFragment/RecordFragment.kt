@@ -191,7 +191,7 @@ class RecordFragment : Fragment() {
         //켈린더 날짜 클릭
         calendarAdapter = CalendarAdapter(calendarList){ clickedDate ->
             Log.d("ClickedDate", "Clicked date: $clickedDate")
-            getRecordsForDate(clickedDate)
+            getListForDate(clickedDate)
         }
 
         calendarList.apply {
@@ -223,43 +223,6 @@ class RecordFragment : Fragment() {
         Log.d("studymodel", json)
     }
 
-//    private fun getList(calenderId: String) {
-//        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-//        val call = StudyRetrofitAPI.emgMedService.getRecordByEnqueue("Bearer $userToken", calenderId)
-//        val listAdapter = RecordListAdapter()
-//
-//        call.enqueue(object : Callback<StudyModel> {
-//            override fun onResponse(call: Call<StudyModel>, response: Response<StudyModel>) {
-//                if (response.isSuccessful) {
-//                    // 서버 응답을 StudyModel 객체로 변환
-//                    val studyModel: StudyModel? = response.body()
-//                    binding.totalTime.text = studyModel!!.entireTime
-//                    boardId = studyModel.id.toString()
-//                    Log.e("boardId", boardId)
-//
-//                    if (studyModel != null) {
-//                        // 성공적으로 변환되었다면 원하는 작업을 수행
-//                        studyList = listOf(studyModel)
-//                        listAdapter.setList(studyList)
-//
-//                        // UI 작업을 UI 스레드에서 수행
-//                        activity?.runOnUiThread {
-//                            binding.recyclerView.adapter = listAdapter // RecyclerView에 어댑터 설정
-//                        }
-//                    } else {
-//                        Log.e("initList", "Failed to convert response to StudyModel")
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<StudyModel>, t: Throwable) {
-//                // 실패 처리를 원하면 여기에 코드를 추가할 수 있습니다.
-//                Log.e("initList", "Network request failed", t)
-//            }
-//        })
-//    }
-
-
     private fun deleteRecord(calenderId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = StudyRetrofitAPI.emgMedService.deleteRecordByEnqueue("Bearer $userToken", calenderId)
@@ -280,21 +243,14 @@ class RecordFragment : Fragment() {
         })
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getRecordsForDate(clickedDate: String) {
-        getListForDate(clickedDate)
-        val listAdapter = RecordListAdapter()
-        listAdapter.notifyDataSetChanged()
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getListForDate(clickedDate: String) {
+    private fun getListForDate(startTime: String) {
         // 클릭한 날짜에 해당하는 기록 가져오기 (예시)
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val listAdapter = RecordListAdapter()
         // ISO 8601 형식으로 클릭한 날짜에 해당하는 날짜 문자열 생성
-        val iso8601Date = createISO8601Date(clickedDate)
+        val iso8601Date = createISO8601Date(startTime)
         Log.e("iso8601Date", iso8601Date)
         // 서버에 클릭한 날짜에 해당하는 기록을 요청
         val call = StudyRetrofitAPI.emgMedService.getRecordListByEnqueue("Bearer $userToken", iso8601Date)
@@ -305,8 +261,14 @@ class RecordFragment : Fragment() {
                 if (response.isSuccessful) {
                     val studyListForDate: GetRecordResponse? = response.body()
                     if (studyListForDate != null) {
-                        recordList = studyListForDate.calenderList
-                        binding.totalTime.text = recordList[0].entireTime.toString()
+                        val filterList = studyListForDate.calenderList.filter { it.startTime == startTime }
+                        recordList = filterList
+                        if (recordList.isNotEmpty()) {
+                            binding.totalTime.text = recordList[0].entireTime.toString()
+                        } else {
+                            // recordList가 비어 있다면 처리할 로직 추가
+                            Log.e("getListForDate", "Record list is empty.")
+                        }
                         listAdapter.setList(recordList)
                         binding.recyclerView.adapter = listAdapter
                         listAdapter.notifyDataSetChanged()

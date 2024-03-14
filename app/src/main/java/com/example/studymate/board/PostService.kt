@@ -3,6 +3,7 @@ package com.example.studymate.board
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
+import com.example.studymate.signUp.User
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -63,5 +64,10 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
     ):  Call<SignUpResponseBody>
+
+    @POST("/api/signIn/message")
+    fun postTelByEnqueue(
+        @Body userTel : User
+    ) : Call<SignUpResponseBody>
 
 }
