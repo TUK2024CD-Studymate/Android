@@ -1,11 +1,6 @@
 package com.example.studymate.signUp
 
 import android.util.Log
-import com.example.studymate.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
 

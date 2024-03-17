@@ -1,13 +1,11 @@
 package com.example.studymate.board
 
 import android.util.Log
-import com.example.studymate.StudyRecord.StudyModel
-import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class StudyRetrofitWork(private val userToken: String, private val postInfo: BoardModel) {
+class StudyRetrofitWork(private val userToken: String, private val postInfo: BoardWriteModel) {
     fun work() {
 
         if (userToken.isEmpty()) {

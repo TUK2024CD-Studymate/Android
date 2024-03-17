@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="interests_array">
+        <item>관심분야 선택</item>
         <item>수학</item>
         <item>코딩</item>
         <item>국어</item>
@@ -10,6 +11,7 @@
     </string-array>
 
     <string-array name="category_array">
+        <item>게시판 선택</item>
         <item>질문 게시판</item>
         <item>스터디 게시판</item>
         <item>자유 게시판</item>

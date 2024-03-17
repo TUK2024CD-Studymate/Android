@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".loginFragment.InfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insertInfo"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="직업"
+            android:textColor="@color/gray"/>
+
+        <EditText
+            android:id="@+id/editJob"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:inputType="textEmailAddress"
+            android:hint="개발자"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/blog"
+            android:textColor="@color/gray"/>
+
+        <EditText
+            android:id="@+id/editBlogUrl"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:inputType="textEmailAddress"
+            android:hint="www.naverBlog.com"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/relation"
+            android:textColor="@color/gray"/>
+
+
+        <EditText
+            android:id="@+id/editPublicRelations"
+            android:layout_width="370dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:gravity="top"
+            android:hint="한국공학대학교 공모전 3회 우승\n "
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:autofillHints="no"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+</LinearLayout>

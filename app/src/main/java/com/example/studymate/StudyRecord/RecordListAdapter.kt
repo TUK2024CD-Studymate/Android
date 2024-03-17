@@ -1,5 +1,6 @@
 package com.example.studymate.StudyRecord
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ListAdapter
@@ -14,8 +15,6 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         fun bind(pos: Int) {
             binding.text01.text = recordList[pos].studyClass
             binding.text02.text = recordList[pos].content
-            binding.text03.text = recordList[pos].startTime
-            binding.text04.text = recordList[pos].endTime
         }
     }
 
@@ -33,7 +32,9 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         return recordList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<StudyModel>) {
         recordList = list
+        notifyDataSetChanged()
     }
 }

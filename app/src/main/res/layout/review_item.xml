@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="멘토에 대한 리뷰를 작성해주세요"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:text="평점을 남겨주세요!"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:stepSize="1"
+            android:numStars="5"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="문제가 해결 되었나요?"
+            android:layout_marginStart="15dp"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <android.widget.Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="15dp"
+            android:text="해결"
+            android:textSize="15sp"
+            android:background="@drawable/shape_clicked"/>
+
+        <android.widget.Button
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:text="미해결"
+            android:textSize="15sp"
+            android:background="@drawable/shape_clicked"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="매칭이 맘에 들었나요?"
+            android:layout_marginStart="15dp"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <android.widget.Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="15dp"
+            android:text="네"
+            android:textSize="15sp"
+            android:background="@drawable/shape_clicked"/>
+
+        <android.widget.Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:text="아니요"
+            android:textSize="15sp"
+            android:background="@drawable/shape_clicked"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="텍스트리뷰"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="3dp"
+        android:autofillHints="no"
+        android:background="@drawable/edit_line"
+        android:layout_gravity="center"
+        android:gravity="top"
+        android:hint="정우혁 이두가 지려요!"
+        android:inputType="text"
+        android:textSize="17sp" />
+
+</LinearLayout>

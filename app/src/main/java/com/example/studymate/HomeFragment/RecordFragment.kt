@@ -1,7 +1,9 @@
 package com.example.studymate.HomeFragment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Chronometer
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +29,7 @@ import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDateTime
@@ -42,8 +46,12 @@ class RecordFragment : Fragment() {
     private var calendarList = ArrayList<CalendarVO>()
     private var running : Boolean = false
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var boardId : String
+    private lateinit var newRecordId : String
+    var recordList = listOf<StudyModel>()
     var pauseTime = 0L
     var studyList = listOf<StudyModel>()
+    val studyData = StudyModel(null,null,null,null)
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -55,14 +63,12 @@ class RecordFragment : Fragment() {
 
        val listAdapter = RecordListAdapter()
 
-
-        val studyData = StudyModel(null,null,null,null)
-
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs",MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
 
         //시작버튼
+        // 시작버튼
         binding.startBtn.setOnClickListener {
             if (!running) {
                 binding.chronometer.base = SystemClock.elapsedRealtime() - pauseTime
@@ -70,12 +76,12 @@ class RecordFragment : Fragment() {
                 running = true
                 val startTime = Instant.now()
                 val zonedDateTime = startTime.atZone(ZoneId.systemDefault())
-                studyData.startTime = zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                studyData.startTime = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault()))
                 updateStudyData(studyData)
             }
         }
 
-        //멈춤버튼
+// 멈춤버튼
         binding.stopBtn.setOnClickListener {
             if (running) {
                 binding.chronometer.stop()
@@ -83,10 +89,11 @@ class RecordFragment : Fragment() {
                 running = false
                 val stopTime = Instant.now()
                 val zonedDateTime = stopTime.atZone(ZoneId.systemDefault())
-                studyData.endTime = zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                studyData.endTime = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault()))
                 updateStudyData(studyData)
             }
         }
+
 
 
 
@@ -94,35 +101,38 @@ class RecordFragment : Fragment() {
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         binding.spinner.adapter = myAdapter
 
+        //스피너 과목 선택
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
+
+                    }
+                    1 -> {
                         studyData.studyClass = "MATH"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    1 -> {
+                    2 -> {
                         studyData.studyClass = "CODING"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    2 -> {
+                    3 -> {
                         studyData.studyClass = "KOREAN"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    3 -> {
+                    4 -> {
                         studyData.studyClass = "ENGLISH"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    4 -> {
+                    5 -> {
                         studyData.studyClass = "SCIENCE"
                         updateStudyData(studyData)
                         Log.d("studymodel", updateStudyData(studyData).toString())
                     }
-                    // ...
                     else -> {
                         studyData.studyClass = "SOCIETY"
                         updateStudyData(studyData)
@@ -135,21 +145,30 @@ class RecordFragment : Fragment() {
             }
         }
 
+
         //@post
         binding.saveBtn.setOnClickListener {
             studyData.content = binding.editMemo.text.toString()
             updateStudyData(studyData)
             Log.d("park", userToken.toString())
+            binding.editMemo.text = null
             val retrofitWork = RecordRetrofitWork(userToken.toString(),studyData)
-            retrofitWork.work()
+            retrofitWork.work{ recordId ->
+                newRecordId = recordId
+
+//                //@get
+//                getList(newRecordId)
+
+                //@delete
+                binding.deleteBtn.setOnClickListener {
+                    deleteRecord(newRecordId)
+
+                }
+            }
 
         }
 
-        //@delete
-        binding.deleteBtn.setOnClickListener {
-            deleteRecord("2")
-            listAdapter.notifyDataSetChanged()
-        }
+
 
 
         //리싸이클러뷰에 어뎁터 적용
@@ -160,8 +179,6 @@ class RecordFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        //@get
-        getList("2")
 
         return binding.root
     }
@@ -171,8 +188,11 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val weekDay: Array<String> = resources.getStringArray(R.array.calendar_day)
-
-        calendarAdapter = CalendarAdapter(calendarList)
+        //켈린더 날짜 클릭
+        calendarAdapter = CalendarAdapter(calendarList){ clickedDate ->
+            Log.d("ClickedDate", "Clicked date: $clickedDate")
+            getListForDate(clickedDate)
+        }
 
         calendarList.apply {
             val dateFormat = DateTimeFormatter.ofPattern("dd").withLocale(Locale.forLanguageTag("ko"))
@@ -203,40 +223,6 @@ class RecordFragment : Fragment() {
         Log.d("studymodel", json)
     }
 
-    private fun getList(calenderId: String) {
-        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = StudyRetrofitAPI.emgMedService.getRecordByEnqueue("Bearer $userToken", calenderId)
-        val listAdapter = RecordListAdapter()
-
-        call.enqueue(object : Callback<StudyModel> {
-            override fun onResponse(call: Call<StudyModel>, response: Response<StudyModel>) {
-                if (response.isSuccessful) {
-                    // 서버 응답을 StudyModel 객체로 변환
-                    val studyModel: StudyModel? = response.body()
-
-                    if (studyModel != null) {
-                        // 성공적으로 변환되었다면 원하는 작업을 수행
-                        studyList = listOf(studyModel)
-                        listAdapter.setList(studyList)
-
-                        // UI 작업을 UI 스레드에서 수행
-                        activity?.runOnUiThread {
-                            binding.recyclerView.adapter = listAdapter // RecyclerView에 어댑터 설정
-                        }
-                    } else {
-                        Log.e("initList", "Failed to convert response to StudyModel")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<StudyModel>, t: Throwable) {
-                // 실패 처리를 원하면 여기에 코드를 추가할 수 있습니다.
-                Log.e("initList", "Network request failed", t)
-            }
-        })
-    }
-
-
     private fun deleteRecord(calenderId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = StudyRetrofitAPI.emgMedService.deleteRecordByEnqueue("Bearer $userToken", calenderId)
@@ -258,8 +244,60 @@ class RecordFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getListForDate(startTime: String) {
+        // 클릭한 날짜에 해당하는 기록 가져오기 (예시)
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val listAdapter = RecordListAdapter()
+        // ISO 8601 형식으로 클릭한 날짜에 해당하는 날짜 문자열 생성
+        val iso8601Date = createISO8601Date(startTime)
+        Log.e("iso8601Date", iso8601Date)
+        // 서버에 클릭한 날짜에 해당하는 기록을 요청
+        val call = StudyRetrofitAPI.emgMedService.getRecordListByEnqueue("Bearer $userToken", iso8601Date)
 
+        call.enqueue(object : Callback<GetRecordResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<GetRecordResponse>, response: Response<GetRecordResponse>) {
+                if (response.isSuccessful) {
+                    val studyListForDate: GetRecordResponse? = response.body()
+                    if (studyListForDate != null) {
+                        val filterList = studyListForDate.calenderList.filter { it.startTime == startTime }
+                        recordList = filterList
+                        if (recordList.isNotEmpty()) {
+                            binding.totalTime.text = recordList[0].entireTime.toString()
+                        } else {
+                            // recordList가 비어 있다면 처리할 로직 추가
+                            Log.e("getListForDate", "Record list is empty.")
+                        }
+                        listAdapter.setList(recordList)
+                        binding.recyclerView.adapter = listAdapter
+                        listAdapter.notifyDataSetChanged()
+                    } else {
+                        Log.e("getListForDate", "Failed to convert response to StudyModel list")
+                    }
+                }
+            }
 
+            override fun onFailure(call: Call<GetRecordResponse>, t: Throwable) {
+                Log.e("getListForDate", "Network request failed", t)
+            }
+        })
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createISO8601Date(clickedDate: String): String {
+        // 클릭한 날짜를 숫자로 변환
+        val clickedDay = clickedDate.toInt()
+
+        val isoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val localDateTime = LocalDateTime.parse("2024-03-${String.format("%02d", clickedDay)} 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        return localDateTime.format(isoFormatter)
+    }
 
 }
+
+
+
+
+
+

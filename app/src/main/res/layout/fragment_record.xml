@@ -22,87 +22,101 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_marginTop="5dp"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="30sp"/>
+        android:layout_height="130dp"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/totalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:16"
+            android:textSize="50sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:gravity="center|left"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        tools:ignore="RtlHardcoded">
 
-        <Button
+        <ImageButton
             android:id="@+id/startBtn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="start"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <Button
-            android:id="@+id/stopBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:layout_width="100dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            android:background="@drawable/start_button"/>
+
+        <ImageButton
+            android:id="@+id/stopBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_pause_24"
+            android:background="@drawable/pause_button"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:theme="@style/SpinnerTheme"
+            android:layout_gravity="center_horizontal" />
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="stop"
             android:textColor="@color/black"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:layout_marginStart="25dp"
+            android:textSize="30sp"
+            tools:ignore="MissingConstraints" />
+
     </LinearLayout>
-
-    <View
-        android:layout_width="380dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/black"/>
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:theme="@style/SpinnerTheme"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:id="@+id/editMemo"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:hint="@string/insertStudyContent"
         android:gravity="top"
-        android:layout_margin="10dp"
         android:importantForAutofill="no"
         android:inputType="text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveBtn"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
             android:background="@drawable/assign_button"
+            android:textColor="@color/white"
             android:text="@string/save"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
-        <View
-            android:layout_width="180dp"
-            android:layout_height="0dp"
-            tools:ignore="NestedWeights" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/deleteBtn"
             android:background="@drawable/assign_button"
             android:text="@string/delete"
+            android:textColor="@color/white"
+            android:layout_marginStart="40dp"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

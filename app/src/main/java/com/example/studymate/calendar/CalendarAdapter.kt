@@ -12,23 +12,21 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CalendarAdapter(private val  cList : List<CalendarVO>):
+class CalendarAdapter(private val cList: List<CalendarVO>, private val dateClickListener: (String) -> Unit) :
     RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private var selectedDate: String? = LocalDate.now().format(DateTimeFormatter.ofPattern("dd").withLocale(Locale.forLanguageTag("ko")))
     class CalendarViewHolder(private val binding: ItemCalendarListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item: CalendarVO) {
+        fun bind(item: CalendarVO, selectedDate: String?) {
             binding.date.text = item.cl_date
             binding.day.text = item.cl_day
 
-            var today = binding.date.text
-
-            // 오늘 날짜
-            val now = LocalDate.now().format(DateTimeFormatter.ofPattern("dd").withLocale(Locale.forLanguageTag("ko")))
-            Log.d("now",now)
-            // 오늘 날짜와 캘린더의 오늘 날짜가 같을 경우 background_blue 적용하기
-            if (today == now) {
+            if (item.cl_date == selectedDate) {
                 binding.weekCardView.setBackgroundResource(R.drawable.background_blue)
+            } else {
+                binding.weekCardView.setBackgroundResource(R.color.white)
             }
         }
     }
@@ -40,7 +38,17 @@ class CalendarAdapter(private val  cList : List<CalendarVO>):
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        holder.bind(cList[position])
+        val item = cList[position]
+
+        holder.itemView.setOnClickListener {
+            dateClickListener.invoke(item.cl_date)
+
+            // 클릭한 날짜를 저장하고 어댑터 갱신
+            selectedDate = item.cl_date
+            notifyDataSetChanged()
+        }
+        // 선택한 날짜 정보를 bind 메서드에 전달
+        holder.bind(item, selectedDate)
     }
 
     override fun getItemCount(): Int {

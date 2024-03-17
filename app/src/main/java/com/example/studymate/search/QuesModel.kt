@@ -1,8 +1,8 @@
-package com.example.studymate.board
+package com.example.studymate.search
 
-data class BoardModel (
+data class QuesModel(
     var title: String? = null,
     var content: String? = null,
-    var category: String? = null,
     var interests: String? = null
-    )
+
+)

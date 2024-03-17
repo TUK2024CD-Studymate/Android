@@ -1,5 +1,6 @@
 package com.example.studymate.board
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,18 +10,22 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
 
     private var boardList = listOf<GetBoardModel>()
 
-    inner class MyView(private val binding: BoardItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    inner class MyView(private val binding: BoardItemListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(boardModel: GetBoardModel) {
             binding.titleText.text = boardModel.title
             binding.dateText.text = boardModel.createdAt
             binding.nicknameText.text = boardModel.nickname
 
+
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(boardModel)
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardListAdapter.MyView {
         val view = BoardItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,6 +40,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
         return boardList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<GetBoardModel>) {
         boardList = list
         notifyDataSetChanged()
@@ -43,4 +49,8 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
     interface OnItemClickListener {
         fun onItemClick(boardModel: GetBoardModel)
     }
+
+
+
+
 }

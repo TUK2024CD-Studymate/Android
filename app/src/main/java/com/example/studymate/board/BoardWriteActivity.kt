@@ -7,18 +7,9 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.studymate.R
-import com.example.studymate.StudyRecord.RecordListAdapter
-import com.example.studymate.StudyRecord.StudyModel
-import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.StudyRecord.StudyRetrofitAPI.gson
 import com.example.studymate.databinding.ActivityBoardWriteBinding
-import com.example.studymate.databinding.ActivityHomeBinding
-import com.example.studymate.signUp.LoginApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class BoardWriteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardWriteBinding
@@ -32,7 +23,9 @@ class BoardWriteActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
-        val boardModel = BoardModel(null,null,null,null)
+        val boardModel = BoardWriteModel(null,null,null,null)
+
+        val boardId = intent.getStringExtra("boardId").toString()
 
         binding.backImg.setOnClickListener {
             finish()
@@ -50,21 +43,24 @@ class BoardWriteActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        boardModel.interests = "MATH"
+
                     }
                     1 -> {
-                        boardModel.interests = "PROGRAMMING"
+                        boardModel.interests = "MATH"
                     }
                     2 -> {
-                        boardModel.interests = "KOREAN"
+                        boardModel.interests = "PROGRAMMING"
                     }
                     3 -> {
-                        boardModel.interests = "ENGLISH"
+                        boardModel.interests = "KOREAN"
                     }
                     4 -> {
-                        boardModel.interests = "SCIENCE"
+                        boardModel.interests = "ENGLISH"
                     }
                     5 -> {
+                        boardModel.interests = "SCIENCE"
+                    }
+                    6 -> {
                         boardModel.interests = "SOCIETY"
                     }
                 }
@@ -79,12 +75,15 @@ class BoardWriteActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when(p2){
                     0->{
-                        boardModel.category = "QUESTION"
+
                     }
                     1->{
-                        boardModel.category = "STUDY"
+                        boardModel.category = "QUESTION"
                     }
                     2->{
+                        boardModel.category = "STUDY"
+                    }
+                    3->{
                         boardModel.category = "FREE"
                     }
             }
@@ -111,7 +110,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
 
 
-    private fun updateBoardData(boardData: BoardModel) {
+    private fun updateBoardData(boardData: BoardWriteModel) {
         val json = gson.toJson(boardData)
         Log.d("studymodel", json)
     }
