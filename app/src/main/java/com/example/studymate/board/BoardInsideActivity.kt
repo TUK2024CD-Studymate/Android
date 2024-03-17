@@ -15,6 +15,7 @@ import com.example.studymate.StudyRecord.StudyModel
 import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.databinding.ActivityBoardInsideBinding
 import com.example.studymate.databinding.ActivityBoardWriteBinding
+import com.example.studymate.loginFragment.VerifyModel
 import com.example.studymate.search.MentoInfoActivity
 import com.example.studymate.signUp.SignUpResponseBody
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class BoardInsideActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardInsideBinding
     private lateinit var sharedPreferences: SharedPreferences
     var commentList = listOf<GetCommentModel>()
+    private var isHeartRed: Boolean = false
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +103,23 @@ class BoardInsideActivity : AppCompatActivity() {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = listAdapter
+        }
+
+        //게시물 좋아요 상태 복원
+        isHeartRed = sharedPreferences.getBoolean("$boardId-isHeartRed", false)
+        if (isHeartRed) {
+            binding.heart.setImageResource(R.drawable.pink_heart)
+        }
+
+        //게시물 좋아요
+        binding.heart.setOnClickListener {
+            if (!isHeartRed) {
+                postHeart(boardId)
+                binding.heart.setImageResource(R.drawable.pink_heart)
+                isHeartRed = true
+                // 상태를 저장
+                sharedPreferences.edit().putBoolean("$boardId-isHeartRed", true).apply()
+            }
         }
 
 
@@ -201,6 +220,24 @@ class BoardInsideActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun postHeart(boardId : String){
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.postHeart("Bearer $userToken",boardId)
+
+        call.enqueue(object : Callback<SignUpResponseBody> {
+            override fun onResponse(
+                call: Call<SignUpResponseBody>,
+                response: Response<SignUpResponseBody>
+            ) {
+
+            }
+
+            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
+                Log.d("로그인 통신 실패", t.message.toString())
+            }
+        })
     }
 
 }

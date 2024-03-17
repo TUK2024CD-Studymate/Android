@@ -8,5 +8,6 @@ class GetBoardModel(
     var nickname : String? = null,
     var category: String? = null,
     var interests: String? = null,
-    var recruitmentStatus : String? = null
+    var recruitmentStatus : String? = null,
+    var likeCount : Int
 )

@@ -1,6 +1,6 @@
 package com.example.studymate.loginFragment
 
 data class VerifyModel (
-    var phoneNumber: String = "", // 휴대폰 번호
-    var randomNumber: String = "" // 랜덤 번호
+    var phoneNumber: String? = null, // 휴대폰 번호
+    var randomNumber: String? = null // 랜덤 번호
         )
