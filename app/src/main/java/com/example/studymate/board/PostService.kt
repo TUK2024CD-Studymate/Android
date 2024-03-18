@@ -1,5 +1,6 @@
 package com.example.studymate.board
 
+import com.example.studymate.loginFragment.VerifyModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
@@ -65,9 +66,31 @@ interface PostService {
         @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
     ):  Call<SignUpResponseBody>
 
+    //인즌번호 전송
     @POST("/api/signIn/message")
     fun postTelByEnqueue(
         @Body userTel : User
     ) : Call<SignUpResponseBody>
+
+    //인즌번호 맞는지 확인
+    @POST("/api/signIn/message/verify")
+    fun postVerifyByEnqueue(
+        @Body verifyModel : VerifyModel
+    ) : Call<SignUpResponseBody>
+
+    //댓글 수 가져오기
+    @GET("/api/posts/{post_id}/comments/count")
+    fun getComment(
+        @Header("Authorization") authorization: String
+    ): Call<SignUpResponseBody>
+
+    // 좋아요 보내기
+    @POST("/api/post/heart/{postId}")
+    fun postHeart(
+        @Header("Authorization") authorization: String,
+        @Path("postId") postId: String
+    ) : Call<SignUpResponseBody>
+
+
 
 }
