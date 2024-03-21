@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.board.BoardInsideActivity
+import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.databinding.MentoListBinding
 
 
@@ -13,8 +14,10 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
     private var mentoList = listOf<GetMatchingModel>()
 
-    interface OnItemClickListener{
-        fun onItemClick(v: View, data: Int, pos: Int)
+    interface OnItemClickListener {
+        fun onImageClick(item: GetMatchingModel)
+        fun onNameClick(item: GetMatchingModel)
+        fun onInterestClick(item: GetMatchingModel)
     }
     private var listener : OnItemClickListener? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
@@ -23,15 +26,23 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
     inner class MyView(private val binding : MentoListBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: Int){
-            binding.name.text = mentoList[item].name
-            binding.interests.text = mapInterestsToKorean(mentoList[item].interests)
+        fun bind(item: GetMatchingModel){
+            binding.name.text = item.name
+            binding.interests.text = mapInterestsToKorean(item.interests)
 
+            // 이미지 클릭 이벤트 설정
             binding.mentoImg.setOnClickListener {
-                val pos = bindingAdapterPosition
-                if (pos != RecyclerView.NO_POSITION) {
-                    listener?.onItemClick(binding.mentoImg, item, pos)
-                }
+                listener?.onImageClick(item)
+            }
+
+            // 이름 클릭 이벤트 설정
+            binding.name.setOnClickListener {
+                listener?.onNameClick(item)
+            }
+
+            // 관심사 클릭 이벤트 설정
+            binding.interests.setOnClickListener {
+                listener?.onInterestClick(item)
             }
         }
     }
@@ -45,7 +56,7 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
     }
 
     override fun onBindViewHolder(holder: MentoListAdapter.MyView, position: Int) {
-        holder.bind(position)
+        holder.bind(mentoList[position])
     }
 
     override fun getItemCount(): Int {
@@ -66,5 +77,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
             else -> interests
         }
     }
+
 
 }

@@ -26,6 +26,7 @@ import com.example.studymate.calendar.CalendarVO
 import com.example.studymate.calendar.CalendarAdapter
 import com.example.studymate.databinding.FragmentRecordBinding
 import com.example.studymate.signUp.SignUpResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -260,6 +261,8 @@ class RecordFragment : Fragment() {
             override fun onResponse(call: Call<GetRecordResponse>, response: Response<GetRecordResponse>) {
                 if (response.isSuccessful) {
                     val studyListForDate: GetRecordResponse? = response.body()
+
+                    Log.e("studyListForDate", studyListForDate.toString())
                     if (studyListForDate != null) {
                         val filterList = studyListForDate.calenderList.filter { it.startTime == startTime }
                         recordList = filterList

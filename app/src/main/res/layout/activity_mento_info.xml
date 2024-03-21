@@ -17,7 +17,7 @@
                 android:layout_height="329dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_note_found" />
+                android:src="@drawable/mento_image" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

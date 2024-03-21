@@ -74,10 +74,12 @@ dependencies {
     //동그라미 이미지
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
 
-
+    //파이어베이스  클라우드 메시지
     implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging:23.4.1'
 
+//    //스톰프
+//    implementation 'com.github.NightWhistler:Stomp-Android:1.6.3'
 
 }

@@ -10,7 +10,9 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
 
     private var boardList = listOf<GetBoardModel>()
 
-
+    interface OnItemClickListener {
+        fun onItemClick(boardModel: GetBoardModel)
+    }
     inner class MyView(private val binding: BoardItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -47,9 +49,6 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
         notifyDataSetChanged()
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(boardModel: GetBoardModel)
-    }
 
 
 
