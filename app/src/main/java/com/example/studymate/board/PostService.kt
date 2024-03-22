@@ -91,6 +91,12 @@ interface PostService {
         @Path("postId") postId: String
     ) : Call<SignUpResponseBody>
 
+    //방생성
+    @POST("/api/chat/room")
+    fun postRoom(
+        @Header("Authorization") authorization: String,
+    ): Call<SignUpResponseBody>
+
 
 
 }

@@ -144,7 +144,11 @@ class SearchFragment : Fragment() {
                             override fun onNameClick(item: GetMatchingModel) {
                                 alertDialog?.dismiss()
 
-                                val chatFragment = ChatFragment()
+                                val chatFragment = ChatFragment().apply {
+                                    arguments = Bundle().apply {
+                                        putString("nickname",item.nickname)
+                                    }
+                                }
                                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                                 transaction.replace(R.id.container, chatFragment)
                                 transaction.addToBackStack(null)
@@ -155,7 +159,11 @@ class SearchFragment : Fragment() {
                             override fun onInterestClick(item: GetMatchingModel) {
                                 alertDialog?.dismiss()
 
-                                val chatFragment = ChatFragment()
+                                val chatFragment = ChatFragment().apply {
+                                    arguments = Bundle().apply {
+                                        putString("nickname",item.nickname)
+                                    }
+                                }
                                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                                 transaction.replace(R.id.container, chatFragment)
                                 transaction.addToBackStack(null)

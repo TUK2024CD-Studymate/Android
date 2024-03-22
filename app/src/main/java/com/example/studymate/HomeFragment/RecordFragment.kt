@@ -250,11 +250,11 @@ class RecordFragment : Fragment() {
         // 클릭한 날짜에 해당하는 기록 가져오기 (예시)
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val listAdapter = RecordListAdapter()
+
         // ISO 8601 형식으로 클릭한 날짜에 해당하는 날짜 문자열 생성
-        val iso8601Date = createISO8601Date(startTime)
-        Log.e("iso8601Date", iso8601Date)
+
         // 서버에 클릭한 날짜에 해당하는 기록을 요청
-        val call = StudyRetrofitAPI.emgMedService.getRecordListByEnqueue("Bearer $userToken", iso8601Date)
+        val call = StudyRetrofitAPI.emgMedService.getRecordListByEnqueue("Bearer $userToken", startTime)
 
         call.enqueue(object : Callback<GetRecordResponse> {
             @SuppressLint("NotifyDataSetChanged")
@@ -264,7 +264,15 @@ class RecordFragment : Fragment() {
 
                     Log.e("studyListForDate", studyListForDate.toString())
                     if (studyListForDate != null) {
-                        val filterList = studyListForDate.calenderList.filter { it.startTime == startTime }
+                        val modifiedList = studyListForDate.calenderList.map { record ->
+                            // 공백을 기준으로 문자열을 분할하여 날짜 부분만 추출
+                            val date = record.startTime!!.split(" ")[0]
+                            // 추출한 날짜를 사용하여 새로운 StudyModel 객체를 생성
+                            StudyModel(record.id, record.content, record.studyClass, date, record.endTime, record.entireTime)
+                        }
+                        Log.e("modifiedList", modifiedList.toString())
+                        // 필터링된 리스트를 가져오는 부분은 그대로 사용합니다.
+                        val filterList = modifiedList.filter { it.startTime == startTime }
                         recordList = filterList
                         if (recordList.isNotEmpty()) {
                             binding.totalTime.text = recordList[0].entireTime.toString()
@@ -287,15 +295,7 @@ class RecordFragment : Fragment() {
         })
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createISO8601Date(clickedDate: String): String {
-        // 클릭한 날짜를 숫자로 변환
-        val clickedDay = clickedDate.toInt()
 
-        val isoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        val localDateTime = LocalDateTime.parse("2024-03-${String.format("%02d", clickedDay)} 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-        return localDateTime.format(isoFormatter)
-    }
 
 }
 
