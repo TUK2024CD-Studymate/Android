@@ -191,8 +191,9 @@ class RecordFragment : Fragment() {
         val weekDay: Array<String> = resources.getStringArray(R.array.calendar_day)
         //켈린더 날짜 클릭
         calendarAdapter = CalendarAdapter(calendarList){ clickedDate ->
-            Log.d("ClickedDate", "Clicked date: $clickedDate")
-            getListForDate(clickedDate)
+            val startTime = "2024-03-$clickedDate"
+            Log.d("ClickedDate", "Clicked date: $startTime")
+            getListForDate(startTime)
         }
 
         calendarList.apply {
@@ -251,8 +252,6 @@ class RecordFragment : Fragment() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val listAdapter = RecordListAdapter()
 
-        // ISO 8601 형식으로 클릭한 날짜에 해당하는 날짜 문자열 생성
-
         // 서버에 클릭한 날짜에 해당하는 기록을 요청
         val call = StudyRetrofitAPI.emgMedService.getRecordListByEnqueue("Bearer $userToken", startTime)
 
@@ -273,6 +272,7 @@ class RecordFragment : Fragment() {
                         Log.e("modifiedList", modifiedList.toString())
                         // 필터링된 리스트를 가져오는 부분은 그대로 사용합니다.
                         val filterList = modifiedList.filter { it.startTime == startTime }
+                        Log.e("filterList", filterList.toString())
                         recordList = filterList
                         if (recordList.isNotEmpty()) {
                             binding.totalTime.text = recordList[0].entireTime.toString()
