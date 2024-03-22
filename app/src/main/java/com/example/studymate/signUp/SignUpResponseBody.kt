@@ -9,5 +9,6 @@ data class SignUpResponseBody(
     @SerializedName("status")
     val status: String?,
     val calender_id : String?,
-    val id : String?
+    val id : String?,
+    val roomId : String?
 )
