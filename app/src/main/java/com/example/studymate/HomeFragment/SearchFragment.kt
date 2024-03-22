@@ -29,6 +29,7 @@ class SearchFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var listAdapter: MentoListAdapter
     var matchingList = listOf<GetMatchingModel>()
+    private var alertDialog: AlertDialog? = null
 
     @SuppressLint("InflateParams")
     override fun onCreateView(
@@ -127,18 +128,47 @@ class SearchFragment : Fragment() {
                         matchingList = matchingResponse.memberList
                         listAdapter.setList(matchingList)
                         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                        listAdapter.setOnItemClickListener(object :
-                            MentoListAdapter.OnItemClickListener{
-                            override fun onItemClick(v: View, data: Int, pos: Int) {
+                        listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
+                            override fun onImageClick(item: GetMatchingModel) {
                                 val intent = Intent(requireContext(),MentoInfoActivity::class.java)
-                                intent.putExtra("name",matchingList[pos].name)
-                                intent.putExtra("nickname",matchingList[pos].nickname)
-                                intent.putExtra("interests",matchingList[pos].interests)
-                                intent.putExtra("email",matchingList[pos].email)
-                                intent.putExtra("url",matchingList[pos].blogUrl)
-                                intent.putExtra("job",matchingList[pos].job)
-                                intent.putExtra("info",matchingList[pos].publicRelations)
+                                intent.putExtra("name",item.name)
+                                intent.putExtra("nickname",item.nickname)
+                                intent.putExtra("interests",item.interests)
+                                intent.putExtra("email",item.email)
+                                intent.putExtra("url",item.blogUrl)
+                                intent.putExtra("job",item.job)
+                                intent.putExtra("info",item.publicRelations)
                                 startActivity(intent)
+                            }
+
+                            override fun onNameClick(item: GetMatchingModel) {
+                                alertDialog?.dismiss()
+
+                                val chatFragment = ChatFragment().apply {
+                                    arguments = Bundle().apply {
+                                        putString("nickname",item.nickname)
+                                    }
+                                }
+                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                                transaction.replace(R.id.container, chatFragment)
+                                transaction.addToBackStack(null)
+                                transaction.commit()
+
+                            }
+
+                            override fun onInterestClick(item: GetMatchingModel) {
+                                alertDialog?.dismiss()
+
+                                val chatFragment = ChatFragment().apply {
+                                    arguments = Bundle().apply {
+                                        putString("nickname",item.nickname)
+                                    }
+                                }
+                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                                transaction.replace(R.id.container, chatFragment)
+                                transaction.addToBackStack(null)
+                                transaction.commit()
+
                             }
                         })
                         recyclerView.adapter = listAdapter
@@ -148,8 +178,12 @@ class SearchFragment : Fragment() {
                         val builder = AlertDialog.Builder(requireContext())
                         builder.setTitle("멘토를 선택해주세요")
                             .setView(dialogView)
+                            .setCancelable(true)
                             .create()
-                            .show()
+                            .also {dialog->
+                                alertDialog = dialog
+                                dialog.show()
+                            }
                     }
                 }
             }

@@ -1,60 +1,69 @@
 package com.example.studymate.HomeFragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.studymate.R
+import com.example.studymate.board.PostRetrofitAPI
+import com.example.studymate.databinding.FragmentChatBinding
+import com.example.studymate.signUp.SignUpResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ChatFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChatFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    lateinit var binding : FragmentChatBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var roomId : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        binding = FragmentChatBinding.inflate(inflater, container, false)
+
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+        val roomName = arguments?.getString("nickname").toString()
+        //룸 생성
+        postRoom(roomName)
+
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChatFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChatFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun postRoom(name : String){
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+
+        // 채팅방 생성 요청
+        val call = PostRetrofitAPI.emgMedService.postRoom("Bearer $userToken", name)
+
+        call.enqueue(object : Callback<SignUpResponseBody> {
+            override fun onResponse(
+                call: Call<SignUpResponseBody>,
+                response: Response<SignUpResponseBody>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("로그인 통신 성공", response.toString())
+                    Log.d("로그인 통신 성공", response.body().toString())
+                    roomId = response.body()!!.roomId.toString()
+                    Log.d("roomId",roomId)
+                } else {
+                    Log.d("postRoom", "Failed to create chat room. Response code: ${response.code()}")
                 }
             }
+
+            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
+                Log.d("postRoom", "Failed to create chat room", t)
+            }
+        })
     }
+
+
+
 }

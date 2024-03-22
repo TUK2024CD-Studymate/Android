@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:text="텍스트리뷰"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="56sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"/>
@@ -129,7 +129,7 @@
         android:background="@drawable/edit_line"
         android:layout_gravity="center"
         android:gravity="top"
-        android:hint="정우혁 이두가 지려요!"
+        android:hint="정우혁 멘토님이 친절하고 너무 잘 \n알려주세요!"
         android:inputType="text"
         android:textSize="17sp" />
 
