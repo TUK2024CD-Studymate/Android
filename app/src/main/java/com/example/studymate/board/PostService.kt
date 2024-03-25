@@ -1,5 +1,6 @@
 package com.example.studymate.board
 
+import com.example.studymate.chatting.RoomDto
 import com.example.studymate.loginFragment.VerifyModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
@@ -98,6 +99,13 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Field("name") name: String
     ): Call<SignUpResponseBody>
+
+    //채팅방 룸 가져오기
+    @GET("/api/chat/rooms")
+    fun getRoomList(
+        @Header("Authorization") authorization: String,
+        @Query("name") name: String // 카테고리를 추가한 부분
+    ): Call<List<RoomDto>>
 
 
 

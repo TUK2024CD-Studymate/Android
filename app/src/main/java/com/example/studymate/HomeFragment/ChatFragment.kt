@@ -8,7 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studymate.board.BoardListAdapter
+import com.example.studymate.board.GetBoardModel
 import com.example.studymate.board.PostRetrofitAPI
+import com.example.studymate.chatting.ChatRoomAdapter
+import com.example.studymate.chatting.RoomDto
 import com.example.studymate.databinding.FragmentChatBinding
 import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
@@ -19,6 +25,8 @@ class ChatFragment : Fragment() {
     lateinit var binding : FragmentChatBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var roomId : String
+    var roomList = listOf<RoomDto>()
+    private lateinit var listAdapter: ChatRoomAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,43 +35,54 @@ class ChatFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
+        val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         val roomName = arguments?.getString("nickname").toString()
-        //룸 생성
-        postRoom(roomName)
 
+        listAdapter = ChatRoomAdapter()
 
+        binding.recyclerView.apply {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addItemDecoration(itemDecoration)
+        }
+
+        //채팅방 가져오기
+        getRoomList(roomName)
 
 
         return binding.root
     }
-
-    private fun postRoom(name : String){
+    private fun getRoomList(name: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getRoomList("Bearer $userToken", name)
 
-        // 채팅방 생성 요청
-        val call = PostRetrofitAPI.emgMedService.postRoom("Bearer $userToken", name)
-
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(
-                call: Call<SignUpResponseBody>,
-                response: Response<SignUpResponseBody>
-            ) {
+        call.enqueue(object : Callback<List<RoomDto>> {
+            override fun onResponse(call: Call<List<RoomDto>>, response: Response<List<RoomDto>>) {
                 if (response.isSuccessful) {
-                    Log.d("로그인 통신 성공", response.toString())
-                    Log.d("로그인 통신 성공", response.body().toString())
-                    roomId = response.body()!!.roomId.toString()
-                    Log.d("roomId",roomId)
-                } else {
-                    Log.d("postRoom", "Failed to create chat room. Response code: ${response.code()}")
+                    val roomModelList: List<RoomDto>? = response.body()
+
+                    if (roomModelList != null) {
+                        // 해당 카테고리에 맞게 필터링
+                        val filteredList = roomModelList.filter { it.name == name }
+                        Log.d("filteredList",filteredList.toString())
+
+                        roomList = filteredList
+                        listAdapter.setList(roomList)
+
+                        activity?.runOnUiThread {
+                            binding.recyclerView.adapter = listAdapter
+                        }
+                    } else {
+                        Log.e("getBoardList", "Failed to convert response to List<GetBoardModel>")
+                    }
                 }
             }
 
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                Log.d("postRoom", "Failed to create chat room", t)
+            override fun onFailure(call: Call<List<RoomDto>>, t: Throwable) {
+                Log.e("getBoardList", "Network request failed", t)
             }
         })
     }
-
-
 
 }
