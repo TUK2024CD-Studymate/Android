@@ -113,7 +113,7 @@ class BoardFragment : Fragment() {
                     if (boardModelList != null) {
                         // 해당 카테고리에 맞게 필터링
                         val filteredList = boardModelList.filter { it.category == category }
-
+                        Log.d("filteredList",filteredList.toString())
                         boardList = filteredList
                         listAdapter.setList(boardList)
 
