@@ -21,6 +21,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
             binding.dateText.text = boardModel.createdAt
             binding.nicknameText.text = boardModel.nickname
             binding.likeCount.text = boardModel.likeCount.toString()
+            binding.commentCount.text = boardModel.commentCount.toString()
 
 
             itemView.setOnClickListener {

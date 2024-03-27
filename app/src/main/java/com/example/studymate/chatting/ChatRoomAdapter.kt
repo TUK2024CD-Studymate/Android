@@ -4,13 +4,18 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.board.GetBoardModel
 import com.example.studymate.databinding.BoardItemListBinding
 import com.example.studymate.databinding.RoomItemListBinding
 
-class ChatRoomAdapter: RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
+class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
 
     private var roomList = listOf<RoomDto>()
+
+    interface OnItemClickListener {
+        fun onItemClick(roomModel: RoomDto)
+    }
 
     inner class MyView(private val binding: RoomItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,6 +23,9 @@ class ChatRoomAdapter: RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
         fun bind(roomModel: RoomDto) {
             binding.name.text = roomModel.name
 
+            itemView.setOnClickListener {
+                itemClickListener.onItemClick(roomModel)
+            }
         }
     }
 

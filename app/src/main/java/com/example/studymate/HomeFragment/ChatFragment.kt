@@ -1,6 +1,7 @@
 package com.example.studymate.HomeFragment
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -10,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studymate.board.BoardInsideActivity
 import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.board.GetBoardModel
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.chatting.ChatRoomAdapter
+import com.example.studymate.chatting.RoomActivity
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.databinding.FragmentChatBinding
 import com.example.studymate.signUp.SignUpResponseBody
@@ -38,7 +41,13 @@ class ChatFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         val roomName = arguments?.getString("nickname").toString()
 
-        listAdapter = ChatRoomAdapter()
+        listAdapter = ChatRoomAdapter(object : ChatRoomAdapter.OnItemClickListener {
+            override fun onItemClick(roomModel: RoomDto) {
+                val intent = Intent(requireContext(), RoomActivity::class.java)
+                intent.putExtra("roomId", roomModel.roomId)
+                startActivity(intent)
+            }
+        })
 
         binding.recyclerView.apply {
             adapter = listAdapter
