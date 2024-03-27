@@ -32,6 +32,7 @@ class RoomActivity : AppCompatActivity() {
         val intervalMillis = 1000L
         val client = OkHttpClient()
 
+        // 스톰프 url생성
         val stomp = StompClient(client, intervalMillis).apply {
             this@apply.url = url
         }
@@ -76,6 +77,7 @@ class RoomActivity : AppCompatActivity() {
                 Event.Type.CLOSED -> {
                 }
                 Event.Type.ERROR -> {
+                    Log.e("web","err")
                 }
                 else -> {}
             }
