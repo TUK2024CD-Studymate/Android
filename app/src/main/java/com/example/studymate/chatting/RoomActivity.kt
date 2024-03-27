@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.beust.klaxon.Klaxon
 import com.example.studymate.databinding.ActivityChattingRoomBinding
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
@@ -28,6 +30,10 @@ class RoomActivity : AppCompatActivity() {
         val roomId = intent.getStringExtra("roomId").toString()
         Log.d("roomId",roomId)
 
+        val chatMessageAdapter = ChatMessageAdapter()
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = chatMessageAdapter
+
         val url = "ws://study-mate.kro.kr:8080/ws/chat"
         val intervalMillis = 1000L
         val client = OkHttpClient()
@@ -40,7 +46,17 @@ class RoomActivity : AppCompatActivity() {
         stompConnection = stomp.connect().subscribe {
             when (it.type) {
                 Event.Type.OPENED -> {
-                    topic = stomp.join("/sub/chat/room/${roomId}").subscribe()
+//                    topic = stomp.join("/sub/chat/room/${roomId}").subscribe()
+                    topic = stomp.join("/sub/chat/room/${roomId}").subscribe{
+                            stompMessage ->
+                        val result = Klaxon().parse<MessageModel>(stompMessage)
+                        this@RoomActivity.runOnUiThread {
+                            if (result != null) {
+                                chatMessageAdapter.addMessage(result)
+                                binding.recyclerView.adapter = chatMessageAdapter
+                            }
+                        }
+                    }
 
                     try {
                         jsonObject.put("type", "ENTER")
@@ -65,6 +81,8 @@ class RoomActivity : AppCompatActivity() {
                         stomp.send("/pub/chat/message", jsonObject.toString()).subscribe(
                             { // 성공적으로 메시지를 전송한 경우
                                 Log.d("SendMessage", "Message sent successfully")
+                                val messageModel = MessageModel("parkhwan", binding.editMessage.text.toString())
+                                chatMessageAdapter.addMessage(messageModel) // 새로운 메시지를 어댑터에 추가
                                 binding.editMessage.text = null // 메시지 전송 후 EditText 비우기
                             },
                             { // 메시지 전송 중 오류가 발생한 경우

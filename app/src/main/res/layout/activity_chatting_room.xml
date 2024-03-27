@@ -4,33 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".chatting.RoomActivity">
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/shape_clicked"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/shape_clicked" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <EditText
-        android:id="@+id/editMessage"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
-        android:background="@drawable/shape_clicked"/>
+        <EditText
+            android:id="@+id/editMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_clicked"
+            android:hint="메시지 입력"
+            android:padding="8dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/assign_button"
-        android:text="전송"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
+        <Button
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/assign_button"
+            android:text="전송"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginStart="8dp"
+            android:padding="8dp" />
 
+    </LinearLayout>
 
 </LinearLayout>
