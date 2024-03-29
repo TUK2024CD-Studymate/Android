@@ -11,6 +11,12 @@ import retrofit2.http.*
 
 interface PostService {
 
+    //본인 회원정보 조회
+    @GET("/api/user")
+    fun getUserByEnqueue(
+        @Header("Authorization") authorization: String,
+    ): Call<User>
+
     @POST("/api/posts")
     fun addPostByEnqueue(
         @Header("Authorization") authorization: String,
