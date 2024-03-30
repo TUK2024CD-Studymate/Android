@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
 
+
         //초기 화면 로드
         loadFragment(SearchFragment())
 
@@ -65,29 +66,5 @@ class HomeActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun getUser() {
-        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    val nickname = user?.nickname ?: ""
-                    saveNicknameToSharedPreferences(nickname)
-                } else {
-
-                }
-            }
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                // Handle failure
-            }
-        })
-    }
-
-    private fun saveNicknameToSharedPreferences(nickname: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString("nickname", nickname)
-        editor.apply()
-    }
 }

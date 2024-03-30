@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beust.klaxon.Klaxon
+import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityChattingRoomBinding
+import com.example.studymate.signUp.User
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import com.google.gson.Gson
@@ -17,6 +19,9 @@ import io.reactivex.disposables.Disposable
 import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RoomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingRoomBinding
@@ -24,9 +29,8 @@ class RoomActivity : AppCompatActivity() {
     lateinit var topic: Disposable
     var jsonObject = JSONObject()
     //쉐얼드프리퍼런스
-    private val SHARED_PREFERENCES_NAME = "MySharedPreferences"
-    private val NICKNAME_KEY = "nickname"
     private lateinit var sharedPreferences: SharedPreferences
+    private var nickname: String = "" // 닉네임을 저장할 변수
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +38,15 @@ class RoomActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // 닉네임을 쉐어드 프리퍼런스에서 가져오기
-        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        val nickname = sharedPreferences.getString(NICKNAME_KEY, "") ?: ""
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+
+        getUser()
 
         //룸 아이디
         val roomId = intent.getStringExtra("roomId").toString()
         Log.d("roomId", roomId)
 
-        val chatMessageAdapter = ChatMessageAdapter()
+        val chatMessageAdapter = ChatMessageAdapter(nickname)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = chatMessageAdapter
 
@@ -82,7 +86,7 @@ class RoomActivity : AppCompatActivity() {
                         try {
                             jsonObject.put("type", "TALK")
                             jsonObject.put("roomId", roomId)
-                            jsonObject.put("sender", "박환")
+                            jsonObject.put("sender", nickname)
                             jsonObject.put("message", binding.editMessage.text.toString())
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -106,4 +110,31 @@ class RoomActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    private fun getUser() {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    nickname = user!!.nickname.toString()
+                    setUserNickname(nickname)
+                } else {
+
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                // Handle failure
+            }
+        })
+    }
+
+    private fun setUserNickname(nickname: String) {
+        this.nickname = nickname
+    }
+
+
 }
