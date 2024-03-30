@@ -2,7 +2,9 @@ package com.example.studymate.chatting
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,6 +41,15 @@ class RoomActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+
+        binding.zoomLoginBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudymate-tuk.kro.kr%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
+            startActivity(intent)
+        }
+
+        binding.getLinkBtn.setOnClickListener {
+            getZoomLink()
+        }
 
         getUser()
 
@@ -134,6 +145,24 @@ class RoomActivity : AppCompatActivity() {
 
     private fun setUserNickname(nickname: String) {
         this.nickname = nickname
+    }
+
+    private fun getZoomLink() {
+//        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getZoomLink()
+
+        call.enqueue(object : Callback<ZoomLinkModel> {
+            override fun onResponse(call: Call<ZoomLinkModel>, response: Response<ZoomLinkModel>) {
+                if (response.isSuccessful) {
+                    val link = response.body()
+                } else {
+
+                }
+            }
+            override fun onFailure(call: Call<ZoomLinkModel>, t: Throwable) {
+                // Handle failure
+            }
+        })
     }
 
 

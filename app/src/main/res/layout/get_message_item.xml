@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="60dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
@@ -22,34 +22,31 @@
             android:src="@drawable/mento_image"
             android:focusable="true" />
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-          <TextView
-              android:id="@+id/sender"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="김선재"
-              android:layout_marginStart="5dp"
-              android:textSize="15sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
 
-          <TextView
-              android:id="@+id/message"
-              android:layout_width="wrap_content"
-              android:layout_height="30sp"
-              android:text="내가 할껄 라이즈 센터"
-              android:layout_marginStart="5dp"
-              android:textColor="@color/black"
-              android:background="@drawable/edit_line"
-              android:gravity="center"
-              android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="김선재"
+                android:textSize="15sp"/>
 
-      </LinearLayout>
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 할껄 라이즈 센터"
+                android:textColor="@color/black"
+                android:background="@drawable/message_background"
+                android:minHeight="30dp"
+                android:gravity="center"
+                android:textSize="17sp"/>
 
-
-
-
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
