@@ -21,10 +21,10 @@ class MypageFragment : Fragment() {
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
 
-        binding.btn.setOnClickListener {
-            val customDialogFragment = CustomReviewDialogFragment()
-            customDialogFragment.show(requireActivity().supportFragmentManager, "CustomDialog")
-        }
+//        binding.btn.setOnClickListener {
+//            val customDialogFragment = CustomReviewDialogFragment()
+//            customDialogFragment.show(requireActivity().supportFragmentManager, "CustomDialog")
+//        }
 
 
         return binding.root

@@ -19,6 +19,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.disposables.Disposable
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -43,7 +44,7 @@ class RoomActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
 
         binding.zoomLoginBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudymate-tuk.kro.kr%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudy-mate.kro.kr%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
             startActivity(intent)
         }
 

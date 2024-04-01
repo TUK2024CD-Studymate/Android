@@ -7,6 +7,7 @@ import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
