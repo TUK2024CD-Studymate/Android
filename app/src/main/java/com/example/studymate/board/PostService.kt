@@ -25,6 +25,7 @@ interface PostService {
         @Body recordInfo: BoardWriteModel
     ): Call<SignUpResponseBody>
 
+    //게시물 가져오기
     @GET("/api/posts")
     fun getPostByEnqueue(
         @Header("Authorization") authorization: String,
@@ -115,9 +116,29 @@ interface PostService {
         @Query("name") name: String // 카테고리를 추가한 부분
     ): Call<List<RoomDto>>
 
+    //줌링크 생성
     @GET("/api/meeting/create")
     fun getZoomLink(
     ): Call<ZoomLinkModel>
+
+    //회원탈퇴
+    @DELETE("/api/user")
+    fun deleteUser(
+        @Header("Authorization") authorization: String
+    ): Call<SignUpResponseBody>
+
+    //
+    @GET("/api/user/post")
+    fun getMyPostEnqueue(
+        @Header("Authorization") authorization: String
+    ): Call<List<GetBoardModel>>
+
+
+
+
+
+
+
 
 
 
