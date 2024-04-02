@@ -123,6 +123,28 @@
                 android:text="pahw001129@naver.com"
                 android:textColor="@color/black" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="전화번호"
+                android:textColor="@color/Gray" />
+
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="01075575986"
+                android:textColor="@color/black" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
