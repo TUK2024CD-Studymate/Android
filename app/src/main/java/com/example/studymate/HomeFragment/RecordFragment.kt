@@ -191,7 +191,7 @@ class RecordFragment : Fragment() {
         val weekDay: Array<String> = resources.getStringArray(R.array.calendar_day)
         //켈린더 날짜 클릭
         calendarAdapter = CalendarAdapter(calendarList){ clickedDate ->
-            val startTime = "2024-03-$clickedDate"
+            val startTime = "2024-04-$clickedDate"
             Log.d("ClickedDate", "Clicked date: $startTime")
             getListForDate(startTime)
         }

@@ -10,13 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.R
-import com.example.studymate.StudyRecord.RecordListAdapter
-import com.example.studymate.StudyRecord.StudyModel
-import com.example.studymate.StudyRecord.StudyRetrofitAPI
 import com.example.studymate.databinding.ActivityBoardInsideBinding
-import com.example.studymate.databinding.ActivityBoardWriteBinding
-import com.example.studymate.loginFragment.VerifyModel
-import com.example.studymate.search.MentoInfoActivity
 import com.example.studymate.signUp.SignUpResponseBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

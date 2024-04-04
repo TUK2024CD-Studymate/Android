@@ -1,18 +1,15 @@
-package com.example.studymate
+package com.example.studymate.MyPage
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studymate.board.BoardInsideActivity
 import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.board.GetBoardModel
 import com.example.studymate.board.PostRetrofitAPI
-import com.example.studymate.databinding.ActivityMainBinding
 import com.example.studymate.databinding.ActivityMyPostBinding
 import retrofit2.Call
 import retrofit2.Callback

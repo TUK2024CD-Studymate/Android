@@ -60,7 +60,8 @@ class LoginActivity : AppCompatActivity() {
                         200 -> {
                             // 로그인 성공 시 토큰을 SharedPreferences에 저장
                             val editor = sharedPreferences.edit()
-                            editor.putString("userToken", response.body()?.token)
+                            editor.putString("userToken", response.body()?.accessToken)
+                            editor.putString("refreshToken",response.body()?.refreshToken)
                             editor.apply()
 
                             startActivity(intent)

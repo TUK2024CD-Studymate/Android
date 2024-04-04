@@ -1,5 +1,6 @@
 package com.example.studymate.chatting
 
+import CustomReviewDialogFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -50,6 +51,11 @@ class RoomActivity : AppCompatActivity() {
 
         binding.getLinkBtn.setOnClickListener {
             getZoomLink()
+        }
+
+                binding.reviewBtn.setOnClickListener {
+            val customDialogFragment = CustomReviewDialogFragment()
+            customDialogFragment.show(this.supportFragmentManager, "CustomDialog")
         }
 
         getUser()
