@@ -1,19 +1,32 @@
 package com.example.studymate
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.studymate.HomeFragment.*
+import com.example.studymate.board.GetBoardModel
+import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityHomeBinding
 import com.example.studymate.databinding.ActivityMainBinding
+import com.example.studymate.signUp.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+
 
         //초기 화면 로드
         loadFragment(SearchFragment())
@@ -52,4 +65,6 @@ class HomeActivity : AppCompatActivity() {
         transaction.replace(R.id.container,fragment)
         transaction.commit()
     }
+
+
 }

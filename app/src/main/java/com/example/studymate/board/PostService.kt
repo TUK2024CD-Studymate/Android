@@ -1,15 +1,23 @@
 package com.example.studymate.board
 
 import com.example.studymate.chatting.RoomDto
+import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.VerifyModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
 interface PostService {
+
+    //본인 회원정보 조회
+    @GET("/api/user")
+    fun getUserByEnqueue(
+        @Header("Authorization") authorization: String,
+    ): Call<User>
 
     @POST("/api/posts")
     fun addPostByEnqueue(
@@ -17,6 +25,7 @@ interface PostService {
         @Body recordInfo: BoardWriteModel
     ): Call<SignUpResponseBody>
 
+    //게시물 가져오기
     @GET("/api/posts")
     fun getPostByEnqueue(
         @Header("Authorization") authorization: String,
@@ -106,6 +115,30 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Query("name") name: String // 카테고리를 추가한 부분
     ): Call<List<RoomDto>>
+
+    //줌링크 생성
+    @GET("/api/meeting/create")
+    fun getZoomLink(
+    ): Call<ZoomLinkModel>
+
+    //회원탈퇴
+    @DELETE("/api/user")
+    fun deleteUser(
+        @Header("Authorization") authorization: String
+    ): Call<SignUpResponseBody>
+
+    //
+    @GET("/api/user/post")
+    fun getMyPostEnqueue(
+        @Header("Authorization") authorization: String
+    ): Call<List<GetBoardModel>>
+
+
+
+
+
+
+
 
 
 

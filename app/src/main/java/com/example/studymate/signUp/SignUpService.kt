@@ -6,6 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface SignUpService {
+    //회원 가입
     @Headers("Content-Type: application/json")
     @POST("/api/signIn")
     fun addUserByEnqueue(

@@ -1,0 +1,5 @@
+<!-- chat_room_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#E0E9FF" /> <!-- 연한 파란색 -->
+</shape>
