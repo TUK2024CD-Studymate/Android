@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,12 +82,18 @@ class BoardFragment : Fragment() {
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                getBoardList("FREE")
+                boardList = emptyList()
+                listAdapter.setList(boardList)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
+        //서취뷰
+        initSearchView()
+
+
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
@@ -142,6 +149,54 @@ class BoardFragment : Fragment() {
         // 어댑터에 정렬된 리스트 설정 및 갱신
         listAdapter.setList(boardList)
         listAdapter.notifyDataSetChanged()
+    }
+
+    //searchview 사용
+    private fun initSearchView() {
+        // init SearchView
+        binding.search.isSubmitButtonEnabled = true
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean { //검색을 완료하였을 경우 (키보드에 있는 '검색' 돋보기 버튼을 선택하였을 경우)
+                query?.let { getSearch(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean { //검색어를 변경할 때마다 실행됨
+                newText?.let { getSearch(it) }
+
+                return true
+            }
+        })
+    }
+
+    //검색어 사용
+    private fun getSearch(keyword: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getPostSearchEnqueue("Bearer $userToken", keyword)
+
+        call.enqueue(object : Callback<List<GetBoardModel>> {
+            override fun onResponse(call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>) {
+                if (response.isSuccessful) {
+                    val boardModelList: List<GetBoardModel>? = response.body()
+
+                    if (boardModelList != null) {
+
+                        boardList = boardModelList
+                        listAdapter.setList(boardList)
+
+                        activity?.runOnUiThread {
+                            binding.recyclerView.adapter = listAdapter
+                        }
+                    } else {
+                        Log.e("getBoardList", "Failed to convert response to List<GetBoardModel>")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetBoardModel>>, t: Throwable) {
+                Log.e("getBoardList", "Network request failed", t)
+            }
+        })
     }
 
 }

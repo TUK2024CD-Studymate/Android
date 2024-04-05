@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class NameFragment : Fragment() {
     lateinit var binding: FragmentNameBinding
-    private var signUpData: User = User(null, null, null,null, null, null, null,null,null,null)
+    private var signUpData = User(null, null, null,null, null, null, null,null,null,null)
     private var verifyData : MessageVerifyModel = MessageVerifyModel(null,null)
     override fun onStop() {
         super.onStop()

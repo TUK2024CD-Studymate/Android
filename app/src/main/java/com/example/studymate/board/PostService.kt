@@ -140,6 +140,12 @@ interface PostService {
         @Body logoutModel : LogoutModel
     ): Call<SignUpResponseBody>
 
+    @GET("/api/posts/search")
+    fun getPostSearchEnqueue(
+        @Header("Authorization") authorization: String,
+        @Query("keyword") keyword: String
+    ): Call<List<GetBoardModel>>
+
 
 
 
