@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -89,8 +90,18 @@ class SearchFragment : Fragment() {
 
         //@post
         binding.searchMento.setOnClickListener {
-            quesData.title = binding.titleEdit.text.toString()
-            quesData.content = binding.contentEdit.text.toString()
+            val title = binding.titleEdit.text.toString().trim()
+            val content = binding.contentEdit.text.toString().trim()
+            val selectedField = binding.spinner1.selectedItemPosition
+
+            if (title.isEmpty() || content.isEmpty() || selectedField == 0) {
+                Toast.makeText(requireContext(),"질문, 내용, 분야를 선택해주세요!",Toast.LENGTH_SHORT).show()
+                Log.d("SearchFragment", "Please fill in all fields.")
+                return@setOnClickListener
+            }
+
+            quesData.title = title
+            quesData.content =content
             val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
             retrofitWork.work(object : SearchRetrofitWork.Callback {
                 override fun onQuestionPosted(questionId: String?) {

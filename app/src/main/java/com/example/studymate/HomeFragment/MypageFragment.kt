@@ -34,6 +34,16 @@ class MypageFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", AppCompatActivity.MODE_PRIVATE)
 
+        //내정보 토글
+        binding.toggleBtn.setOnClickListener {
+            if (binding.mypage.visibility == View.VISIBLE) {
+                binding.mypage.visibility = View.GONE // 열려 있으면 닫기
+            } else {
+                binding.mypage.visibility = View.VISIBLE // 닫혀 있으면 열기
+            }
+        }
+
+
         //회원정보 로드
         getUser()
 

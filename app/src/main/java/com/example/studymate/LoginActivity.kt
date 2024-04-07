@@ -21,7 +21,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
     companion object {
-        private val PERMISSION_REQUEST_CODE = 5000
         private val TAG = "FCMActivity"
     }
 
@@ -85,6 +84,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("로그인 통신 실패", "fail")
                 }
             })
+            binding.editEmail.text = null
+            binding.editPass.text = null
         }
 
 
