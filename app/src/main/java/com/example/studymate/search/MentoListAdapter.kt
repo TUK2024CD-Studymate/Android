@@ -15,7 +15,7 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
     private var mentoList = listOf<GetMatchingModel>()
 
     interface OnItemClickListener {
-        fun onImageClick(item: GetMatchingModel)
+        fun onInfoClick(item: GetMatchingModel)
         fun onNameClick(item: GetMatchingModel)
         fun onInterestClick(item: GetMatchingModel)
     }
@@ -31,8 +31,8 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
             binding.interests.text = mapInterestsToKorean(item.interests)
 
             // 이미지 클릭 이벤트 설정
-            binding.mentoImg.setOnClickListener {
-                listener?.onImageClick(item)
+            binding.mentoInfo.setOnClickListener {
+                listener?.onInfoClick(item)
             }
 
             // 이름 클릭 이벤트 설정

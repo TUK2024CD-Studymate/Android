@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,12 +12,12 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mentoImg"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="15dp"
             android:background="@android:color/transparent"
             android:clickable="true"
-            android:src="@drawable/baseline_perm_identity_24"
+            android:src="@drawable/mento_image"
             android:focusable="true" />
 
         <TextView
@@ -46,6 +47,21 @@
             android:layout_gravity="center"
             android:textColor="@color/main_color"
             android:textSize="20sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/mentoInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:text="상세보기"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
 
 

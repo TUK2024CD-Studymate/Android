@@ -37,9 +37,11 @@ class MypageFragment : Fragment() {
         //내정보 토글
         binding.toggleBtn.setOnClickListener {
             if (binding.mypage.visibility == View.VISIBLE) {
+                binding.toggleBtn.setBackgroundResource(R.drawable.baseline_arrow_downward_24)
                 binding.mypage.visibility = View.GONE // 열려 있으면 닫기
             } else {
                 binding.mypage.visibility = View.VISIBLE // 닫혀 있으면 열기
+                binding.toggleBtn.setBackgroundResource(R.drawable.baseline_arrow_upward_24)
             }
         }
 

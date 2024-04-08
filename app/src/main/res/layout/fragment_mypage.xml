@@ -101,7 +101,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/toggleBtn"
@@ -303,6 +303,25 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#BFB8B8" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:text="좋아요한 게시물"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BFB8B8" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -343,12 +362,6 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#BFB8B8" />
 
 
 

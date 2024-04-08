@@ -141,7 +141,7 @@ class SearchFragment : Fragment() {
                         listAdapter.setList(matchingList)
                         recyclerView.layoutManager = LinearLayoutManager(requireContext())
                         listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
-                            override fun onImageClick(item: GetMatchingModel) {
+                            override fun onInfoClick(item: GetMatchingModel) {
                                 val intent = Intent(requireContext(),MentoInfoActivity::class.java)
                                 intent.putExtra("name",item.name)
                                 intent.putExtra("nickname",item.nickname)
