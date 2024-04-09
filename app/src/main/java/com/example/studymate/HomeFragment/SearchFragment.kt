@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -89,8 +90,18 @@ class SearchFragment : Fragment() {
 
         //@post
         binding.searchMento.setOnClickListener {
-            quesData.title = binding.titleEdit.text.toString()
-            quesData.content = binding.contentEdit.text.toString()
+            val title = binding.titleEdit.text.toString().trim()
+            val content = binding.contentEdit.text.toString().trim()
+            val selectedField = binding.spinner1.selectedItemPosition
+
+            if (title.isEmpty() || content.isEmpty() || selectedField == 0) {
+                Toast.makeText(requireContext(),"질문, 내용, 분야를 선택해주세요!",Toast.LENGTH_SHORT).show()
+                Log.d("SearchFragment", "Please fill in all fields.")
+                return@setOnClickListener
+            }
+
+            quesData.title = title
+            quesData.content =content
             val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
             retrofitWork.work(object : SearchRetrofitWork.Callback {
                 override fun onQuestionPosted(questionId: String?) {
@@ -130,15 +141,13 @@ class SearchFragment : Fragment() {
                         listAdapter.setList(matchingList)
                         recyclerView.layoutManager = LinearLayoutManager(requireContext())
                         listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
-                            override fun onImageClick(item: GetMatchingModel) {
+                            override fun onInfoClick(item: GetMatchingModel) {
                                 val intent = Intent(requireContext(),MentoInfoActivity::class.java)
                                 intent.putExtra("name",item.name)
-                                intent.putExtra("nickname",item.nickname)
-                                intent.putExtra("interests",item.interests)
-                                intent.putExtra("email",item.email)
-                                intent.putExtra("url",item.blogUrl)
-                                intent.putExtra("job",item.job)
-                                intent.putExtra("info",item.publicRelations)
+                                intent.putExtra("starAverage",item.starAverage)
+                                intent.putExtra("solved",item.solved)
+                                intent.putExtra("id",item.id)
+                                intent.putExtra("matchingCount",item.matchingCount)
                                 startActivity(intent)
                             }
 

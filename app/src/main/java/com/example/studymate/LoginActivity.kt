@@ -21,7 +21,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
     companion object {
-        private val PERMISSION_REQUEST_CODE = 5000
         private val TAG = "FCMActivity"
     }
 
@@ -60,7 +59,8 @@ class LoginActivity : AppCompatActivity() {
                         200 -> {
                             // 로그인 성공 시 토큰을 SharedPreferences에 저장
                             val editor = sharedPreferences.edit()
-                            editor.putString("userToken", response.body()?.token)
+                            editor.putString("userToken", response.body()?.accessToken)
+                            editor.putString("refreshToken",response.body()?.refreshToken)
                             editor.apply()
 
                             startActivity(intent)
@@ -84,6 +84,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("로그인 통신 실패", "fail")
                 }
             })
+            binding.editEmail.text = null
+            binding.editPass.text = null
         }
 
 

@@ -35,53 +35,48 @@
               android:text="박환"
               android:textColor="@color/black"
               android:textSize="18sp" />
-
-          <RatingBar
+          <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginStart="10dp"
-              style="@style/Widget.AppCompat.RatingBar.Small"
-              android:stepSize="1"
-              android:numStars="5"/>
+              android:orientation="horizontal">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="문제해결수"
+                  android:textSize="10sp"
+                  android:textColor="@color/black" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="1dp"
+                  android:text="0"
+                  android:textSize="10sp"
+                  android:textColor="@color/black" />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="10dp"
+                  android:text="매칭회수"
+                  android:textSize="10sp"
+                  android:textColor="@color/black" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="1dp"
+                  android:text="0"
+                  android:textSize="10sp"
+                  android:textColor="@color/black" />
+
+
+          </LinearLayout>
 
       </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="문제해결수"
-            android:textColor="@color/black" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:text="0"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="매칭회수"
-            android:textColor="@color/black" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:text="0"
-            android:textColor="@color/black" />
-
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -92,8 +87,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 정보"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/toggleBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/baseline_arrow_downward_24"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mypage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:visibility="gone"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -182,18 +205,6 @@
                 android:text="01075575986"
                 android:textColor="@color/black" />
         </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#BFB8B8" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -263,9 +274,11 @@
     </LinearLayout>
 
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="10dp"
         android:background="#BFB8B8" />
 
     <LinearLayout
@@ -286,6 +299,25 @@
     </LinearLayout>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BFB8B8" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:text="좋아요한 게시물"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -320,6 +352,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그아웃"
@@ -329,12 +362,6 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#BFB8B8" />
 
 
 

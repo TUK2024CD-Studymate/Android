@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.example.studymate.ProfileSetting
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.FragmentNameBinding
-import com.example.studymate.signUp.LoginBackendResponse
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
 import org.json.JSONObject
@@ -20,8 +19,8 @@ import retrofit2.Response
 
 class NameFragment : Fragment() {
     lateinit var binding: FragmentNameBinding
-    private var signUpData: User = User(null, null, null,null, null, null, null,null,null,null)
-    private var verifyData : VerifyModel = VerifyModel(null,null)
+    private var signUpData = User(null, null, null,null, null, null, null,null,null,null)
+    private var verifyData : MessageVerifyModel = MessageVerifyModel(null,null)
     override fun onStop() {
         super.onStop()
         val mainActivity = activity as ProfileSetting
@@ -40,10 +39,17 @@ class NameFragment : Fragment() {
         binding = FragmentNameBinding.inflate(inflater, container, false)
 
         binding.getNumBtn.setOnClickListener {
-            signUpData.tel = binding.editTel.text.toString()
-            postTel(signUpData)
-            binding.verifyNumEdit.visibility = View.VISIBLE
-            binding.verifyNumBtn.visibility = View.VISIBLE
+            val phoneNumber = binding.editTel.text.toString()
+            if (phoneNumber.length != 11) {
+                // 전화번호가 11자리가 아닌 경우 예외 처리
+                Toast.makeText(context, "전화번호를 형식에 맞게 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 전화번호가 11자리인 경우에만 인증번호 요청
+                signUpData.tel = phoneNumber
+                postTel(signUpData)
+                binding.verifyNumEdit.visibility = View.VISIBLE
+                binding.verifyNumBtn.visibility = View.VISIBLE
+            }
         }
         binding.verifyNumBtn.setOnClickListener {
             verifyData.phoneNumber = binding.editTel.text.toString()
@@ -73,7 +79,7 @@ class NameFragment : Fragment() {
             }
         })
     }
-    private fun postVerify(userVerify : VerifyModel){
+    private fun postVerify(userVerify : MessageVerifyModel){
         val call = PostRetrofitAPI.emgMedService.postVerifyByEnqueue(userVerify)
 
         call.enqueue(object : Callback<SignUpResponseBody> {

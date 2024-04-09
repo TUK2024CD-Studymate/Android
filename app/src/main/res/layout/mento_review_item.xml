@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="3dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/mento_image" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="박환"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
+             <RatingBar
+                 android:id="@+id/ratingBar"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="8dp"
+                 style="@style/Widget.AppCompat.RatingBar.Small"
+                 android:stepSize="1"
+                 android:numStars="5"/>
+
+             <TextView
+                 android:id="@+id/createAt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="10dp"
+                 android:text="2024-07-13"
+                 android:textSize="13sp" />
+
+         </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:text="이 집 진짜 잘해요 잘 알려주고 요리가 진짜 맛있어요이 집 진짜 잘해요 잘
+        알려주고 요리가 진짜 맛있어요이 집 진짜 잘해요 잘 알려주고 요리가 진짜 맛있어요"
+        android:textColor="@color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_line"/>
+
+</LinearLayout>

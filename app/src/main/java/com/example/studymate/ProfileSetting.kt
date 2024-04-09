@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.studymate.databinding.ActivityProfileSettingBinding
 import com.example.studymate.loginFragment.*
@@ -28,6 +29,19 @@ class ProfileSetting : AppCompatActivity() {
 
     private var cursor = 1
 
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            // 뒤로 가기 이벤트 처리
+            Log.d("daeYoung", "뒤로가기 클릭")
+            if (cursor > 1) {
+                supportFragmentManager.popBackStack()
+                cursor--
+                decreaseProgress()
+                changeState()
+            }else finish()
+        }
+    }
+
     private var signUpData: User = User(null, null, null,null, null, null, null,null,null,null)
 
     private val stepProgressAmount = 8
@@ -45,6 +59,8 @@ class ProfileSetting : AppCompatActivity() {
         binding = ActivityProfileSettingBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        this.onBackPressedDispatcher.addCallback(this, callback)
 
         binding.progressBar.max = stepProgressAmount * fragmentList.size
         binding.progressBar.progress = stepProgressAmount

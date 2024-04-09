@@ -1,13 +1,14 @@
 package com.example.studymate.board
 
+import com.example.studymate.MyPage.LogoutModel
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
-import com.example.studymate.loginFragment.VerifyModel
+import com.example.studymate.loginFragment.MessageVerifyModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
+import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -85,7 +86,7 @@ interface PostService {
     //인즌번호 맞는지 확인
     @POST("/api/signIn/message/verify")
     fun postVerifyByEnqueue(
-        @Body verifyModel : VerifyModel
+        @Body verifyModel : MessageVerifyModel
     ) : Call<SignUpResponseBody>
 
     //댓글 수 가져오기
@@ -127,19 +128,31 @@ interface PostService {
         @Header("Authorization") authorization: String
     ): Call<SignUpResponseBody>
 
-    //
+    //내 게시물
     @GET("/api/user/post")
     fun getMyPostEnqueue(
         @Header("Authorization") authorization: String
     ): Call<List<GetBoardModel>>
 
+    //로그아웃
+    @POST("/api/logout")
+    fun postLogout(
+        @Header("Authorization") authorization: String,
+        @Body logoutModel : LogoutModel
+    ): Call<SignUpResponseBody>
 
+    @GET("/api/posts/search")
+    fun getPostSearchEnqueue(
+        @Header("Authorization") authorization: String,
+        @Query("keyword") keyword: String
+    ): Call<List<GetBoardModel>>
 
-
-
-
-
-
+    //
+    @GET("/api/matching/review/{mentorId}")
+    fun getMentorReview(
+        @Header("Authorization") authorization: String,
+        @Path("mentorId") mentorId : String
+    ): Call<List<ReviewModel>>
 
 
 }
