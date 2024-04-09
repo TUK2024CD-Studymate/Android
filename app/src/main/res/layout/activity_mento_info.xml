@@ -48,13 +48,15 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
             <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:stepSize="1"
-                android:numStars="5"/>
+                android:numStars="5"
+                android:stepSize="1" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,13 +69,15 @@
                     android:text="문제해결수"
                     android:textSize="12sp"
                     android:textColor="@color/black" />
+
                 <TextView
+                    android:id="@+id/solved"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
                     android:text="0"
-                    android:textSize="12sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,6 +87,7 @@
                     android:textSize="12sp"
                     android:textColor="@color/black" />
                 <TextView
+                    android:id="@+id/matchingCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
@@ -93,7 +98,15 @@
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#BFB8B8" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

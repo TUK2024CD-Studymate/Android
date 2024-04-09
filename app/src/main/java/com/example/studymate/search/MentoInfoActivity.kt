@@ -4,8 +4,16 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.R
+import com.example.studymate.board.CommentListAdapter
+import com.example.studymate.board.GetCommentModel
+import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityMentoInfoBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MentoInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMentoInfoBinding
@@ -17,18 +25,54 @@ class MentoInfoActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-        val userToken = sharedPreferences.getString("userToken", "")
+
+        val id = intent.getStringExtra("id").toString()
 
         binding.nameText.text = intent.getStringExtra("name").toString()
-        binding.idText.text = intent.getStringExtra("nickname").toString()
-        binding.interestsText.text = intent.getStringExtra("interests").toString()
-        binding.emailText.text = intent.getStringExtra("email").toString()
-        binding.urlText.text = intent.getStringExtra("url").toString()
-        binding.jobText.text = intent.getStringExtra("job").toString()
-        binding.mentorInfoText.text = intent.getStringExtra("info").toString()
+        binding.solved.text = intent.getStringExtra("solved").toString()
+        binding.matchingCount.text = intent.getStringExtra("matchingCount").toString()
+        binding.ratingBar.rating = intent.getDoubleExtra("starAverage", 0.0).toFloat()
+
+        val listAdapter = MentoReviewAdapter()
+
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MentoInfoActivity)
+            setHasFixedSize(true)
+            adapter = listAdapter
+        }
+
+        getReviewList(id)
 
 
 
 
+
+
+    }
+
+    private fun getReviewList(mentorId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getMentorReview("Bearer $userToken", mentorId)
+        val listAdapter = MentoReviewAdapter()
+
+        call.enqueue(object : Callback<List<ReviewModel>> {
+            override fun onResponse(
+                call: Call<List<ReviewModel>>,
+                response: Response<List<ReviewModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val reviewModelList: List<ReviewModel>? = response.body()
+
+                    if (reviewModelList != null) {
+                        listAdapter.setList(reviewModelList)
+
+                        binding.recyclerView.adapter = listAdapter
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<ReviewModel>>, t: Throwable) {
+            }
+        })
     }
 }

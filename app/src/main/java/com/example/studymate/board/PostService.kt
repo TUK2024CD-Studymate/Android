@@ -6,6 +6,7 @@ import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.MessageVerifyModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
+import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
 import retrofit2.Call
@@ -146,14 +147,12 @@ interface PostService {
         @Query("keyword") keyword: String
     ): Call<List<GetBoardModel>>
 
-
-
-
-
-
-
-
-
+    //
+    @GET("/api/matching/review/{mentorId}")
+    fun getMentorReview(
+        @Header("Authorization") authorization: String,
+        @Path("mentorId") mentorId : String
+    ): Call<List<ReviewModel>>
 
 
 }

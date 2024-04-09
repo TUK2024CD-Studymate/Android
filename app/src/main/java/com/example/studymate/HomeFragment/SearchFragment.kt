@@ -144,12 +144,10 @@ class SearchFragment : Fragment() {
                             override fun onInfoClick(item: GetMatchingModel) {
                                 val intent = Intent(requireContext(),MentoInfoActivity::class.java)
                                 intent.putExtra("name",item.name)
-                                intent.putExtra("nickname",item.nickname)
-                                intent.putExtra("interests",item.interests)
-                                intent.putExtra("email",item.email)
-                                intent.putExtra("url",item.blogUrl)
-                                intent.putExtra("job",item.job)
-                                intent.putExtra("info",item.publicRelations)
+                                intent.putExtra("starAverage",item.starAverage)
+                                intent.putExtra("solved",item.solved)
+                                intent.putExtra("id",item.id)
+                                intent.putExtra("matchingCount",item.matchingCount)
                                 startActivity(intent)
                             }
 
