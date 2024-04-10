@@ -38,6 +38,7 @@ class MentoInfoActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MentoInfoActivity)
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = listAdapter
         }
 

@@ -14,8 +14,6 @@ data class GetMatchingModel (
     var heart: Int,
     var starAverage: Double, // 변경된 부분
     var solved: Int,
-    var matchingCount: Int,
-    var createAt : String,
-    var content : String
+    var matchingCount: Int
 
 )

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
         android:orientation="horizontal">
 
@@ -29,10 +29,12 @@
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="3dp"
                 android:text="박환"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
+
+
 
          <LinearLayout
              android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
                  android:id="@+id/ratingBar"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:layout_marginStart="8dp"
+                 android:progressTint="#FFEB3B"
+                 android:layout_marginStart="3dp"
                  style="@style/Widget.AppCompat.RatingBar.Small"
                  android:stepSize="1"
                  android:numStars="5"/>
@@ -71,6 +74,7 @@
         알려주고 요리가 진짜 맛있어요이 집 진짜 잘해요 잘 알려주고 요리가 진짜 맛있어요"
         android:textColor="@color/black"
         android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_line"/>
