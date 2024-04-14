@@ -4,6 +4,7 @@ import com.example.studymate.MyPage.LogoutModel
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.MessageVerifyModel
+import com.example.studymate.search.GetMatchingModel
 import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.search.ReviewModel
@@ -59,11 +60,12 @@ interface PostService {
         @Body quesInfo: QuesModel
     ): Call<SignUpResponseBody>
 
-    @GET("/api/matching/{questionId}")
+    //kmp 적용한 메칭
+    @GET("/api/matching/keyword/{question-id}")
     fun getMatchingList(
         @Header("Authorization") authorization: String,
-        @Path("questionId") questionId : String
-    ): Call<GetMatchingResponse>
+        @Path("question-id") questionId : String
+    ): Call<List<GetMatchingModel>>
 
     @DELETE("/api/posts/{post_id}")
     fun deletePostByEnqueue(

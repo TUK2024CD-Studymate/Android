@@ -92,6 +92,7 @@ class SearchFragment : Fragment() {
         binding.searchMento.setOnClickListener {
             val title = binding.titleEdit.text.toString().trim()
             val content = binding.contentEdit.text.toString().trim()
+            val specify = binding.specifyField.text.toString()
             val selectedField = binding.spinner1.selectedItemPosition
 
             if (title.isEmpty() || content.isEmpty() || selectedField == 0) {
@@ -102,6 +103,7 @@ class SearchFragment : Fragment() {
 
             quesData.title = title
             quesData.content =content
+            quesData.specificField = specify
             val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
             retrofitWork.work(object : SearchRetrofitWork.Callback {
                 override fun onQuestionPosted(questionId: String?) {
@@ -115,6 +117,7 @@ class SearchFragment : Fragment() {
 
             binding.titleEdit.text = null
             binding.contentEdit.text = null
+            binding.specifyField.text = null
         }
 
 
@@ -128,84 +131,86 @@ class SearchFragment : Fragment() {
         val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
         val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
 
-        call.enqueue(object : Callback<GetMatchingResponse> {
+        call.enqueue(object : Callback<List<GetMatchingModel>> {
             override fun onResponse(
-                call: Call<GetMatchingResponse>,
-                response: Response<GetMatchingResponse>
+                call: Call<List<GetMatchingModel>>,
+                response: Response<List<GetMatchingModel>>
             ) {
-                if (response.isSuccessful) {
-                    val matchingResponse: GetMatchingResponse? = response.body()
+                val matchingResponse: List<GetMatchingModel>? = response.body()
 
-                    if (matchingResponse != null) {
-                        matchingList = matchingResponse.memberList
-                        listAdapter.setList(matchingList)
-                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                        listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
-                            override fun onInfoClick(item: GetMatchingModel) {
-                                val intent = Intent(requireContext(),MentoInfoActivity::class.java)
-                                intent.putExtra("name",item.name)
-                                intent.putExtra("starAverage",item.starAverage)
-                                intent.putExtra("solved",item.solved)
-                                intent.putExtra("id",item.id)
-                                intent.putExtra("matchingCount",item.matchingCount)
-                                startActivity(intent)
-                            }
+                if (matchingResponse != null) {
+                    matchingList = matchingResponse
+                    listAdapter.setList(matchingList)
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
+                        override fun onInfoClick(item: GetMatchingModel) {
+                            val intent = Intent(requireContext(),MentoInfoActivity::class.java)
+                            intent.putExtra("name",item.name)
+                            intent.putExtra("starAverage",item.starAverage)
+                            intent.putExtra("solved",item.solved)
+                            intent.putExtra("id",item.id)
+                            intent.putExtra("matchingCount",item.matchingCount)
+                            startActivity(intent)
+                        }
 
-                            override fun onNameClick(item: GetMatchingModel) {
-                                alertDialog?.dismiss()
-                                //룸생성
-                                postRoom(item.nickname)
+                        override fun onNameClick(item: GetMatchingModel) {
+                            alertDialog?.dismiss()
+                            //룸생성
+                            postRoom(item.nickname)
 
-                                val chatFragment = ChatFragment().apply {
-                                    arguments = Bundle().apply {
-                                        putString("nickname",item.nickname)
-                                    }
+                            val chatFragment = ChatFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("nickname",item.nickname)
                                 }
-                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                                transaction.replace(R.id.container, chatFragment)
-                                transaction.addToBackStack(null)
-                                transaction.commit()
-
                             }
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.container, chatFragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
 
-                            override fun onInterestClick(item: GetMatchingModel) {
-                                alertDialog?.dismiss()
-                                // 룸생성
-                                postRoom(item.nickname)
+                        }
 
-                                val chatFragment = ChatFragment().apply {
-                                    arguments = Bundle().apply {
-                                        putString("nickname",item.nickname)
-                                    }
+                        override fun onInterestClick(item: GetMatchingModel) {
+                            alertDialog?.dismiss()
+                            // 룸생성
+                            postRoom(item.nickname)
+
+                            val chatFragment = ChatFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("nickname",item.nickname)
                                 }
-                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                                transaction.replace(R.id.container, chatFragment)
-                                transaction.addToBackStack(null)
-                                transaction.commit()
-
                             }
-                        })
-                        recyclerView.adapter = listAdapter
-                        recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.container, chatFragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
 
-                        // 다이얼로그를 표시
-                        val builder = AlertDialog.Builder(requireContext())
-                        builder.setTitle("멘토를 선택해주세요")
-                            .setView(dialogView)
-                            .setCancelable(true)
-                            .create()
-                            .also {dialog->
-                                alertDialog = dialog
-                                dialog.show()
-                            }
-                    }
+                        }
+                    })
+                    recyclerView.adapter = listAdapter
+                    recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
+                    // 다이얼로그를 표시
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("멘토를 선택해주세요")
+                        .setView(dialogView)
+                        .setCancelable(true)
+                        .create()
+                        .also {dialog->
+                            alertDialog = dialog
+                            dialog.show()
+                        }
+                } else {
+                    // 서버로부터의 응답이 null이거나 실패했을 때 처리할 내용을 여기에 추가할 수 있습니다.
                 }
             }
 
-            override fun onFailure(call: Call<GetMatchingResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
+                // 서버 통신 실패 시 처리할 내용을 여기에 추가할 수 있습니다.
             }
         })
     }
+
 
     private fun postRoom(name : String){
         val userToken = sharedPreferences.getString("userToken", "") ?: ""

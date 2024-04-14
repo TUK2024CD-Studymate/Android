@@ -68,7 +68,6 @@ class RecordFragment : Fragment() {
         val userToken = sharedPreferences.getString("userToken", "")
 
 
-        //시작버튼
         // 시작버튼
         binding.startBtn.setOnClickListener {
             if (!running) {
