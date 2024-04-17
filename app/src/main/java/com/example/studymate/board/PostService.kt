@@ -5,7 +5,6 @@ import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.MessageVerifyModel
 import com.example.studymate.search.GetMatchingModel
-import com.example.studymate.search.GetMatchingResponse
 import com.example.studymate.search.QuesModel
 import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
