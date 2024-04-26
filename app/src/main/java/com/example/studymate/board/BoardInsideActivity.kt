@@ -10,8 +10,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studymate.R
+import com.example.studymate.SseEventHandler
 import com.example.studymate.databinding.ActivityBoardInsideBinding
 import com.example.studymate.signUp.SignUpResponseBody
+import com.launchdarkly.eventsource.ConnectStrategy
+import com.launchdarkly.eventsource.EventSource
+import com.launchdarkly.eventsource.background.BackgroundEventSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +24,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 class BoardInsideActivity : AppCompatActivity() {
 
@@ -28,12 +34,34 @@ class BoardInsideActivity : AppCompatActivity() {
     var commentList = listOf<GetCommentModel>()
     private var isHeartRed: Boolean = false
 
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardInsideBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // SSE 연결
+        val eventSource: BackgroundEventSource = BackgroundEventSource //백그라운드에서 이벤트를 처리하기위한 EVENTSOURCE의 하위 클래스
+            .Builder(
+                SseEventHandler(),
+                EventSource.Builder(
+                    ConnectStrategy
+                        //유저 아이디 설정해줘야됨 아직 설정안해둠
+                        .http(URL("http://10.0.2.2:8080/subscribe/11"))
+                        // 서버와의 연결을 설정하는 타임아웃
+                        .connectTimeout(3, TimeUnit.SECONDS)
+                        // 서버로부터 데이터를 읽는 타임아웃 시간
+                        .readTimeout(600, TimeUnit.SECONDS)
+                )
+            )
+            .threadPriority(Thread.MAX_PRIORITY) //백그라운드 이벤트 처리를 위한 스레드 우선 순위를 최대로 설정합니다.
+            .build()
+
+// EventSource 연결 시작
+        eventSource.start()
+
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")

@@ -34,25 +34,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // SSE 연결
-        val eventSource: BackgroundEventSource = BackgroundEventSource
-            .Builder(
-                SseEventHandler(),
-                EventSource.Builder(
-                    ConnectStrategy
-                            //유저 아이디 설정해줘야됨 아직 설정안해둠
-                        .http(URL("study-mate.kro.kr:8080/subscribe/{user-id}"))
-                        // 커스텀 요청 헤더를 명시
-                        .connectTimeout(3, TimeUnit.SECONDS)
-                        // 최대 연결 유지 시간을 설정, 서버에 설정된 최대 연결 유지 시간보다 길게 설정
-                        .readTimeout(600, TimeUnit.SECONDS)
-                )
-            )
-            .threadPriority(Thread.MAX_PRIORITY)
-            .build()
-
-// EventSource 연결 시작
-        eventSource.start()
 
 
     }

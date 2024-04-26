@@ -21,10 +21,10 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STUDY \n MATE"
+            android:text="Study Mate"
             android:layout_marginStart="10dp"
-            android:textSize="17sp"
-            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textColor="@color/main_color"
             android:textStyle="bold"/>
 
         <androidx.appcompat.widget.SearchView
@@ -32,15 +32,10 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
+            android:iconifiedByDefault="false"
             app:iconifiedByDefault="false"
             app:queryHint="검색어를 입력해주세요"/>
 
-        <ImageView
-            android:id="@+id/ringImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ring"/>
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -71,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="스터디"/>
+
     </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
