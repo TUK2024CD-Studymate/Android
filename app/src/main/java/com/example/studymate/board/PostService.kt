@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
 import com.example.studymate.MyPage.LogoutModel
+import com.example.studymate.chatting.ReviewVO
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.MessageVerifyModel
@@ -154,6 +155,14 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("mentorId") mentorId : String
     ): Call<List<ReviewModel>>
+
+    //리뷰 포스트
+    @POST("/api/review/{mentorId}")
+    fun addReviewByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("mentorId") mentorId : String,
+        @Body reviewModel: ReviewVO
+    ): Call<SignUpResponseBody>
 
 
 }

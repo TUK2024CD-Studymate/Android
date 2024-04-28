@@ -153,6 +153,7 @@ class SearchFragment : Fragment() {
                             startActivity(intent)
                         }
 
+                        @SuppressLint("CommitPrefEdits")
                         override fun onNameClick(item: GetMatchingModel) {
                             alertDialog?.dismiss()
                             //룸생성
@@ -161,15 +162,17 @@ class SearchFragment : Fragment() {
                             val chatFragment = ChatFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("nickname",item.nickname)
+                                    val editor = sharedPreferences.edit()
+                                    editor.putString("mentorId", item.id)
+                                    editor.apply()
                                 }
                             }
                             val transaction = requireActivity().supportFragmentManager.beginTransaction()
                             transaction.replace(R.id.container, chatFragment)
-                            transaction.addToBackStack(null)
-                            transaction.commit()
 
                         }
 
+                        @SuppressLint("CommitPrefEdits")
                         override fun onInterestClick(item: GetMatchingModel) {
                             alertDialog?.dismiss()
                             // 룸생성
@@ -178,6 +181,10 @@ class SearchFragment : Fragment() {
                             val chatFragment = ChatFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("nickname",item.nickname)
+                                    val editor = sharedPreferences.edit()
+                                    editor.putString("mentorId", item.id)
+                                    editor.apply()
+
                                 }
                             }
                             val transaction = requireActivity().supportFragmentManager.beginTransaction()

@@ -40,6 +40,7 @@ class ChatFragment : Fragment() {
 
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         val roomName = arguments?.getString("nickname").toString()
+        val id = arguments?.getString("id").toString()
 
         listAdapter = ChatRoomAdapter(object : ChatRoomAdapter.OnItemClickListener {
             override fun onItemClick(roomModel: RoomDto) {
