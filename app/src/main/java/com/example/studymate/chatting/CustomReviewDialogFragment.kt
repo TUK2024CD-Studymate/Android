@@ -70,7 +70,7 @@ class CustomReviewDialogFragment : DialogFragment() {
             reviewModel.star = rating.toInt()
         }
 
-        //post
+        //POST API
         binding.submitBtn.setOnClickListener {
             reviewModel.title = binding.editTitle.text.toString()
             reviewModel.content = binding.editReview.text.toString()

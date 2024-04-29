@@ -34,27 +34,32 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/edit_line"
+            android:paddingStart="15dp"
+            android:background="@drawable/edit_purple"
             android:textColorHint="@color/lightGray"
             android:hint="@string/searchTitle"/>
-
-        <EditText
-            android:id="@+id/contentEdit"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/edit_line"
-            android:textColorHint="@color/lightGray"
-            android:hint="@string/mentoQuestion"/>
 
         <EditText
             android:id="@+id/specifyField"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/edit_line"
+            android:paddingStart="15dp"
+            android:background="@drawable/edit_purple"
             android:textColorHint="@color/lightGray"
-            android:hint="상세 카테고리를 적어주세요"/>
+            android:hint="상세 분야를 적어주세요"/>
+
+        <EditText
+            android:id="@+id/contentEdit"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
+            android:paddingStart="15dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="15dp"
+            android:gravity="top"
+            android:background="@drawable/edit_purple"
+            android:textColorHint="@color/lightGray"
+            android:hint="@string/mentoQuestion"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchMento"
