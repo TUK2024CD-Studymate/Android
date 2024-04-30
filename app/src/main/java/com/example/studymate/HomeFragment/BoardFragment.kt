@@ -94,7 +94,6 @@ class BoardFragment : Fragment() {
         initSearchView()
 
 
-
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
             startActivity(intent)

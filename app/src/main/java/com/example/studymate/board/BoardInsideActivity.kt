@@ -6,9 +6,12 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studymate.HomeFragment.BoardFragment
 import com.example.studymate.R
 import com.example.studymate.SseEventHandler
 import com.example.studymate.databinding.ActivityBoardInsideBinding
@@ -32,8 +35,7 @@ class BoardInsideActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardInsideBinding
     private lateinit var sharedPreferences: SharedPreferences
     var commentList = listOf<GetCommentModel>()
-    private var isHeartRed: Boolean = false
-
+    private lateinit var boardId: String
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +61,7 @@ class BoardInsideActivity : AppCompatActivity() {
             .threadPriority(Thread.MAX_PRIORITY) //백그라운드 이벤트 처리를 위한 스레드 우선 순위를 최대로 설정합니다.
             .build()
 
-// EventSource 연결 시작
+        // EventSource 연결 시작
         eventSource.start()
 
 
@@ -78,13 +80,14 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.backImg.setOnClickListener {
             finish()
         }
+
+        //메뉴 이벤트
+        binding.menuImg.setOnClickListener {
+            showOptionMenu(it)
+        }
+
         getBoardItem(boardId)
 
-        //게시글 이미지 클릭 이벤트
-//        binding.userImg.setOnClickListener {
-//            val intent = Intent(this,MentoInfoActivity::class.java)
-//            startActivity(intent)
-//        }
 
         // 댓글 post
         binding.postBtn.setOnClickListener {
@@ -97,25 +100,6 @@ class BoardInsideActivity : AppCompatActivity() {
         //댓글 get
         getCommentList(boardId)
 
-        //댓글삭제
-        binding.deleteText.setOnClickListener {
-            deletePost(boardId) { isSuccess ->
-                if (isSuccess) {
-                    finish()
-                } else {
-                    runOnUiThread {
-                        Toast.makeText(this, "삭제할 수 없습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-        //댓글 수정
-        binding.putText.setOnClickListener {
-            val intent = Intent(this, BoardWriteActivity::class.java)
-            intent.putExtra("boardId", boardId)
-            startActivity(intent)
-        }
 
         //adapter적용
         binding.recyclerView.apply {
@@ -126,24 +110,6 @@ class BoardInsideActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = listAdapter
         }
-
-        //게시물 좋아요 상태 복원
-        isHeartRed = sharedPreferences.getBoolean("$boardId-isHeartRed", false)
-        if (isHeartRed) {
-            binding.heart.setImageResource(R.drawable.pink_heart)
-        }
-
-        //게시물 좋아요
-        binding.heart.setOnClickListener {
-            if (!isHeartRed) {
-                postHeart(boardId)
-                binding.heart.setImageResource(R.drawable.pink_heart)
-                isHeartRed = true
-                // 상태를 저장
-                sharedPreferences.edit().putBoolean("$boardId-isHeartRed", true).apply()
-            }
-        }
-
 
     }
 
@@ -260,6 +226,36 @@ class BoardInsideActivity : AppCompatActivity() {
                 Log.d("로그인 통신 실패", t.message.toString())
             }
         })
+    }
+
+    private fun showOptionMenu(anchorView: View) {
+        val popupMenu = PopupMenu(this, anchorView)
+        boardId = intent.getStringExtra("boardId").toString()
+        popupMenu.menuInflater.inflate(R.menu.board_inside_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.delete -> {
+                    deletePost(boardId) { isSuccess ->
+                        if (isSuccess) {
+                            finish()
+                        } else {
+                            runOnUiThread {
+                                Toast.makeText(this, "삭제할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    true
+                }
+                R.id.like -> {
+                    postHeart(boardId)
+                    true
+
+                }
+                // 다른 메뉴 아이템에 대한 처리도 추가할 수 있습니다.
+                else -> false
+            }
+        }
+        popupMenu.show()
     }
 
 }

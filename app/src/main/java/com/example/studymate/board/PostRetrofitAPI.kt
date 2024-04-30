@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object PostRetrofitAPI {
     // 로컬 주소 "http://10.0.2.2:8080"
-    //배포 주소 "http://study-mate.kro.kr:8080"
+    //배포 주소 "http://studymate154:8080"
     private const val BASE_URL = "http://10.0.2.2:8080"
 
 
