@@ -29,8 +29,8 @@ class MentoInfoActivity : AppCompatActivity() {
         val id = intent.getStringExtra("id").toString()
 
         binding.nameText.text = intent.getStringExtra("name").toString()
-        binding.solved.text = intent.getStringExtra("solved").toString()
-        binding.matchingCount.text = intent.getStringExtra("matchingCount").toString()
+        binding.solved.text = intent.getStringExtra("solved")
+        binding.matchingCount.text = intent.getStringExtra("matchingCount")
         binding.ratingBar.rating = intent.getDoubleExtra("starAverage", 0.0).toFloat()
 
         val listAdapter = MentoReviewAdapter()
@@ -38,6 +38,7 @@ class MentoInfoActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MentoInfoActivity)
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = listAdapter
         }
 

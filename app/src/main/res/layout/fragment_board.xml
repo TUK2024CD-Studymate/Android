@@ -12,47 +12,44 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STUDY \n MATE"
-            android:layout_marginStart="10dp"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_weight="7"
+            android:padding="7dp"
+            android:iconifiedByDefault="false"
+            app:queryBackground="@drawable/edit_line"
             app:iconifiedByDefault="false"
             app:queryHint="검색어를 입력해주세요"/>
 
         <ImageView
-            android:id="@+id/ringImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:id="@+id/menuImg"
+            android:layout_width="14dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ring"/>
+            android:layout_gravity="center"
+            android:src="@drawable/dot"/>
+
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:theme="@style/TabTheme"
+        android:layout_marginTop="10dp"
         app:tabMinWidth="130dp"
         app:tabGravity="center"
+        app:tabBackground="@drawable/tab_background"
         app:tabTextAppearance="@style/tab_text"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/lightGray"
+        app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextColor="#915FC1"
         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -71,52 +68,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="스터디"/>
+
     </com.google.android.material.tabs.TabLayout>
 
-    <LinearLayout
-        android:id="@+id/filterLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:id="@+id/sortImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/sort"/>
-
-        <android.widget.Button
-            android:id="@+id/writeBtn"
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:text="글쓰기"
-            android:background="@drawable/shape_clicked"
-            android:layout_marginEnd="10dp"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/filterLayout"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/writeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:background="@drawable/write_btn"
+        android:text="글 쓰기"
+        android:textStyle="bold"
+        android:textColor="#3D3B3B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="16dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

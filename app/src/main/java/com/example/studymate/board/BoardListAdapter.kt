@@ -1,9 +1,12 @@
 package com.example.studymate.board
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.chatting.MessageModel
 import com.example.studymate.databinding.BoardItemListBinding
 
 class BoardListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<BoardListAdapter.MyView>() {

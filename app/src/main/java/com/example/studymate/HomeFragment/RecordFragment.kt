@@ -68,7 +68,6 @@ class RecordFragment : Fragment() {
         val userToken = sharedPreferences.getString("userToken", "")
 
 
-        //시작버튼
         // 시작버튼
         binding.startBtn.setOnClickListener {
             if (!running) {
@@ -205,7 +204,7 @@ class RecordFragment : Fragment() {
             binding.textYearMonth.text = localDate
 
             var preSunday: LocalDateTime = LocalDateTime.now().with(TemporalAdjusters.previous(
-                DayOfWeek.SUNDAY))
+                DayOfWeek.MONDAY))
 
             for (i in 0..6) {
                 Log.d("날짜만", weekDay[i])

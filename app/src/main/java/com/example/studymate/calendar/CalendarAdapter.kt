@@ -1,5 +1,6 @@
 package com.example.studymate.calendar
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class CalendarAdapter(private val cList: List<CalendarVO>, private val dateClick
     private var selectedDate: String? = LocalDate.now().format(DateTimeFormatter.ofPattern("dd").withLocale(Locale.forLanguageTag("ko")))
     class CalendarViewHolder(private val binding: ItemCalendarListBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("ResourceAsColor")
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(item: CalendarVO, selectedDate: String?) {
             binding.date.text = item.cl_date
@@ -25,6 +27,8 @@ class CalendarAdapter(private val cList: List<CalendarVO>, private val dateClick
 
             if (item.cl_date == selectedDate) {
                 binding.weekCardView.setBackgroundResource(R.drawable.background_blue)
+                binding.date.setTextColor(R.color.white)
+                binding.day.setTextColor(R.color.white)
             } else {
                 binding.weekCardView.setBackgroundResource(R.color.white)
             }

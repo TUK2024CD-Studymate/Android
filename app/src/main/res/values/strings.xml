@@ -23,8 +23,8 @@
     <string name="title">제목</string>
     <string name="delete">삭제하기</string>
     <string name="save">저장하기</string>
-    <string name="insertContent">내용을 입력해주세요</string>
-    <string name="insertStudyContent">스터디 내용을 입력해주세요</string>
+    <string name="insertContent">내용</string>
+    <string name="insertStudyContent">스터디 내용을 입력해주세요.</string>
 
 
     //시작 프래그먼트
@@ -64,7 +64,7 @@
     <string name="startMatching">온라인 매칭을 시작해볼게요.</string>
     <string name="selectInterests">관심분야를 선택하세요</string>
     <string name="searchTitle">제목을 적어주세요</string>
-    <string name="matchingStart">온라인 매칭 시작하기</string>
+    <string name="matchingStart">검색하기</string>
     <string name="mentoQuestion">질문 내용을 적어주세요</string>
 
 </resources>

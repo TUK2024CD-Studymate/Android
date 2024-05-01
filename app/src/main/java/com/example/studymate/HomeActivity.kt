@@ -12,9 +12,14 @@ import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityHomeBinding
 import com.example.studymate.databinding.ActivityMainBinding
 import com.example.studymate.signUp.User
+import com.launchdarkly.eventsource.ConnectStrategy
+import com.launchdarkly.eventsource.EventSource
+import com.launchdarkly.eventsource.background.BackgroundEventSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -26,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+
 
 
         //초기 화면 로드

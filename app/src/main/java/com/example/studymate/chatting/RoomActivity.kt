@@ -1,26 +1,22 @@
 package com.example.studymate.chatting
 
-import CustomReviewDialogFragment
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.beust.klaxon.Klaxon
+import com.example.studymate.HomeFragment.ChatFragment
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityChattingRoomBinding
 import com.example.studymate.signUp.User
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import io.reactivex.disposables.Disposable
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -44,16 +40,22 @@ class RoomActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
 
+
+
+
+        //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudy-mate.kro.kr%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
             startActivity(intent)
         }
 
+        //줌링크 이벤트
         binding.getLinkBtn.setOnClickListener {
             getZoomLink()
         }
 
-                binding.reviewBtn.setOnClickListener {
+        //리뷰 이벤트
+        binding.reviewBtn.setOnClickListener {
             val customDialogFragment = CustomReviewDialogFragment()
             customDialogFragment.show(this.supportFragmentManager, "CustomDialog")
         }
@@ -68,7 +70,7 @@ class RoomActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = chatMessageAdapter
 
-        val url = "ws://study-mate.kro.kr:8080/ws/chat"
+        val url = "ws://10.0.2.2:8080/ws/chat"
         val intervalMillis = 1000L
         val client = OkHttpClient()
 

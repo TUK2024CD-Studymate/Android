@@ -6,14 +6,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.R
 import com.example.studymate.board.*
 import com.example.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout
@@ -31,6 +31,9 @@ class BoardFragment : Fragment() {
         TIME_ASCENDING, TIME_DESCENDING
     }
     private var currentSortOrder: SortOrder = SortOrder.TIME_DESCENDING
+
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +52,12 @@ class BoardFragment : Fragment() {
                 startActivity(intent)
             }
         })
-        // 게시글 시간으로 정렬
-        binding.sortImage.setOnClickListener {
-            currentSortOrder = if (currentSortOrder == SortOrder.TIME_DESCENDING) {
-                SortOrder.TIME_ASCENDING
-            } else {
-                SortOrder.TIME_DESCENDING
-            }
-            sortAndRefreshList()
+
+        //메뉴 이벤트
+        binding.menuImg.setOnClickListener {
+            showOptionMenu(it)
         }
+
 
 
 
@@ -94,7 +94,6 @@ class BoardFragment : Fragment() {
         initSearchView()
 
 
-
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
             startActivity(intent)
@@ -106,6 +105,7 @@ class BoardFragment : Fragment() {
 
         return binding.root
     }
+
 
 
     private fun getBoardList(category: String) {
@@ -197,6 +197,28 @@ class BoardFragment : Fragment() {
                 Log.e("getBoardList", "Network request failed", t)
             }
         })
+    }
+
+    //메뉴 아이템 클릭 이벤트
+    private fun showOptionMenu(anchorView: View) {
+        val popupMenu = PopupMenu(requireContext(), anchorView)
+        popupMenu.menuInflater.inflate(R.menu.board_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.sort -> {
+                    currentSortOrder = if (currentSortOrder == SortOrder.TIME_DESCENDING) {
+                        SortOrder.TIME_ASCENDING
+                    } else {
+                        SortOrder.TIME_DESCENDING
+                    }
+                    sortAndRefreshList()
+                    true
+                }
+                // 다른 메뉴 아이템에 대한 처리도 추가할 수 있습니다.
+                else -> false
+            }
+        }
+        popupMenu.show()
     }
 
 }

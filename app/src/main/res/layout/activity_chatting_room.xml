@@ -50,28 +50,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editMessage"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_clicked"
-            android:hint="메시지 입력"
-            android:padding="8dp" />
+            android:hint="메시지 입력" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/assign_button"
-            android:text="전송"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginStart="8dp"
-            android:padding="8dp" />
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            android:text="@string/post"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@drawable/write_btn"/>
 
     </LinearLayout>
 

@@ -1,10 +1,11 @@
 package com.example.studymate.board
 
 import com.example.studymate.MyPage.LogoutModel
+import com.example.studymate.chatting.ReviewVO
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
 import com.example.studymate.loginFragment.MessageVerifyModel
-import com.example.studymate.search.GetMatchingResponse
+import com.example.studymate.search.GetMatchingModel
 import com.example.studymate.search.QuesModel
 import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
@@ -59,11 +60,12 @@ interface PostService {
         @Body quesInfo: QuesModel
     ): Call<SignUpResponseBody>
 
-    @GET("/api/matching/{questionId}")
+    //kmp 적용한 메칭
+    @GET("/api/matching/keyword/{question-id}")
     fun getMatchingList(
         @Header("Authorization") authorization: String,
-        @Path("questionId") questionId : String
-    ): Call<GetMatchingResponse>
+        @Path("question-id") questionId : String
+    ): Call<List<GetMatchingModel>>
 
     @DELETE("/api/posts/{post_id}")
     fun deletePostByEnqueue(
@@ -153,6 +155,14 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("mentorId") mentorId : String
     ): Call<List<ReviewModel>>
+
+    //리뷰 포스트
+    @POST("/api/review/{mentorId}")
+    fun addReviewByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("mentorId") mentorId : String,
+        @Body reviewModel: ReviewVO
+    ): Call<SignUpResponseBody>
 
 
 }
