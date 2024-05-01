@@ -70,7 +70,7 @@ class RoomActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = chatMessageAdapter
 
-        val url = "ws://study-mate.kro.kr:8080/ws/chat"
+        val url = "ws://10.0.2.2:8080/ws/chat"
         val intervalMillis = 1000L
         val client = OkHttpClient()
 

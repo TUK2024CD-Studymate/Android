@@ -113,6 +113,7 @@ class BoardInsideActivity : AppCompatActivity() {
 
     }
 
+    //게시글 내용 불러오기
     private fun getBoardItem(id: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getPostIdByEnqueue("Bearer $userToken", id)
@@ -144,6 +145,7 @@ class BoardInsideActivity : AppCompatActivity() {
         })
     }
 
+    // 카테고리 한국어로 변경
     enum class BoardCategory(val korName: String) {
         FREE("자유게시판"),
         QUESTION("질문게시판"),
@@ -156,6 +158,7 @@ class BoardInsideActivity : AppCompatActivity() {
         }
     }
 
+    //댓글 목록 불러오기
     private fun getCommentList(postId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getCommentByEnqueue("Bearer $userToken", postId)
@@ -183,6 +186,7 @@ class BoardInsideActivity : AppCompatActivity() {
         })
     }
 
+    //게시글 삭제
     private fun deletePost(boardId: String, onPostDeleted: (Boolean) -> Unit) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.deletePostByEnqueue("Bearer $userToken", boardId)
@@ -210,6 +214,7 @@ class BoardInsideActivity : AppCompatActivity() {
         }
     }
 
+    // 좋아요 누르기
     private fun postHeart(boardId : String){
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.postHeart("Bearer $userToken",boardId)
@@ -228,6 +233,7 @@ class BoardInsideActivity : AppCompatActivity() {
         })
     }
 
+    //아이템 메뉴
     private fun showOptionMenu(anchorView: View) {
         val popupMenu = PopupMenu(this, anchorView)
         boardId = intent.getStringExtra("boardId").toString()

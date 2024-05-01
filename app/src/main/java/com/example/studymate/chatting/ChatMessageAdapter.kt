@@ -3,6 +3,7 @@ package com.example.studymate.chatting
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +17,9 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
 
     fun addMessage(message: MessageModel) {
         messageList.add(message)
-        Handler(Looper.getMainLooper()).postDelayed({
-            notifyDataSetChanged()
-        }, 100)
+        Handler(Looper.getMainLooper()).post {
+            notifyItemInserted(messageList.size - 1)
+        }
     }
 
     inner class MyView(private val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -36,13 +37,19 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = if (viewType == VIEW_TYPE_SEND_MESSAGE) {
-            SendMessageItemBinding.inflate(inflater, parent, false)
-        } else {
-            GetMessageItemBinding.inflate(inflater, parent, false)
+        return when (viewType) {
+            VIEW_TYPE_SEND_MESSAGE -> {
+                val binding = SendMessageItemBinding.inflate(inflater, parent, false)
+                MyView(binding)
+            }
+            VIEW_TYPE_GET_MESSAGE -> {
+                val binding = GetMessageItemBinding.inflate(inflater, parent, false)
+                MyView(binding)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
         }
-        return MyView(binding)
     }
+
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(position)
@@ -55,8 +62,10 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
     override fun getItemViewType(position: Int): Int {
         val messageModel = messageList[position]
         return if (messageModel.sender == nickname) {
+            Log.d("ChatAdapter", "Send message type for position $position")
             VIEW_TYPE_SEND_MESSAGE
         } else {
+            Log.d("ChatAdapter", "Get message type for position $position")
             VIEW_TYPE_GET_MESSAGE
         }
     }

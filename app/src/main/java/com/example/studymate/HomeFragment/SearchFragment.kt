@@ -169,6 +169,8 @@ class SearchFragment : Fragment() {
                             }
                             val transaction = requireActivity().supportFragmentManager.beginTransaction()
                             transaction.replace(R.id.container, chatFragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
 
                         }
 
