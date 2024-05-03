@@ -173,28 +173,6 @@ class SearchFragment : Fragment() {
                             transaction.commit()
 
                         }
-
-                        @SuppressLint("CommitPrefEdits")
-                        override fun onInterestClick(item: GetMatchingModel) {
-                            alertDialog?.dismiss()
-                            // 룸생성
-                            postRoom(item.nickname)
-
-                            val chatFragment = ChatFragment().apply {
-                                arguments = Bundle().apply {
-                                    putString("nickname",item.nickname)
-                                    val editor = sharedPreferences.edit()
-                                    editor.putString("mentorId", item.id)
-                                    editor.apply()
-
-                                }
-                            }
-                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                            transaction.replace(R.id.container, chatFragment)
-                            transaction.addToBackStack(null)
-                            transaction.commit()
-
-                        }
                     })
                     recyclerView.adapter = listAdapter
                     recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

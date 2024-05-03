@@ -38,16 +38,6 @@
             android:textColor="@color/black"
             android:textSize="20sp"/>
 
-        <TextView
-            android:id="@+id/interests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="프로그래밍"
-            android:layout_marginStart="10dp"
-            android:layout_gravity="center"
-            android:textColor="@color/main_color"
-            android:textSize="20sp"/>
-
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"

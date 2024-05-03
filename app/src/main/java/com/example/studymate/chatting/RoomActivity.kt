@@ -45,7 +45,7 @@ class RoomActivity : AppCompatActivity() {
 
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudy-mate.kro.kr%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudymate154%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
             startActivity(intent)
         }
 
@@ -70,7 +70,7 @@ class RoomActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = chatMessageAdapter
 
-        val url = "ws://10.0.2.2:8080/ws/chat"
+        val url = "ws://studymate154.com:8080/ws/chat"
         val intervalMillis = 1000L
         val client = OkHttpClient()
 

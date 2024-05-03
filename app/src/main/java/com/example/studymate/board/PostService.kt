@@ -67,12 +67,14 @@ interface PostService {
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
 
+    //게시글 삭제
     @DELETE("/api/posts/{post_id}")
     fun deletePostByEnqueue(
         @Header("Authorization") authorization: String,
         @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
     ):  Call<SignUpResponseBody>
 
+    //게시글 수정
     @PUT("/api/posts/{post_id}")
     fun putPostByEnqueue(
         @Header("Authorization") authorization: String,
@@ -91,11 +93,6 @@ interface PostService {
         @Body verifyModel : MessageVerifyModel
     ) : Call<SignUpResponseBody>
 
-    //댓글 수 가져오기
-    @GET("/api/posts/{post_id}/comments/count")
-    fun getComment(
-        @Header("Authorization") authorization: String
-    ): Call<SignUpResponseBody>
 
     // 좋아요 보내기
     @POST("/api/post/heart/{postId}")
@@ -143,13 +140,14 @@ interface PostService {
         @Body logoutModel : LogoutModel
     ): Call<SignUpResponseBody>
 
+    //게시글 검색
     @GET("/api/posts/search")
     fun getPostSearchEnqueue(
         @Header("Authorization") authorization: String,
         @Query("keyword") keyword: String
     ): Call<List<GetBoardModel>>
 
-    //
+    //멘토 리뷰 가져오기
     @GET("/api/matching/review/{mentorId}")
     fun getMentorReview(
         @Header("Authorization") authorization: String,
