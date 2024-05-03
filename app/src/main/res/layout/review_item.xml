@@ -91,7 +91,7 @@
             android:layout_height="30dp"
             android:text="해결"
             android:textSize="12sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -100,7 +100,7 @@
             android:layout_height="30dp"
             android:text="미해결"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
@@ -131,7 +131,7 @@
             android:layout_height="30dp"
             android:text="네"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -140,7 +140,7 @@
             android:layout_height="30dp"
             android:text="아니요"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
