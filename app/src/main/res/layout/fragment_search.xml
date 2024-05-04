@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="60dp"
             android:text="@string/startMatching"
-            android:textSize="25sp"
+            android:gravity="center"
+            android:textSize="28sp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
 
@@ -35,7 +37,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:paddingStart="15dp"
-            android:background="@drawable/edit_purple"
+            android:textSize="14sp"
+            android:background="@drawable/edit_black"
             android:textColorHint="@color/lightGray"
             android:hint="@string/searchTitle"/>
 
@@ -44,8 +47,9 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:paddingStart="15dp"
-            android:background="@drawable/edit_purple"
+            android:textSize="14sp"
+            android:paddingStart="15sp"
+            android:background="@drawable/edit_black"
             android:textColorHint="@color/lightGray"
             android:hint="상세 분야를 적어주세요"/>
 
@@ -56,19 +60,22 @@
             android:paddingStart="15dp"
             android:layout_marginTop="20dp"
             android:paddingTop="15dp"
+            android:textSize="14sp"
             android:gravity="top"
-            android:background="@drawable/edit_purple"
+            android:background="@drawable/edit_black"
             android:textColorHint="@color/lightGray"
             android:hint="@string/mentoQuestion"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchMento"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:background="@drawable/assign_button"
+            android:background="@drawable/next_button"
             android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"
             android:text="@string/matchingStart"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -119,7 +119,7 @@
     <TextView
         android:id="@+id/content"
         android:layout_width="380dp"
-        android:layout_height="170dp"
+        android:layout_height="150dp"
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:text="다들 즐거운 연휴되세요!!\n  \n소소한 보상이지만 필요하신분들은 사용한안에 챙겨가세요!"
@@ -143,24 +143,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editComment"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
+            android:layout_weight="9"
             android:layout_height="wrap_content"
             android:hint="댓글을 입력해보세요"/>
 
         <android.widget.Button
-            android:id="@+id/postBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="35dp"
-            android:textColor="@color/black"
-            android:text="@string/post"
-            android:textSize="18sp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="3"
+            android:background="@drawable/write_btn"
             android:gravity="center"
-            android:background="@drawable/write_btn"/>
+            android:text="@string/post"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
 
     </LinearLayout>
