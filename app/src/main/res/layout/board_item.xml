@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="80dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
         android:orientation="horizontal">
 
 
@@ -14,11 +15,11 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_gravity="center"
+            android:layout_marginStart="15dp"
             android:text="여기는 제목 입니다"
-            android:textSize="20sp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <ImageView
             android:layout_width="16dp"
@@ -62,7 +63,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
 
@@ -70,7 +72,6 @@
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginStart="15dp"
             android:text="01-04-12:45"
             android:textSize="15sp" />
@@ -78,17 +79,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="|"
-            android:layout_gravity="center"
             android:layout_marginStart="15dp"
-            android:textSize="25sp"/>
+            android:text="|"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/nicknameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_gravity="center"
             android:text="김선재"
             android:textSize="15sp" />
 

@@ -4,9 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studymate.board.BoardListAdapter
-import com.example.studymate.board.GetBoardModel
-import com.example.studymate.databinding.BoardItemListBinding
 import com.example.studymate.databinding.RoomItemListBinding
 
 class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {

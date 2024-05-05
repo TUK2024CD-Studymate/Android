@@ -13,7 +13,7 @@
     <item
         android:id="@+id/board"
         android:title="@string/board"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/board"/>
 
     <item
         android:id="@+id/record"

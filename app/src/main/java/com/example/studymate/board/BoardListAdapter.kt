@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.chatting.MessageModel
-import com.example.studymate.databinding.BoardItemListBinding
+import com.example.studymate.databinding.BoardItemBinding
 
 class BoardListAdapter(private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<BoardListAdapter.MyView>() {
 
@@ -16,7 +16,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
     interface OnItemClickListener {
         fun onItemClick(boardModel: GetBoardModel)
     }
-    inner class MyView(private val binding: BoardItemListBinding) :
+    inner class MyView(private val binding: BoardItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(boardModel: GetBoardModel) {
@@ -35,7 +35,7 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardListAdapter.MyView {
-        val view = BoardItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = BoardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyView(view)
     }
 

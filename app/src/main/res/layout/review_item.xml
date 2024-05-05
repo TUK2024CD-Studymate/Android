@@ -9,7 +9,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="멘토에 대한 리뷰를 남겨해주세요"
+        android:text="멘토에 대한 리뷰를 남겨주세요"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
@@ -87,7 +87,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/solved"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:text="해결"
             android:textSize="12sp"
@@ -96,7 +96,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/notSolved"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:text="미해결"
             android:textSize="14sp"
@@ -127,16 +127,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/like"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="30dp"
+            android:background="@drawable/shape_clicked"
             android:text="네"
-            android:textSize="14sp"
             android:textColor="@drawable/selector_text"
-            android:background="@drawable/shape_clicked"/>
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/notLike"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:text="아니요"
             android:textSize="14sp"
@@ -163,15 +163,16 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 제출 버튼 -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="제출하기"
-        android:textColor="@color/gray"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:background="@drawable/next_button"
         app:layout_constraintTop_toBottomOf="@+id/matchingLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
