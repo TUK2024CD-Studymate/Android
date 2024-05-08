@@ -128,6 +128,7 @@ class RoomActivity : AppCompatActivity() {
     }
 
 
+    //내 정보 불러오기
     private fun getUser() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")

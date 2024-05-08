@@ -11,6 +11,7 @@ import com.example.studymate.search.QuesModel
 import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -155,6 +156,14 @@ interface PostService {
     fun getMyRoom(
         @Header("Authorization") authorization: String,
     ): Call<List<ChatRoom>>
+
+    //멘토에게 매칭 알림 보내기
+    @GET("/api/matching/{questionID}/{mentorId}")
+    fun sendMatchingAlert(
+        @Header("Authorization") authorization: String,
+        @Path("questionID") questionID : String,
+        @Path("mentorId") mentorId : String,
+    ): Call<SignUpResponseBody>
 
 
 }

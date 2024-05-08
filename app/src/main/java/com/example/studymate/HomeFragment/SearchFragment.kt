@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.R
+import com.example.studymate.board.CommentListAdapter
+import com.example.studymate.board.GetCommentModel
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.FragmentSearchBinding
 import com.example.studymate.search.*
@@ -31,6 +33,7 @@ class SearchFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var listAdapter: MentoListAdapter
     var matchingList = listOf<GetMatchingModel>()
+    private lateinit var quesId: String
     private var alertDialog: AlertDialog? = null
 
     @SuppressLint("InflateParams")
@@ -88,7 +91,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        //@post
+        //질문 post
         binding.searchMento.setOnClickListener {
             val title = binding.titleEdit.text.toString().trim()
             val content = binding.contentEdit.text.toString().trim()
@@ -108,6 +111,7 @@ class SearchFragment : Fragment() {
             retrofitWork.work(object : SearchRetrofitWork.Callback {
                 override fun onQuestionPosted(questionId: String?) {
                     Log.d("Question ID", questionId.toString())
+                    quesId = questionId!!
                     getMatchingList(questionId.toString())
                 }
 
@@ -158,6 +162,8 @@ class SearchFragment : Fragment() {
                         override fun onNameClick(item: GetMatchingModel) {
                             alertDialog?.dismiss()
 
+                            sendMatchingAlert(quesId,item.id)
+
                             val chatFragment = ChatFragment().apply {
                                 arguments = Bundle().apply {
                                     putString("nickname",item.nickname)
@@ -193,6 +199,27 @@ class SearchFragment : Fragment() {
 
             override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
                 // 서버 통신 실패 시 처리할 내용을 여기에 추가할 수 있습니다.
+            }
+        })
+    }
+
+
+    private fun sendMatchingAlert(questionID: String,mentorId : String ) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.sendMatchingAlert("Bearer $userToken", questionID, mentorId)
+
+        call.enqueue(object : Callback<SignUpResponseBody> {
+            override fun onResponse(
+                call: Call<SignUpResponseBody>,
+                response: Response<SignUpResponseBody>
+            ) {
+                if (response.isSuccessful) {
+                    val signUpResponseBody: SignUpResponseBody? = response.body()
+                    Log.d("sendMatchingAlert",signUpResponseBody.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
             }
         })
     }
