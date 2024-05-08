@@ -25,9 +25,10 @@
 
         <Spinner
             android:id="@+id/spinner1"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:theme="@style/SpinnerTheme"
+            android:background="@drawable/edit_black"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal" />
         

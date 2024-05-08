@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
 import com.example.studymate.MyPage.LogoutModel
+import com.example.studymate.chatting.ChatRoom
 import com.example.studymate.chatting.ReviewVO
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
@@ -101,20 +102,7 @@ interface PostService {
         @Path("postId") postId: String
     ) : Call<SignUpResponseBody>
 
-    //방생성
-    @FormUrlEncoded
-    @POST("/api/chat/room")
-    fun postRoom(
-        @Header("Authorization") authorization: String,
-        @Field("name") name: String
-    ): Call<SignUpResponseBody>
 
-    //채팅방 룸 가져오기
-    @GET("/api/chat/rooms")
-    fun getRoomList(
-        @Header("Authorization") authorization: String,
-        @Query("name") name: String // 카테고리를 추가한 부분
-    ): Call<List<RoomDto>>
 
     //줌링크 생성
     @GET("/api/meeting/create")
@@ -161,6 +149,12 @@ interface PostService {
         @Path("mentorId") mentorId : String,
         @Body reviewModel: ReviewVO
     ): Call<SignUpResponseBody>
+    
+    //내 방 목록 가져오기
+    @GET("/api/chat/rooms/list")
+    fun getMyRoom(
+        @Header("Authorization") authorization: String,
+    ): Call<List<ChatRoom>>
 
 
 }

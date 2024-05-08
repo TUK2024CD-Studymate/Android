@@ -41,11 +41,9 @@ class RoomActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
 
 
-
-
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2Fstudymate154%3A8080%2Fapi%2Fmeeting%2FzoomApi"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2F3.36.177.42%2Fapi%2Fmeeting%2FzoomApi"))
             startActivity(intent)
         }
 
@@ -83,7 +81,7 @@ class RoomActivity : AppCompatActivity() {
             when (it.type) {
                 Event.Type.OPENED -> {
                     topic = stomp.join("/sub/chat/room/${roomId}").subscribe { stompMessage ->
-                        val responseData = JSONObject(stompMessage).getString("message")
+                        val responseData = JSONObject(stompMessage).getString("content")
                         val nickname = JSONObject(stompMessage).getString("sender")
                         Log.d("ReceivedMessage", "Received message: $responseData")
                         val messageModel = MessageModel(nickname, responseData) // 상대방 메시지이므로 고정된 값으로 설정
@@ -94,8 +92,7 @@ class RoomActivity : AppCompatActivity() {
                     }
 
                     try {
-                        jsonObject.put("type", "ENTER")
-                        jsonObject.put("roomId", roomId)
+                        jsonObject.put("chatRoomId", roomId)
                         jsonObject.put("sender", nickname)
 
                     } catch (e: JSONException) {
@@ -104,10 +101,9 @@ class RoomActivity : AppCompatActivity() {
 
                     binding.sendBtn.setOnClickListener {
                         try {
-                            jsonObject.put("type", "TALK")
-                            jsonObject.put("roomId", roomId)
+                            jsonObject.put("chatRoomId", roomId)
                             jsonObject.put("sender", nickname)
-                            jsonObject.put("message", binding.editMessage.text.toString())
+                            jsonObject.put("content", binding.editMessage.text.toString())
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }

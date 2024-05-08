@@ -14,7 +14,7 @@
     <string name="hintEmail">123456@gmail.com</string>
     <string name="hintPhoneNumber">01012341234</string>
     <string name="next">다음</string>
-    <string name="searchMento">멘토검색</string>
+    <string name="searchMento">멘토찾기</string>
     <string name="post">입력</string>
     <string name="chat">채팅</string>
     <string name="board">게시판</string>

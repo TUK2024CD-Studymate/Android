@@ -124,6 +124,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    //KMP 적용한 멘토 조회
     private fun getMatchingList(quesId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
@@ -156,8 +157,6 @@ class SearchFragment : Fragment() {
                         @SuppressLint("CommitPrefEdits")
                         override fun onNameClick(item: GetMatchingModel) {
                             alertDialog?.dismiss()
-                            //룸생성
-                            postRoom(item.nickname)
 
                             val chatFragment = ChatFragment().apply {
                                 arguments = Bundle().apply {
@@ -198,33 +197,6 @@ class SearchFragment : Fragment() {
         })
     }
 
-
-    private fun postRoom(name : String){
-        val userToken = sharedPreferences.getString("userToken", "") ?: ""
-
-        // 채팅방 생성 요청
-        val call = PostRetrofitAPI.emgMedService.postRoom("Bearer $userToken", name)
-
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(
-                call: Call<SignUpResponseBody>,
-                response: Response<SignUpResponseBody>
-            ) {
-                if (response.isSuccessful) {
-                    Log.d("로그인 통신 성공", response.toString())
-                    Log.d("로그인 통신 성공", response.body().toString())
-//                    roomId = response.body()!!.roomId.toString()
-//                    Log.d("roomId",roomId)
-                } else {
-                    Log.d("postRoom", "Failed to create chat room. Response code: ${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                Log.d("postRoom", "Failed to create chat room", t)
-            }
-        })
-    }
 
 
 }
