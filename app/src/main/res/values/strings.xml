@@ -14,8 +14,8 @@
     <string name="hintEmail">123456@gmail.com</string>
     <string name="hintPhoneNumber">01012341234</string>
     <string name="next">다음</string>
-    <string name="searchMento">멘토검색</string>
-    <string name="post">작성</string>
+    <string name="searchMento">멘토찾기</string>
+    <string name="post">입력</string>
     <string name="chat">채팅</string>
     <string name="board">게시판</string>
     <string name="record">스터디기록</string>
@@ -61,10 +61,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     //매칭 프래그먼트
-    <string name="startMatching">온라인 매칭을 시작해볼게요.</string>
+    <string name="startMatching">질문에 맞는 \n 멘토를 추천해 드릴게요.</string>
     <string name="selectInterests">관심분야를 선택하세요</string>
     <string name="searchTitle">제목을 적어주세요</string>
-    <string name="matchingStart">검색하기</string>
+    <string name="matchingStart">멘토찾기</string>
     <string name="mentoQuestion">질문 내용을 적어주세요</string>
 
 </resources>

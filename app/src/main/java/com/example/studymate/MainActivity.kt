@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         //gif 이미지 넣기
-        Glide.with(this).load(R.drawable.study).into(binding.gifImage)
+        Glide.with(this).load(R.drawable.book_animation).into(binding.gifImage)
 
         binding.LoginText.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

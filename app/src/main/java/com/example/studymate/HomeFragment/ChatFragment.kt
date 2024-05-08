@@ -15,6 +15,7 @@ import com.example.studymate.board.BoardInsideActivity
 import com.example.studymate.board.BoardListAdapter
 import com.example.studymate.board.GetBoardModel
 import com.example.studymate.board.PostRetrofitAPI
+import com.example.studymate.chatting.ChatRoom
 import com.example.studymate.chatting.ChatRoomAdapter
 import com.example.studymate.chatting.RoomActivity
 import com.example.studymate.chatting.RoomDto
@@ -28,7 +29,7 @@ class ChatFragment : Fragment() {
     lateinit var binding : FragmentChatBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var roomId : String
-    var roomList = listOf<RoomDto>()
+    var roomList = listOf<ChatRoom>()
     private lateinit var listAdapter: ChatRoomAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +40,13 @@ class ChatFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val roomName = arguments?.getString("nickname").toString()
-        val id = arguments?.getString("id").toString()
+
+        getMyRoomList()
 
         listAdapter = ChatRoomAdapter(object : ChatRoomAdapter.OnItemClickListener {
-            override fun onItemClick(roomModel: RoomDto) {
+            override fun onItemClick(roomModel: ChatRoom) {
                 val intent = Intent(requireContext(), RoomActivity::class.java)
-                intent.putExtra("roomId", roomModel.roomId)
+                intent.putExtra("roomId", roomId)
                 startActivity(intent)
             }
         })
@@ -57,39 +58,38 @@ class ChatFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        //채팅방 가져오기
-        getRoomList(roomName)
 
 
         return binding.root
     }
-    private fun getRoomList(name: String) {
+
+    //나의 채팅방 목록 불러오기
+    private fun getMyRoomList() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getRoomList("Bearer $userToken", name)
+        val call = PostRetrofitAPI.emgMedService.getMyRoom("Bearer $userToken")
 
-        call.enqueue(object : Callback<List<RoomDto>> {
-            override fun onResponse(call: Call<List<RoomDto>>, response: Response<List<RoomDto>>) {
+        call.enqueue(object : Callback<List<ChatRoom>> {
+            override fun onResponse(call: Call<List<ChatRoom>>, response: Response<List<ChatRoom>>) {
                 if (response.isSuccessful) {
-                    val roomModelList: List<RoomDto>? = response.body()
-
-                    if (roomModelList != null) {
-                        // 해당 카테고리에 맞게 필터링
-                        val filteredList = roomModelList.filter { it.name == name }
-                        Log.d("filteredList",filteredList.toString())
-
-                        roomList = filteredList
-                        listAdapter.setList(roomList)
-
-                        activity?.runOnUiThread {
-                            binding.recyclerView.adapter = listAdapter
+                    val roomModelList = response.body()
+                    roomModelList?.let { rooms ->
+                        if (rooms.isNotEmpty()) {
+                            val firstRoom = rooms[0]
+                            roomId = firstRoom.chatRoomId.toString()
+                            Log.d("roomModelList", rooms.toString())
+                            roomList = rooms
+                            listAdapter.setList(roomList)
+                            activity?.runOnUiThread {
+                                binding.recyclerView.adapter = listAdapter
+                            }
+                        } else {
+                            // 빈 목록 처리
                         }
-                    } else {
-                        Log.e("getBoardList", "Failed to convert response to List<GetBoardModel>")
                     }
                 }
             }
 
-            override fun onFailure(call: Call<List<RoomDto>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ChatRoom>>, t: Throwable) {
                 Log.e("getBoardList", "Network request failed", t)
             }
         })

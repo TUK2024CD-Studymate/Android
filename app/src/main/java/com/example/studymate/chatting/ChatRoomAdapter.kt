@@ -4,24 +4,21 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studymate.board.BoardListAdapter
-import com.example.studymate.board.GetBoardModel
-import com.example.studymate.databinding.BoardItemListBinding
 import com.example.studymate.databinding.RoomItemListBinding
 
 class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
 
-    private var roomList = listOf<RoomDto>()
+    private var roomList = listOf<ChatRoom>()
 
     interface OnItemClickListener {
-        fun onItemClick(roomModel: RoomDto)
+        fun onItemClick(roomModel: ChatRoom)
     }
 
     inner class MyView(private val binding: RoomItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(roomModel: RoomDto) {
-            binding.name.text = roomModel.name
+        fun bind(roomModel: ChatRoom) {
+            binding.name.text = roomModel.chatRoomName
 
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(roomModel)
@@ -43,7 +40,7 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<RoomDto>) {
+    fun setList(list: List<ChatRoom>) {
         roomList = list
         notifyDataSetChanged()
     }

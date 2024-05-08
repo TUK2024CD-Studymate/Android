@@ -17,7 +17,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
     interface OnItemClickListener {
         fun onInfoClick(item: GetMatchingModel)
         fun onNameClick(item: GetMatchingModel)
-        fun onInterestClick(item: GetMatchingModel)
     }
     private var listener : OnItemClickListener? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
@@ -28,7 +27,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
         fun bind(item: GetMatchingModel){
             binding.name.text = item.name
-            binding.interests.text = mapInterestsToKorean(item.interests)
 
             // 이미지 클릭 이벤트 설정
             binding.mentoInfo.setOnClickListener {
@@ -40,10 +38,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
                 listener?.onNameClick(item)
             }
 
-            // 관심사 클릭 이벤트 설정
-            binding.interests.setOnClickListener {
-                listener?.onInterestClick(item)
-            }
         }
     }
 
@@ -70,13 +64,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
         notifyDataSetChanged()
     }
 
-    private fun mapInterestsToKorean(interests: String): String {
-        // 간단한 매핑 예시
-        return when (interests) {
-            "PROGRAMMING" -> "코딩"
-            else -> interests
-        }
-    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.studymate.board
 
 import com.example.studymate.MyPage.LogoutModel
+import com.example.studymate.chatting.ChatRoom
 import com.example.studymate.chatting.ReviewVO
 import com.example.studymate.chatting.RoomDto
 import com.example.studymate.chatting.ZoomLinkModel
@@ -10,6 +11,7 @@ import com.example.studymate.search.QuesModel
 import com.example.studymate.search.ReviewModel
 import com.example.studymate.signUp.SignUpResponseBody
 import com.example.studymate.signUp.User
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -67,12 +69,14 @@ interface PostService {
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
 
+    //게시글 삭제
     @DELETE("/api/posts/{post_id}")
     fun deletePostByEnqueue(
         @Header("Authorization") authorization: String,
         @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
     ):  Call<SignUpResponseBody>
 
+    //게시글 수정
     @PUT("/api/posts/{post_id}")
     fun putPostByEnqueue(
         @Header("Authorization") authorization: String,
@@ -91,11 +95,6 @@ interface PostService {
         @Body verifyModel : MessageVerifyModel
     ) : Call<SignUpResponseBody>
 
-    //댓글 수 가져오기
-    @GET("/api/posts/{post_id}/comments/count")
-    fun getComment(
-        @Header("Authorization") authorization: String
-    ): Call<SignUpResponseBody>
 
     // 좋아요 보내기
     @POST("/api/post/heart/{postId}")
@@ -104,20 +103,7 @@ interface PostService {
         @Path("postId") postId: String
     ) : Call<SignUpResponseBody>
 
-    //방생성
-    @FormUrlEncoded
-    @POST("/api/chat/room")
-    fun postRoom(
-        @Header("Authorization") authorization: String,
-        @Field("name") name: String
-    ): Call<SignUpResponseBody>
 
-    //채팅방 룸 가져오기
-    @GET("/api/chat/rooms")
-    fun getRoomList(
-        @Header("Authorization") authorization: String,
-        @Query("name") name: String // 카테고리를 추가한 부분
-    ): Call<List<RoomDto>>
 
     //줌링크 생성
     @GET("/api/meeting/create")
@@ -143,13 +129,14 @@ interface PostService {
         @Body logoutModel : LogoutModel
     ): Call<SignUpResponseBody>
 
+    //게시글 검색
     @GET("/api/posts/search")
     fun getPostSearchEnqueue(
         @Header("Authorization") authorization: String,
         @Query("keyword") keyword: String
     ): Call<List<GetBoardModel>>
 
-    //
+    //멘토 리뷰 가져오기
     @GET("/api/matching/review/{mentorId}")
     fun getMentorReview(
         @Header("Authorization") authorization: String,
@@ -162,6 +149,20 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("mentorId") mentorId : String,
         @Body reviewModel: ReviewVO
+    ): Call<SignUpResponseBody>
+    
+    //내 방 목록 가져오기
+    @GET("/api/chat/rooms/list")
+    fun getMyRoom(
+        @Header("Authorization") authorization: String,
+    ): Call<List<ChatRoom>>
+
+    //멘토에게 매칭 알림 보내기
+    @GET("/api/matching/{questionID}/{mentorId}")
+    fun sendMatchingAlert(
+        @Header("Authorization") authorization: String,
+        @Path("questionID") questionID : String,
+        @Path("mentorId") mentorId : String,
     ): Call<SignUpResponseBody>
 
 

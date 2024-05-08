@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.R
+import com.example.studymate.board.CommentListAdapter
+import com.example.studymate.board.GetCommentModel
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.FragmentSearchBinding
 import com.example.studymate.search.*
@@ -31,6 +33,7 @@ class SearchFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var listAdapter: MentoListAdapter
     var matchingList = listOf<GetMatchingModel>()
+    private lateinit var quesId: String
     private var alertDialog: AlertDialog? = null
 
     @SuppressLint("InflateParams")
@@ -88,7 +91,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        //@post
+        //질문 post
         binding.searchMento.setOnClickListener {
             val title = binding.titleEdit.text.toString().trim()
             val content = binding.contentEdit.text.toString().trim()
@@ -108,6 +111,7 @@ class SearchFragment : Fragment() {
             retrofitWork.work(object : SearchRetrofitWork.Callback {
                 override fun onQuestionPosted(questionId: String?) {
                     Log.d("Question ID", questionId.toString())
+                    quesId = questionId!!
                     getMatchingList(questionId.toString())
                 }
 
@@ -124,6 +128,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    //KMP 적용한 멘토 조회
     private fun getMatchingList(quesId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getMatchingList("Bearer $userToken", quesId)
@@ -156,8 +161,8 @@ class SearchFragment : Fragment() {
                         @SuppressLint("CommitPrefEdits")
                         override fun onNameClick(item: GetMatchingModel) {
                             alertDialog?.dismiss()
-                            //룸생성
-                            postRoom(item.nickname)
+
+                            sendMatchingAlert(quesId,item.id)
 
                             val chatFragment = ChatFragment().apply {
                                 arguments = Bundle().apply {
@@ -165,28 +170,6 @@ class SearchFragment : Fragment() {
                                     val editor = sharedPreferences.edit()
                                     editor.putString("mentorId", item.id)
                                     editor.apply()
-                                }
-                            }
-                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                            transaction.replace(R.id.container, chatFragment)
-                            transaction.addToBackStack(null)
-                            transaction.commit()
-
-                        }
-
-                        @SuppressLint("CommitPrefEdits")
-                        override fun onInterestClick(item: GetMatchingModel) {
-                            alertDialog?.dismiss()
-                            // 룸생성
-                            postRoom(item.nickname)
-
-                            val chatFragment = ChatFragment().apply {
-                                arguments = Bundle().apply {
-                                    putString("nickname",item.nickname)
-                                    val editor = sharedPreferences.edit()
-                                    editor.putString("mentorId", item.id)
-                                    editor.apply()
-
                                 }
                             }
                             val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -221,11 +204,9 @@ class SearchFragment : Fragment() {
     }
 
 
-    private fun postRoom(name : String){
+    private fun sendMatchingAlert(questionID: String,mentorId : String ) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-
-        // 채팅방 생성 요청
-        val call = PostRetrofitAPI.emgMedService.postRoom("Bearer $userToken", name)
+        val call = PostRetrofitAPI.emgMedService.sendMatchingAlert("Bearer $userToken", questionID, mentorId)
 
         call.enqueue(object : Callback<SignUpResponseBody> {
             override fun onResponse(
@@ -233,20 +214,16 @@ class SearchFragment : Fragment() {
                 response: Response<SignUpResponseBody>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("로그인 통신 성공", response.toString())
-                    Log.d("로그인 통신 성공", response.body().toString())
-//                    roomId = response.body()!!.roomId.toString()
-//                    Log.d("roomId",roomId)
-                } else {
-                    Log.d("postRoom", "Failed to create chat room. Response code: ${response.code()}")
+                    val signUpResponseBody: SignUpResponseBody? = response.body()
+                    Log.d("sendMatchingAlert",signUpResponseBody.toString())
                 }
             }
 
             override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                Log.d("postRoom", "Failed to create chat room", t)
             }
         })
     }
+
 
 
 }

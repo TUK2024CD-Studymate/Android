@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="멘토에 대한 리뷰를 작성해주세요"
+        android:text="멘토에 대한 리뷰를 남겨주세요"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp"/>
 
     <EditText
         android:id="@+id/editTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edit_line"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_purple"
         android:hint="제목을 입력해주세요"
+        android:padding="5dp"
+        android:paddingStart="15dp"
         android:inputType="textMultiLine"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
+    <!-- 평점 부분 -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/ratingLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editReview">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="평점을 남겨주세요!"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp"/>
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -48,120 +63,118 @@
             android:isIndicator="false"
             android:stepSize="1"
             android:numStars="5"/>
-
     </LinearLayout>
 
+    <!-- 해결 여부 부분 -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/solutionLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="문제가 해결 되었나요?"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginEnd="8dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/solved"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:text="해결"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/notSolved"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:text="미해결"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"
             android:layout_marginStart="8dp"/>
-
     </LinearLayout>
 
+    <!-- 매칭 여부 부분 -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/matchingLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solutionLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="매칭이 맘에 들었나요?"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginEnd="8dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_clicked"
             android:text="네"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/shape_clicked"/>
+            android:textColor="@drawable/selector_text"
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/notLike"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:text="아니요"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/selector_text"
             android:background="@drawable/shape_clicked"
             android:layout_marginStart="8dp"/>
-
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="텍스트리뷰"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="24dp"/>
+
 
     <EditText
         android:id="@+id/editReview"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:gravity="top"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_line"
-        android:hint="정우혁 멘토님이 친절하고 너무 잘 알려주세요!"
+        android:background="@drawable/edit_purple"
+        android:padding="15dp"
+        android:hint="멘토에 대한 리뷰를 남겨주세요!"
         android:inputType="textMultiLine"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- 제출 버튼 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+        android:layout_marginTop="16dp"
+        android:text="제출하기"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/next_button"
+        app:layout_constraintTop_toBottomOf="@+id/matchingLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submitBtn"
-            android:layout_width="90dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/assign_button"
-            android:text="제출하기"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
