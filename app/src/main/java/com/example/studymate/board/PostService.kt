@@ -165,5 +165,14 @@ interface PostService {
         @Path("mentorId") mentorId : String,
     ): Call<SignUpResponseBody>
 
+    // Ai 멘토 검색
+    @GET("/api/matching/keyword/ai/{question-id}")
+    fun getMatchingListAi(
+        @Header("Authorization") authorization: String,
+        @Path("question-id") questionId : String
+    ): Call<List<GetMatchingModel>>
+
+
+
 
 }

@@ -2,7 +2,6 @@ package com.example.studymate.chatting
 
 data class MessageModel(
     var sender: String? = null,
-    var message: String? = null,
-    var type: String? = null,
-    var roomId: String? = null,
+    var content: String? = null,
+    var chatRoomId: String? = null
 )

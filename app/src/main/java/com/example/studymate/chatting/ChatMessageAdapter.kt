@@ -17,20 +17,22 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
 
     fun addMessage(message: MessageModel) {
         messageList.add(message)
-        Handler(Looper.getMainLooper()).post {
-            notifyItemInserted(messageList.size - 1)
-        }
+        notifyItemInserted(messageList.size-1)
+        Log.d("ChatMessageAdapter", "Message added: $message")
     }
 
     inner class MyView(private val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             if (binding is SendMessageItemBinding) {
                 // 내가 보낸 메시지 처리
-                binding.message.text = messageList[pos].message
+                binding.message.text = messageList[pos].content
+                Log.d("ChatMessageAdapter", "Bind Send Message at position $pos")
+
             } else if (binding is GetMessageItemBinding) {
                 // 상대방이 보낸 메시지 처리
                 binding.sender.text = messageList[pos].sender
-                binding.message.text = messageList[pos].message
+                binding.message.text = messageList[pos].content
+                Log.d("ChatMessageAdapter", "Bind Get Message at position $pos")
             }
         }
     }

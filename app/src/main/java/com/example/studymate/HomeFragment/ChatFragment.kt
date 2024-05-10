@@ -46,6 +46,8 @@ class ChatFragment : Fragment() {
         listAdapter = ChatRoomAdapter(object : ChatRoomAdapter.OnItemClickListener {
             override fun onItemClick(roomModel: ChatRoom) {
                 val intent = Intent(requireContext(), RoomActivity::class.java)
+                roomId = roomModel.chatRoomId.toString()
+                Log.d("roomId",roomId)
                 intent.putExtra("roomId", roomId)
                 startActivity(intent)
             }
@@ -74,8 +76,6 @@ class ChatFragment : Fragment() {
                     val roomModelList = response.body()
                     roomModelList?.let { rooms ->
                         if (rooms.isNotEmpty()) {
-                            val firstRoom = rooms[0]
-                            roomId = firstRoom.chatRoomId.toString()
                             Log.d("roomModelList", rooms.toString())
                             roomList = rooms
                             listAdapter.setList(roomList)
