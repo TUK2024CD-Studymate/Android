@@ -91,7 +91,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        //질문 post
+        //kmp 멘토 리스 불러오기 및 질문 보내기
         binding.searchMento.setOnClickListener {
             val title = binding.titleEdit.text.toString().trim()
             val content = binding.contentEdit.text.toString().trim()
@@ -113,6 +113,39 @@ class SearchFragment : Fragment() {
                     Log.d("Question ID", questionId.toString())
                     quesId = questionId!!
                     getMatchingList(questionId.toString())
+                }
+
+                override fun onFailure(message: String) {
+                }
+            })
+
+            binding.titleEdit.text = null
+            binding.contentEdit.text = null
+            binding.specifyField.text = null
+        }
+
+        //Ai 멘토 리스 불러오기 및 질문 보내기
+        binding.searchMentoAi.setOnClickListener {
+            val title = binding.titleEdit.text.toString().trim()
+            val content = binding.contentEdit.text.toString().trim()
+            val specify = binding.specifyField.text.toString()
+            val selectedField = binding.spinner1.selectedItemPosition
+
+            if (title.isEmpty() || content.isEmpty() || selectedField == 0) {
+                Toast.makeText(requireContext(),"질문, 내용, 분야를 선택해주세요!",Toast.LENGTH_SHORT).show()
+                Log.d("SearchFragment", "Please fill in all fields.")
+                return@setOnClickListener
+            }
+
+            quesData.title = title
+            quesData.content =content
+            quesData.specificField = specify
+            val retrofitWork = SearchRetrofitWork(userToken.toString(),quesData)
+            retrofitWork.work(object : SearchRetrofitWork.Callback {
+                override fun onQuestionPosted(questionId: String?) {
+                    Log.d("Question ID", questionId.toString())
+                    quesId = questionId!!
+                    getMatchingListAi(questionId.toString())
                 }
 
                 override fun onFailure(message: String) {
@@ -203,7 +236,82 @@ class SearchFragment : Fragment() {
         })
     }
 
+    private fun getMatchingListAi(quesId: String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getMatchingListAi("Bearer $userToken", quesId)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.mento_list_dialog,null)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.mentoRecyclerview)
 
+        call.enqueue(object : Callback<List<GetMatchingModel>> {
+            override fun onResponse(
+                call: Call<List<GetMatchingModel>>,
+                response: Response<List<GetMatchingModel>>
+            ) {
+                val matchingResponse: List<GetMatchingModel>? = response.body()
+
+                if (matchingResponse != null) {
+                    matchingList = matchingResponse
+                    listAdapter.setList(matchingList)
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
+                        override fun onInfoClick(item: GetMatchingModel) {
+                            val intent = Intent(requireContext(),MentoInfoActivity::class.java)
+                            intent.putExtra("name",item.name)
+                            intent.putExtra("starAverage",item.starAverage)
+                            intent.putExtra("solved",item.solved)
+                            intent.putExtra("id",item.id)
+                            intent.putExtra("matchingCount",item.matchingCount)
+                            startActivity(intent)
+                        }
+
+                        @SuppressLint("CommitPrefEdits")
+                        override fun onNameClick(item: GetMatchingModel) {
+                            alertDialog?.dismiss()
+
+                            sendMatchingAlert(quesId,item.id)
+
+                            val chatFragment = ChatFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("nickname",item.nickname)
+                                    val editor = sharedPreferences.edit()
+                                    editor.putString("mentorId", item.id)
+                                    editor.apply()
+                                }
+                            }
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.container, chatFragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
+
+                        }
+                    })
+                    recyclerView.adapter = listAdapter
+                    recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
+                    // 다이얼로그를 표시
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("멘토를 선택해주세요")
+                        .setView(dialogView)
+                        .setCancelable(true)
+                        .create()
+                        .also {dialog->
+                            alertDialog = dialog
+                            dialog.show()
+                        }
+                } else {
+                    // 서버로부터의 응답이 null이거나 실패했을 때 처리할 내용을 여기에 추가할 수 있습니다.
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetMatchingModel>>, t: Throwable) {
+                // 서버 통신 실패 시 처리할 내용을 여기에 추가할 수 있습니다.
+            }
+        })
+    }
+
+
+    //멘토 클릭시 메시지 알림 보내기
     private fun sendMatchingAlert(questionID: String,mentorId : String ) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.sendMatchingAlert("Bearer $userToken", questionID, mentorId)

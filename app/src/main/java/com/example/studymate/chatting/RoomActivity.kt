@@ -7,9 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studymate.HomeFragment.ChatFragment
 import com.example.studymate.board.PostRetrofitAPI
 import com.example.studymate.databinding.ActivityChattingRoomBinding
 import com.example.studymate.signUp.User
@@ -39,7 +37,6 @@ class RoomActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-
 
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
@@ -81,22 +78,19 @@ class RoomActivity : AppCompatActivity() {
             when (it.type) {
                 Event.Type.OPENED -> {
                     topic = stomp.join("/sub/chat/room/${roomId}").subscribe { stompMessage ->
-                        val responseData = JSONObject(stompMessage).getString("content")
-                        val nickname = JSONObject(stompMessage).getString("sender")
-                        Log.d("ReceivedMessage", "Received message: $responseData")
-                        val messageModel = MessageModel(nickname, responseData) // 상대방 메시지이므로 고정된 값으로 설정
-
-                        runOnUiThread {
-                            chatMessageAdapter.addMessage(messageModel)
+                        try {
+                            val messageData = JSONObject(stompMessage)
+                            val responseData = messageData.getString("content")
+                            val sender = messageData.getString("sender")
+                            Log.d("ReceivedMessage", "Received message: $responseData from $sender")
+                            val messageModel = MessageModel(sender, responseData)
+                            Log.d("ReceivedMessage",messageModel.toString())
+                            runOnUiThread {
+                                chatMessageAdapter.addMessage(messageModel)
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
                         }
-                    }
-
-                    try {
-                        jsonObject.put("chatRoomId", roomId)
-                        jsonObject.put("sender", nickname)
-
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
                     }
 
                     binding.sendBtn.setOnClickListener {
@@ -104,10 +98,11 @@ class RoomActivity : AppCompatActivity() {
                             jsonObject.put("chatRoomId", roomId)
                             jsonObject.put("sender", nickname)
                             jsonObject.put("content", binding.editMessage.text.toString())
+                            Log.d("send",jsonObject.toString())
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
-                        stomp.send("/pub/chat/message/${roomId}}", jsonObject.toString())
+                        stomp.send("/pub/chat/message/${roomId}", jsonObject.toString())
                             .subscribe {
                                 // 성공적으로 메시지를 전송한 경우
                                 Log.d("SendMessage", "Message sent successfully")
