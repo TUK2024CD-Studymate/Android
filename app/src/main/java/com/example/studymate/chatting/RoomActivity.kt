@@ -20,6 +20,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ua.naiksoftware.stomp.Stomp
 
 class RoomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingRoomBinding
@@ -37,6 +38,7 @@ class RoomActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
 
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
@@ -68,6 +70,15 @@ class RoomActivity : AppCompatActivity() {
         val url = "ws://studymate154.com:8080/ws/chat"
         val intervalMillis = 1000L
         val client = OkHttpClient()
+
+//        val headerMap: Map<String, String> = mapOf(
+//            Pair("Authorization", "Bearer $userToken"),
+//        )
+
+//        val stomp2 = Stomp
+//            .over(Stomp.ConnectionProvider.OKHTTP, url ,headerMap)
+//            .withServerHeartbeat(30000)
+
 
         // 스톰프 url생성
         val stomp = StompClient(client, intervalMillis).apply {

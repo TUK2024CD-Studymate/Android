@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Chronometer
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,8 @@ import com.example.studymate.calendar.CalendarVO
 import com.example.studymate.calendar.CalendarAdapter
 import com.example.studymate.databinding.FragmentRecordBinding
 import com.example.studymate.signUp.SignUpResponseBody
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -95,69 +98,14 @@ class RecordFragment : Fragment() {
         }
 
 
-
-
-        val items = resources.getStringArray(R.array.interests_array)
-        val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
-        binding.spinner.adapter = myAdapter
-
-        //스피너 과목 선택
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when (position) {
-                    0 -> {
-
-                    }
-                    1 -> {
-                        studyData.studyClass = "MATH"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                    2 -> {
-                        studyData.studyClass = "CODING"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                    3 -> {
-                        studyData.studyClass = "KOREAN"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                    4 -> {
-                        studyData.studyClass = "ENGLISH"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                    5 -> {
-                        studyData.studyClass = "SCIENCE"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                    else -> {
-                        studyData.studyClass = "SOCIETY"
-                        updateStudyData(studyData)
-                        Log.d("studymodel", updateStudyData(studyData).toString())
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-
-
         //@post
         binding.saveBtn.setOnClickListener {
-            studyData.content = binding.editMemo.text.toString()
+            studyData.studyClass = binding.editStudyClass.text.toString()
             updateStudyData(studyData)
             Log.d("park", userToken.toString())
-            binding.editMemo.text = null
             val retrofitWork = RecordRetrofitWork(userToken.toString(),studyData)
             retrofitWork.work{ recordId ->
                 newRecordId = recordId
-
-//                //@get
-//                getList(newRecordId)
 
                 //@delete
                 binding.deleteBtn.setOnClickListener {
@@ -244,7 +192,7 @@ class RecordFragment : Fragment() {
         })
     }
 
-
+    //저장된 스터디기록 불러오기
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getListForDate(startTime: String) {
         // 클릭한 날짜에 해당하는 기록 가져오기 (예시)
@@ -266,7 +214,7 @@ class RecordFragment : Fragment() {
                             // 공백을 기준으로 문자열을 분할하여 날짜 부분만 추출
                             val date = record.startTime!!.split(" ")[0]
                             // 추출한 날짜를 사용하여 새로운 StudyModel 객체를 생성
-                            StudyModel(record.id, record.content, record.studyClass, date, record.endTime, record.entireTime)
+                            StudyModel(record.id, record.studyClass, date, record.endTime, record.entireTime)
                         }
                         Log.e("modifiedList", modifiedList.toString())
                         // 필터링된 리스트를 가져오는 부분은 그대로 사용합니다.
@@ -293,7 +241,6 @@ class RecordFragment : Fragment() {
             }
         })
     }
-
 
 
 }

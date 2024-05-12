@@ -25,6 +25,7 @@ interface RecordService {
         @Path("calender_id") calenderId: String
     ): Call<SignUpResponseBody>
 
+    //스터디기록 리스트 불러오기
     @GET("/api/calender")
     fun getRecordListByEnqueue(
         @Header("Authorization") authorization: String,

@@ -9,6 +9,11 @@ class CommentListAdapter() : RecyclerView.Adapter<CommentListAdapter.MyView>() {
 
     private var commentList = listOf<GetCommentModel>()
 
+    fun setList(list: List<GetCommentModel>){
+        commentList=list
+        notifyItemInserted(commentList.size-1)
+    }
+
     inner class MyView(private val binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(pos: Int){
             binding.nickname.text = commentList[pos].nickname
@@ -30,7 +35,4 @@ class CommentListAdapter() : RecyclerView.Adapter<CommentListAdapter.MyView>() {
         return commentList.size
     }
 
-    fun setList(list: List<GetCommentModel>){
-        commentList = list
-    }
 }
