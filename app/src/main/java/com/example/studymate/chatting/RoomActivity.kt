@@ -39,6 +39,7 @@ class RoomActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        Log.d("parkhwan",userToken)
 
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
@@ -69,15 +70,15 @@ class RoomActivity : AppCompatActivity() {
 
         val url = "ws://studymate154.com:8080/ws/chat"
         val intervalMillis = 1000L
-        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $userToken")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
 
-//        val headerMap: Map<String, String> = mapOf(
-//            Pair("Authorization", "Bearer $userToken"),
-//        )
-
-//        val stomp2 = Stomp
-//            .over(Stomp.ConnectionProvider.OKHTTP, url ,headerMap)
-//            .withServerHeartbeat(30000)
 
 
         // 스톰프 url생성

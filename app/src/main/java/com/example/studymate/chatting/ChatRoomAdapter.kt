@@ -18,7 +18,8 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(roomModel: ChatRoom) {
-            binding.name.text = roomModel.chatRoomName
+            val roomName = roomModel.chatRoomName.replace(" & ", " ")
+            binding.name.text = roomName
 
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(roomModel)
