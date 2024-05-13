@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="maths"
+            android:text="웹/앱개발"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:text="coding"
+            android:text="서버/네트워크"
             android:layout_marginStart="10dp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="KOREAN"
+            android:text="AI/IOT"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
@@ -79,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="science"
+            android:text="데이터개발"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
             android:textColor="@drawable/selector_text"
@@ -100,23 +100,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="english"
+            android:text="정보보안"
             android:textSize="20sp"
             android:textColor="@drawable/selector_text"
             android:textStyle="bold"
             android:background="@drawable/selector_button"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/majorBtn6"
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="society"
-            android:layout_marginStart="10dp"
-            android:textSize="20sp"
-            android:textColor="@drawable/selector_text"
-            android:textStyle="bold"
-            android:background="@drawable/selector_button"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
 
     </LinearLayout>

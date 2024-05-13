@@ -5,7 +5,7 @@ import com.example.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class RecordRetrofitWork(private val userToken: String, private val recordInfo: StudyModel) {
+class RecordRetrofitWork(private val userToken: String,private val subjectId : String , private val recordInfo: StudyModel) {
     var recordId: String? = null
     fun work(callback: (String)->Unit) {
 
@@ -16,7 +16,7 @@ class RecordRetrofitWork(private val userToken: String, private val recordInfo: 
         val service = StudyRetrofitAPI.emgMedService
 
 
-        service.addRecordByEnqueue("Bearer $userToken", recordInfo)
+        service.addRecordByEnqueue("Bearer $userToken",subjectId ,recordInfo)
             .enqueue(object : retrofit2.Callback<SignUpResponseBody> {
                 override fun onResponse(
                     call: Call<SignUpResponseBody>,

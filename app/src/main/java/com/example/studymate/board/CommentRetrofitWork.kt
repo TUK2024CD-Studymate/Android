@@ -16,8 +16,7 @@ class CommentRetrofitWork(private val userToken: String, private val postId: Str
         }
         val service = PostRetrofitAPI.emgMedService
 
-        service.postCommentsByEnqueue("Bearer $userToken", postId, postInfo)
-            .enqueue(object : retrofit2.Callback<SignUpResponseBody> {
+        service.postCommentsByEnqueue("Bearer $userToken", postId, postInfo).enqueue(object : retrofit2.Callback<SignUpResponseBody> {
                 override fun onResponse(
                     call: Call<SignUpResponseBody>,
                     response: Response<SignUpResponseBody>

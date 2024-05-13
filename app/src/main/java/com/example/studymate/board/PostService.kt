@@ -1,6 +1,8 @@
 package com.example.studymate.board
 
 import com.example.studymate.MyPage.LogoutModel
+import com.example.studymate.StudyRecord.StudyModel
+import com.example.studymate.StudyRecord.SubjectModel
 import com.example.studymate.chatting.ChatRoom
 import com.example.studymate.chatting.ReviewVO
 import com.example.studymate.chatting.RoomDto
@@ -158,10 +160,10 @@ interface PostService {
     ): Call<List<ChatRoom>>
 
     //멘토에게 매칭 알림 보내기
-    @GET("/api/matching/{questionID}/{mentorId}")
+    @GET("/api/matching/kakao/{questionId}/{mentorId}")
     fun sendMatchingAlert(
         @Header("Authorization") authorization: String,
-        @Path("questionID") questionID : String,
+        @Path("questionId") questionID : String,
         @Path("mentorId") mentorId : String,
     ): Call<SignUpResponseBody>
 
@@ -171,6 +173,12 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
+
+    @POST("/api/subject")
+    fun postRecordSub(
+        @Header("Authorization") authorization: String,
+        @Body subjectModel: SubjectModel
+    ): Call<SignUpResponseBody>
 
 
 

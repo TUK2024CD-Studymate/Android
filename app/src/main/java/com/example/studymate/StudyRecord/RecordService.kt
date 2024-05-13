@@ -7,9 +7,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface RecordService {
-    @POST("/api/calender")
+    //스터디 기록 생성
+    @POST("/api/calender/{subject-id}")
     fun addRecordByEnqueue(
         @Header("Authorization") authorization: String,
+        @Path("subject-id") subjectId: String,
         @Body recordInfo: StudyModel
     ): Call<SignUpResponseBody>
 

@@ -13,7 +13,7 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
 
     inner class MyView(private val binding: RecordListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
-            binding.studyClass.text = recordList[pos].studyClass
+            binding.name.text = recordList[pos].subjectName
         }
     }
 
