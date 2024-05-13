@@ -27,7 +27,7 @@ class MajorFragment : Fragment() {
             binding.majorBtn3.isSelected -> binding.majorBtn3.text.toString()
             binding.majorBtn4.isSelected -> binding.majorBtn4.text.toString()
             binding.majorBtn5.isSelected -> binding.majorBtn5.text.toString()
-            else -> binding.majorBtn6.text.toString()
+            else -> {}
         }
 
         // JSON 객체를 생성하고 키 "interests"에 해당 버튼의 텍스트를 넣어줍니다.
@@ -53,8 +53,7 @@ class MajorFragment : Fragment() {
             binding.majorBtn2,
             binding.majorBtn3,
             binding.majorBtn4,
-            binding.majorBtn5,
-            binding.majorBtn6
+            binding.majorBtn5
         )
 
         majorList.forEach { Button ->

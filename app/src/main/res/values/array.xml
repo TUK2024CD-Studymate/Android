@@ -2,12 +2,11 @@
 <resources>
     <string-array name="interests_array">
         <item>관심분야</item>
-        <item>수학</item>
-        <item>코딩</item>
-        <item>국어</item>
-        <item>영어</item>
-        <item>과탐</item>
-        <item>사탐</item>
+        <item>웹/앱개발</item>
+        <item>서버/네트워크</item>
+        <item>AI/LOT</item>
+        <item>데이터 개발</item>
+        <item>정보보안</item>
     </string-array>
 
     <string-array name="category_array">

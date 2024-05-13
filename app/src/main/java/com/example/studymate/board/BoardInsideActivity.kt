@@ -1,12 +1,7 @@
 package com.example.studymate.board
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,12 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.studymate.HomeFragment.BoardFragment
 import com.example.studymate.R
-import com.example.studymate.SseEventHandler
 import com.example.studymate.databinding.ActivityBoardInsideBinding
 import com.example.studymate.signUp.SignUpResponseBody
-import com.launchdarkly.eventsource.ConnectStrategy
 import com.launchdarkly.eventsource.EventSource
 import com.launchdarkly.eventsource.background.BackgroundEventSource
 import kotlinx.coroutines.Dispatchers

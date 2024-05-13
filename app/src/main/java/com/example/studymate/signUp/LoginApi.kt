@@ -16,7 +16,7 @@ interface LoginApi {
     ): Call<LoginBackendResponse>
 
     companion object {
-        private const val BASE_URL = "http://studymate154.com:8080"
+        private const val BASE_URL = "https://studymate154.com"
         val gson : Gson =   GsonBuilder().setLenient().create();
 
         fun create() : LoginApi {

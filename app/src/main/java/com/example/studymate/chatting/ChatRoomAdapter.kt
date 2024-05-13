@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studymate.R
 import com.example.studymate.databinding.RoomItemListBinding
 
 class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
@@ -18,7 +19,13 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(roomModel: ChatRoom) {
-            binding.name.text = roomModel.chatRoomName
+            val roomName = roomModel.chatRoomName.replace(" & ", " ")
+            binding.name1.text = roomName
+
+            val login = roomModel.members.any { it.login }
+            val loginImageResource = if (login) R.drawable.offl_circle_24 else R.drawable.baseline_circle_24
+            binding.circleImage.setImageResource(loginImageResource)
+
 
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(roomModel)

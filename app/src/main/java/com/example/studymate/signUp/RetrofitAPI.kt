@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitAPI {
-    private const val BASE_URL = "http://studymate154.com:8080"
+    private const val BASE_URL = "https://studymate154.com"
 
 
 
