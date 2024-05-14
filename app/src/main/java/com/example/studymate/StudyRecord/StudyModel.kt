@@ -10,13 +10,3 @@ data class StudyModel(
     var entireTime: String? = null,
     var subjectName : String? = null
 )
-
-fun StudyModel.toJson(): String {
-    val gson = Gson()
-    return gson.toJson(this)
-}
-
-fun String.toStudyModel(): StudyModel {
-    val gson = Gson()
-    return gson.fromJson(this, StudyModel::class.java)
-}

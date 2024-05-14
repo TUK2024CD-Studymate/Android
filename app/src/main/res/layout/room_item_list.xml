@@ -93,6 +93,16 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
 
+                <TextView
+                    android:id="@+id/readCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="17sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/red"
+                    android:layout_marginEnd="15dp"/>
+
 
             </LinearLayout>
 

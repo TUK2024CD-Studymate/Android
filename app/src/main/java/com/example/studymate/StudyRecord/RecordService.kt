@@ -33,4 +33,10 @@ interface RecordService {
         @Header("Authorization") authorization: String,
         @Query("startTime") startTime: String // 카테고리를 추가한 부분
     ): Call<GetRecordResponse>
+
+    // 전체 과목 조회
+    @GET("/api/subject")
+    fun getAllSubjectName(
+        @Header("Authorization") authorization: String,
+    ): Call<SubjectListResponse>
 }
