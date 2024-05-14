@@ -3,6 +3,7 @@ package com.example.studymate.chatting
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.util.TimeUnit
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.naiksoftware.stomp.Stomp
+import ua.naiksoftware.stomp.dto.LifecycleEvent
+import ua.naiksoftware.stomp.dto.StompHeader
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -29,8 +32,6 @@ import javax.net.ssl.X509TrustManager
 
 class RoomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingRoomBinding
-    lateinit var stompConnection: Disposable
-    lateinit var topic: Disposable
     var jsonObject = JSONObject()
     //쉐얼드프리퍼런스
     private lateinit var sharedPreferences: SharedPreferences
@@ -44,11 +45,14 @@ class RoomActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        Log.d("parkhwan",userToken)
+        Log.d("parkhwan", userToken)
 
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2F3.36.177.42%2Fapi%2Fmeeting%2FzoomApi"))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2F3.36.177.42%2Fapi%2Fmeeting%2FzoomApi")
+            )
             startActivity(intent)
         }
 
@@ -73,46 +77,40 @@ class RoomActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = chatMessageAdapter
 
+
         val url = "wss://studymate154.com/ws/chat"
-        val intervalMillis = 1000L
-        val client = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $userToken")
-                    .build()
-                chain.proceed(request)
-            }
-            .build()
-
-
-
 
         // 스톰프 url생성
-        val stomp = StompClient(client, intervalMillis).apply {
-            this@apply.url = url
+        val stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url)
+
+
+        stompClient.topic("/sub/chat/room/${roomId}").subscribe() { topicMessage ->
+            Log.i("message Recieve", topicMessage.payload)
+            try {
+                val messageData = JSONObject(topicMessage.payload)
+                val sender = messageData.getString("sender")
+                val content = messageData.getString("content")
+                val messageModel = MessageModel(sender, content)
+
+                // UI 업데이트
+                runOnUiThread {
+                    chatMessageAdapter.addMessage(messageModel)
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
         }
+        val headerList = arrayListOf<StompHeader>()
+        headerList.add(StompHeader("Authorization", "Bearer $userToken"))
+        stompClient.connect(headerList)
 
-        stompConnection = stomp.connect().subscribe {
-            when (it.type) {
-                Event.Type.OPENED -> {
-                    topic = stomp.join("/sub/chat/room/${roomId}").subscribe { stompMessage ->
-                        try {
-                            val messageData = JSONObject(stompMessage)
-                            val responseData = messageData.getString("content")
-                            val sender = messageData.getString("sender")
-                            Log.d("ReceivedMessage", "Received message: $responseData from $sender")
-                            val messageModel = MessageModel(sender, responseData)
-                            Log.d("ReceivedMessage",messageModel.toString())
-                            runOnUiThread {
-                                chatMessageAdapter.addMessage(messageModel)
-                            }
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                    }
-
+        stompClient.lifecycle().subscribe { lifecycleEvent ->
+            when (lifecycleEvent.type) {
+                LifecycleEvent.Type.OPENED -> {
                     binding.sendBtn.setOnClickListener {
                         try {
+                            jsonObject.put("type","TALK")
                             jsonObject.put("chatRoomId", roomId)
                             jsonObject.put("sender", nickname)
                             jsonObject.put("content", binding.editMessage.text.toString())
@@ -120,23 +118,27 @@ class RoomActivity : AppCompatActivity() {
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
-                        stomp.send("/pub/chat/message/${roomId}", jsonObject.toString())
+                        stompClient.send("/pub/chat/message/${roomId}", jsonObject.toString())
                             .subscribe {
                                 // 성공적으로 메시지를 전송한 경우
                                 Log.d("SendMessage", "Message sent successfully")
                                 binding.editMessage.text = null // 메시지 전송 후 EditText 비우기
                             }
                     }
+                }
+                LifecycleEvent.Type.CLOSED -> {
+                    Log.i("CLOSED", "!!")
 
                 }
-
-                Event.Type.CLOSED -> {
+                LifecycleEvent.Type.ERROR -> {
+                    Log.i("ERROR", "!!")
+                    Log.e("CONNECT ERROR", lifecycleEvent.exception.toString())
                 }
-                Event.Type.ERROR -> {
-                    Log.e("web", "err")
+                else -> {
+                    Log.i("ELSE", lifecycleEvent.message)
                 }
-                else -> {}
             }
+
         }
     }
 
@@ -186,32 +188,6 @@ class RoomActivity : AppCompatActivity() {
         })
     }
 
-    fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
-        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-
-            }
-
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-
-            }
-
-            override fun getAcceptedIssuers(): Array<X509Certificate> {
-                return arrayOf()
-            }
-        })
-
-        val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, trustAllCerts, SecureRandom())
-
-        val sslSocketFactory = sslContext.socketFactory
-
-        val builder = OkHttpClient.Builder()
-        builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-        builder.hostnameVerifier { hostname, session -> true }
-
-        return builder
-    }
 
 
 }

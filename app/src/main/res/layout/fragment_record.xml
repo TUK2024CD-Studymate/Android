@@ -76,14 +76,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
 
-            <EditText
-                android:id="@+id/editStudyClass"
-                android:hint="+ 과목"
-                android:paddingStart="20dp"
-                android:layout_width="110dp"
-                android:background="@android:color/transparent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal" />
 
             <View
                 android:layout_width="0dp"
@@ -152,13 +144,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 
-<!--    <include-->
-<!--        android:id="@+id/bottomSheet"-->
-<!--        layout="@layout/bottom_sheet" />-->
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -274,7 +274,8 @@ class RecordFragment : Fragment() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     subjectId = responseBody!!.id.toString()
-                    Log.d("subjectId",subjectId.toString())
+                    Log.d("subjectId",subjectId)
+                    Toast.makeText(requireContext(), "과목이 생성되었습니다!", Toast.LENGTH_SHORT).show()
 
                     }
                 }

@@ -1,9 +1,10 @@
 package com.example.studymate.StudyRecord
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studymate.databinding.RecordListBinding
 
@@ -12,8 +13,12 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
     private var recordList = listOf<StudyModel>()
 
     inner class MyView(private val binding: RecordListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int) {
-            binding.name.text = recordList[pos].subjectName
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun bind(pos: StudyModel) {
+            binding.name.text = pos.subjectName
+            binding.recordTime.text = pos.entireTime
+
+
         }
     }
 
@@ -23,8 +28,9 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         return MyView(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecordListAdapter.MyView, position: Int) {
-        holder.bind(position)
+        holder.bind(recordList[position])
     }
 
     override fun getItemCount(): Int {
@@ -36,4 +42,6 @@ class RecordListAdapter(): RecyclerView.Adapter<RecordListAdapter.MyView>() {
         recordList = list
         notifyDataSetChanged()
     }
+
+
 }

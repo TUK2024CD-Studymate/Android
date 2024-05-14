@@ -21,6 +21,7 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
         fun bind(roomModel: ChatRoom) {
             val roomName = roomModel.chatRoomName.replace(" & ", " ")
             binding.name1.text = roomName
+            binding.readCount.text = roomModel.unreadMessageCount.toString()
 
             val login = roomModel.members.any { it.login }
             val loginImageResource = if (login) R.drawable.offl_circle_24 else R.drawable.baseline_circle_24
