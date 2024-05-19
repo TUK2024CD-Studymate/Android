@@ -108,6 +108,13 @@ class RoomActivity : AppCompatActivity() {
         stompClient.lifecycle().subscribe { lifecycleEvent ->
             when (lifecycleEvent.type) {
                 LifecycleEvent.Type.OPENED -> {
+//
+//                    jsonObject.put("type","ENTER")
+//                    jsonObject.put("chatRoomId", roomId)
+//                    jsonObject.put("sender", nickname)
+//                    jsonObject.put("content", "입장")
+//                    stompClient.send("/pub/chat/message/${roomId}", jsonObject.toString())
+
                     binding.sendBtn.setOnClickListener {
                         try {
                             jsonObject.put("type","TALK")

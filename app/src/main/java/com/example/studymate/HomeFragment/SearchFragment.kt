@@ -66,22 +66,24 @@ class SearchFragment : Fragment() {
 
                     }
                     1 -> {
-                        quesData.interests = "MATH"
+                        quesData.interests = "WEBAPP"
+                        Log.d("quesData",quesData.toString())
                     }
                     2 -> {
-                        quesData.interests = "PROGRAMMING"
+                        quesData.interests = "SERVER"
+                        Log.d("quesData",quesData.toString())
                     }
                     3 -> {
-                        quesData.interests = "KOREAN"
+                        quesData.interests = "AI"
+                        Log.d("quesData",quesData.toString())
                     }
                     4 -> {
-                        quesData.interests = "ENGLISH"
+                        quesData.interests = "DATA"
+                        Log.d("quesData",quesData.toString())
                     }
                     5 -> {
-                        quesData.interests = "SCIENCE"
-                    }
-                    6 -> {
-                        quesData.interests = "SOCIETY"
+                        quesData.interests = "SECURITY"
+                        Log.d("quesData",quesData.toString())
                     }
                 }
             }
