@@ -38,6 +38,7 @@ class SseEventHandler(private val context : Context) : BackgroundEventHandler {
             val nickname = jsonObject.getString("nickname")
             val postId = jsonObject.getInt("post_id")
             val commentTime = jsonObject.getString("commentTime")
+            Toast.makeText(context, "$nickname 님이 댓글을 남겼습니다.", Toast.LENGTH_SHORT).show()
 
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

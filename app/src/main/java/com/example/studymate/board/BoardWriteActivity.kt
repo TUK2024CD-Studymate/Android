@@ -46,22 +46,19 @@ class BoardWriteActivity : AppCompatActivity() {
 
                     }
                     1 -> {
-                        boardModel.interests = "MATH"
+                        boardModel.interests = "WEBAPP"
                     }
                     2 -> {
-                        boardModel.interests = "PROGRAMMING"
+                        boardModel.interests = "SERVER"
                     }
                     3 -> {
-                        boardModel.interests = "KOREAN"
+                        boardModel.interests = "AI"
                     }
                     4 -> {
-                        boardModel.interests = "ENGLISH"
+                        boardModel.interests = "DATA"
                     }
                     5 -> {
-                        boardModel.interests = "SCIENCE"
-                    }
-                    6 -> {
-                        boardModel.interests = "SOCIETY"
+                        boardModel.interests = "SECURITY"
                     }
                 }
             }

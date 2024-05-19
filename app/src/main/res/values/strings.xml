@@ -41,7 +41,7 @@
     <string name="blog">블로그 주소</string>
     <string name="relation">수상경력</string>
     //메이저 프래그먼트
-    <string name="chooseMajor">회원님의 전공을 입력해주세요</string>
+    <string name="chooseMajor">회원님의 전공을 골라주세요</string>
     <string name="math">수학</string>
     <string name="english">영어</string>
     <string name="korean">국어</string>

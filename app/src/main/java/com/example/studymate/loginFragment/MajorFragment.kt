@@ -15,6 +15,14 @@ import org.json.JSONObject
 class MajorFragment : Fragment() {
     lateinit var binding: FragmentMajorBinding
     private lateinit var majorList: List<Button>
+    val koreanToEnglishMap = mapOf(
+        "웹/앱" to "WEBAPP",
+        "서버/네트워크" to "SERVER",
+        "AI/IOT" to "AI",
+        "데이터개발" to "DATA",
+        "보안" to "SECURITY",
+        // 다른 전공들도 추가해주세요
+    )
 
     override fun onStop() {
         super.onStop()
@@ -22,12 +30,12 @@ class MajorFragment : Fragment() {
 
         // 선택된 버튼에 따라 JSON 형식의 문자열 생성
         val selectedButtonText = when {
-            binding.majorBtn1.isSelected -> binding.majorBtn1.text.toString()
-            binding.majorBtn2.isSelected -> binding.majorBtn2.text.toString()
-            binding.majorBtn3.isSelected -> binding.majorBtn3.text.toString()
-            binding.majorBtn4.isSelected -> binding.majorBtn4.text.toString()
-            binding.majorBtn5.isSelected -> binding.majorBtn5.text.toString()
-            else -> {}
+            binding.majorBtn1.isSelected -> translateToEnglish(binding.majorBtn1.text.toString())
+            binding.majorBtn2.isSelected -> translateToEnglish(binding.majorBtn2.text.toString())
+            binding.majorBtn3.isSelected -> translateToEnglish(binding.majorBtn3.text.toString())
+            binding.majorBtn4.isSelected -> translateToEnglish(binding.majorBtn4.text.toString())
+            binding.majorBtn5.isSelected -> translateToEnglish(binding.majorBtn5.text.toString())
+            else -> ""
         }
 
         // JSON 객체를 생성하고 키 "interests"에 해당 버튼의 텍스트를 넣어줍니다.
@@ -39,6 +47,7 @@ class MajorFragment : Fragment() {
         val mainActivity = activity as ProfileSetting
         mainActivity.receiveData(this, json.toString())
     }
+
 
 
 
@@ -69,5 +78,9 @@ class MajorFragment : Fragment() {
         return binding.root
     }
 
+
+    fun translateToEnglish(koreanText: String): String {
+        return koreanToEnglishMap[koreanText] ?: koreanText
+    }
 
 }

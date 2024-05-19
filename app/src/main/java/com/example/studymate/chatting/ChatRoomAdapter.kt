@@ -20,12 +20,15 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
 
         fun bind(roomModel: ChatRoom) {
             val roomName = roomModel.chatRoomName.replace(" & ", " ")
-            binding.name1.text = roomName
+            binding.name1.text = roomModel.members.joinToString(", ") { it.name }
             binding.readCount.text = roomModel.unreadMessageCount.toString()
 
             val login = roomModel.members.any { it.login }
-            val loginImageResource = if (login) R.drawable.offl_circle_24 else R.drawable.baseline_circle_24
+            val loginImageResource = if (login) R.drawable.offl_circle_24  else R.drawable.baseline_circle_24
             binding.circleImage.setImageResource(loginImageResource)
+
+            val onlineStatus = if (login) "온라인" else "오프라인"
+            binding.online.text = onlineStatus
 
 
             itemView.setOnClickListener {

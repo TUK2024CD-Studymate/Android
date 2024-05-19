@@ -41,8 +41,9 @@
                 android:layout_height="wrap_content"
                 android:text="내가 할껄 라이즈 센터"
                 android:textColor="@color/black"
-                android:background="@drawable/message_background"
+                android:background="@drawable/edit_purple"
                 android:minHeight="30dp"
+                android:padding="7dp"
                 android:gravity="center"
                 android:textSize="17sp"/>
 
