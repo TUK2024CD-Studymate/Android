@@ -20,16 +20,16 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
 
     inner class MyView(private val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
-            if (binding is SendMessageItemBinding) {
+            val messageModel = messageList[pos]
+            if (binding is SendMessageItemBinding && messageModel.sender == nickname) {
                 // 내가 보낸 메시지 처리
-                binding.message.text = messageList[pos].content
-                Log.d("ChatMessageAdapter", "Bind Send Message at position $pos")
-
+                binding.message.text = messageModel.content
+                Log.d("ChatMessageAdapter", "true")
             } else if (binding is GetMessageItemBinding) {
                 // 상대방이 보낸 메시지 처리
-                binding.sender.text = messageList[pos].sender
-                binding.message.text = messageList[pos].content
-                Log.d("ChatMessageAdapter", "Bind Get Message at position $pos")
+                binding.sender.text = messageModel.sender
+                binding.message.text = messageModel.content
+                Log.d("ChatMessageAdapter", "false")
             }
         }
     }
@@ -61,10 +61,10 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
     override fun getItemViewType(position: Int): Int {
         val messageModel = messageList[position]
         return if (messageModel.sender == nickname) {
-            Log.d("ChatAdapter", "Send message type for position $position")
+            Log.d("ChatAdapter", "true")
             VIEW_TYPE_SEND_MESSAGE
         } else {
-            Log.d("ChatAdapter", "Get message type for position $position")
+            Log.d("ChatAdapter", "false")
             VIEW_TYPE_GET_MESSAGE
         }
     }

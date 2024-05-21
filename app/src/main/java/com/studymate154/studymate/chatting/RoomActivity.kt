@@ -25,7 +25,9 @@ class RoomActivity : AppCompatActivity() {
     var jsonObject = JSONObject()
     //쉐얼드프리퍼런스
     private lateinit var sharedPreferences: SharedPreferences
-    private var nickname: String = "" // 닉네임을 저장할 변수
+    private lateinit var nickname: String
+    private lateinit var chatMessageAdapter: ChatMessageAdapter
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +64,6 @@ class RoomActivity : AppCompatActivity() {
         //룸 아이디
         val roomId = intent.getStringExtra("roomId").toString()
         Log.d("roomId", roomId)
-
-        val chatMessageAdapter = ChatMessageAdapter(nickname)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = chatMessageAdapter
 
 
         val url = "wss://studymate154.com/ws/chat"
@@ -150,7 +148,9 @@ class RoomActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     nickname = user!!.nickname.toString()
-                    setUserNickname(nickname)
+                    chatMessageAdapter = ChatMessageAdapter(nickname)
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this@RoomActivity)
+                    binding.recyclerView.adapter = chatMessageAdapter
                 } else {
 
                 }
@@ -159,10 +159,6 @@ class RoomActivity : AppCompatActivity() {
                 // Handle failure
             }
         })
-    }
-
-    private fun setUserNickname(nickname: String) {
-        this.nickname = nickname
     }
 
     private fun getZoomLink() {
