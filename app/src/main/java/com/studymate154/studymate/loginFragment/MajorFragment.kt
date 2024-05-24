@@ -71,7 +71,6 @@ class MajorFragment : Fragment() {
             Button.setOnClickListener {
                 it.isSelected = !(it.isSelected)
                 remainList.forEach { it.isSelected = false }
-                Log.d("daeYoung", "선택된 뷰: ${(it as TextView).text}")
             }
         }
 
@@ -79,7 +78,7 @@ class MajorFragment : Fragment() {
     }
 
 
-    fun translateToEnglish(koreanText: String): String {
+    private fun translateToEnglish(koreanText: String): String {
         return koreanToEnglishMap[koreanText] ?: koreanText
     }
 
