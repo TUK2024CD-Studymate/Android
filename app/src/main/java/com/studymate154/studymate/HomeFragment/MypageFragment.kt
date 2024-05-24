@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.studymate154.studymate.*
 import com.studymate154.studymate.MyPage.LogoutModel
+import com.studymate154.studymate.MyPage.MyHeartPostActivity
 import com.studymate154.studymate.MyPage.MyPostActivity
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentMypageBinding
@@ -41,6 +42,13 @@ class MypageFragment : Fragment() {
         //내 게시물로 이동
         binding.myPost.setOnClickListener {
             val intent = Intent(requireContext(), MyPostActivity::class.java)
+            startActivity(intent)
+
+        }
+
+        //내가 좋아요한 게시물로 이동
+        binding.myHeartPost.setOnClickListener {
+            val intent = Intent(requireContext(), MyHeartPostActivity::class.java)
             startActivity(intent)
 
         }

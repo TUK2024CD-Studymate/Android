@@ -31,7 +31,7 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
             }
 
             // 이름 클릭 이벤트 설정
-            binding.name.setOnClickListener {
+            binding.mentoAlert.setOnClickListener {
                 listener?.onNameClick(item)
             }
 

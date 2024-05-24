@@ -177,6 +177,12 @@ interface PostService {
         @Body subjectModel: SubjectModel
     ): Call<SignUpResponseBody>
 
+    //내가 좋아요 누른  게시물
+    @GET("/api/user/post/heart")
+    fun getMyHeartPostEnqueue(
+        @Header("Authorization") authorization: String
+    ): Call<List<GetBoardModel>>
+
 
 
 
