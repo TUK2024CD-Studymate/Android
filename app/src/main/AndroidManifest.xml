@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".board.BoardPutActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyPage.MyHeartPostActivity"
             android:exported="false" />
         <activity
