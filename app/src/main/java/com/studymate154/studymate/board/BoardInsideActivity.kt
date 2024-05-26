@@ -260,6 +260,7 @@ class BoardInsideActivity : AppCompatActivity() {
                     Log.d("boardName", boardNickname)
                     if (nickname == boardNickname) {
                         val intent = Intent(this@BoardInsideActivity, BoardPutActivity::class.java)
+                        intent.putExtra("boardId",boardId)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this@BoardInsideActivity, "수정 할 권한이 없습니다", Toast.LENGTH_SHORT).show()

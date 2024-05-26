@@ -79,7 +79,8 @@ interface PostService {
     @PUT("/api/posts/{post_id}")
     fun putPostByEnqueue(
         @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
+        @Path("post_id") postId: String,
+        @Body BoardModel : BoardWriteModel
     ):  Call<SignUpResponseBody>
 
     //인즌번호 전송
@@ -182,6 +183,9 @@ interface PostService {
     fun getMyHeartPostEnqueue(
         @Header("Authorization") authorization: String
     ): Call<List<GetBoardModel>>
+
+    //게시글 수정 api
+
 
 
 
