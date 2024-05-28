@@ -61,6 +61,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:text="전문분야"
+            android:textColor="@color/gray"/>
+
+        <EditText
+            android:id="@+id/editExpertiseField"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:inputType="textEmailAddress"
+            android:hint="JPA Python JWT"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/relation"
             android:textColor="@color/gray"/>
 

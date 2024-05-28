@@ -21,7 +21,6 @@ class MajorFragment : Fragment() {
         "AI/IOT" to "AI",
         "데이터개발" to "DATA",
         "보안" to "SECURITY",
-        // 다른 전공들도 추가해주세요
     )
 
     override fun onStop() {

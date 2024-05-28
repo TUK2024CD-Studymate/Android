@@ -11,6 +11,8 @@ import com.studymate154.studymate.search.QuesModel
 import com.studymate154.studymate.search.ReviewModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import com.studymate154.studymate.signUp.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -184,7 +186,14 @@ interface PostService {
         @Header("Authorization") authorization: String
     ): Call<List<GetBoardModel>>
 
-    //게시글 수정 api
+    //이미지 업로드
+    @Multipart
+    @PUT("/image/upload")
+    fun uploadImage(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part // 이미지 파트
+    ): Call<SignUpResponseBody>
+
 
 
 

@@ -11,14 +11,16 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="3dp"
@@ -82,6 +84,17 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/putProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정하기"/>
 
         </LinearLayout>
 

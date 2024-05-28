@@ -42,7 +42,7 @@ class ProfileSetting : AppCompatActivity() {
         }
     }
 
-    private var signUpData: User = User(null, null, null,null, null, null, null,null,null,null)
+    private var signUpData: User = User(null, null,null, null,null, null, null, null,null,null,null,null)
 
     private val stepProgressAmount = 8
 
@@ -178,6 +178,7 @@ class ProfileSetting : AppCompatActivity() {
                 signUpData.blogUrl = jsonObject.optString("blogUrl","")
                 signUpData.publicRelations = jsonObject.optString("publicRelations","")
                 signUpData.job = jsonObject.optString("job","")
+                signUpData.expertiseField = jsonObject.optString("expertiseField","")
             }
         }
 
