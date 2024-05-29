@@ -97,7 +97,7 @@ class BoardInsideActivity : AppCompatActivity() {
         call.enqueue(object : Callback<GetBoardModel> {
             override fun onResponse(call: Call<GetBoardModel>, response: Response<GetBoardModel>) {
                 if (response.isSuccessful) {
-                    val boardModel: GetBoardModel? = response.body()
+                    val boardModel = response.body()
 
                     if(boardModel != null){
                         val korCategory = BoardCategory.fromEngName(boardModel.category ?: "")?.korName

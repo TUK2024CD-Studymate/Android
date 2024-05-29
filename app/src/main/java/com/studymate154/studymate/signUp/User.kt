@@ -1,5 +1,6 @@
 package com.studymate154.studymate.signUp
 
+import android.net.Uri
 import java.net.URL
 
 data class User(
@@ -13,7 +14,7 @@ data class User(
     var blogUrl: String? = null,
     var publicRelations: String? = null,
     var job: String? = null,
-    var imageURL: String? = null,
+    var imageUrl: String? = null,
     var expertiseField : String? = null
 
 )

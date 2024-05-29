@@ -3,8 +3,11 @@ package com.studymate154.studymate.search
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityMentoInfoBinding
 import retrofit2.Call
@@ -21,13 +24,23 @@ class MentoInfoActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        //프로필 이미지 설정
+
+        val name = intent.getStringExtra("name")
+        val starAverage = intent.getDoubleExtra("starAverage",0.0) // 기본값을 0.0f로 설정합니다.
+        val solved = intent.getIntExtra("solved",0)
+        val matchingCount = intent.getIntExtra("matchingCount",0) // 기본값을 0으로 설정합니다.
+
+        Log.d("MentoInfoActivity", "Name: $name")
+        Log.d("MentoInfoActivity", "Star Average: $starAverage")
+        Log.d("MentoInfoActivity", "Solved: $solved")
+        Log.d("MentoInfoActivity", "Matching Count: $matchingCount")
 
         val id = intent.getStringExtra("id").toString()
-
-        binding.nameText.text = intent.getStringExtra("name").toString()
-        binding.solved.text = intent.getStringExtra("solved")
-        binding.matchingCount.text = intent.getStringExtra("matchingCount")
-        binding.ratingBar.rating = intent.getDoubleExtra("starAverage", 0.0).toFloat()
+        binding.nameText.text = name.toString()
+        binding.solved.text = solved.toString()
+        binding.matchingCount.text = matchingCount.toString()
+        binding.ratingBar.rating = starAverage.toFloat()
 
         val listAdapter = MentoReviewAdapter()
 

@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.studymate154.studymate.*
 import com.studymate154.studymate.MyPage.LogoutModel
 import com.studymate154.studymate.MyPage.MyHeartPostActivity
@@ -121,14 +122,24 @@ class MypageFragment : Fragment() {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     val user = response.body()
-                    binding.nameText.text = user!!.name
-                    binding.idText.text = user.nickname
-                    binding.interestsText.text = user.interests
-                    binding.emailText.text = user.email
-                    binding.phoneText.text = user.tel
-                    binding.urlText.text = user.blogUrl
-                    binding.jobText.text = user.job
-                    binding.mentorInfoText.text = user.publicRelations
+
+                   val imageUrl = user?.imageUrl
+
+                    Log.d("image",imageUrl.toString())
+                    Glide.with(requireContext())
+                        .load(imageUrl ?: R.drawable.mento_image)
+                        .into(binding.profileImage)
+
+
+                        // 나머지 유저 정보 설정
+                    binding.nameText.text = user?.name
+                    binding.idText.text = user?.nickname
+                    binding.interestsText.text = user?.interests
+                    binding.emailText.text = user?.email
+                    binding.phoneText.text = user?.tel
+                    binding.urlText.text = user?.blogUrl
+                    binding.jobText.text = user?.job
+                    binding.mentorInfoText.text = user?.publicRelations
 
                 }
             }

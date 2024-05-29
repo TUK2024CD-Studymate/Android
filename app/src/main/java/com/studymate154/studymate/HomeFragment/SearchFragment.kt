@@ -180,13 +180,15 @@ class SearchFragment : Fragment() {
                     matchingList = matchingResponse
                     listAdapter.setList(matchingList)
                     recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
                     listAdapter.setOnItemClickListener(object : MentoListAdapter.OnItemClickListener {
                         override fun onInfoClick(item: GetMatchingModel) {
                             val intent = Intent(requireContext(),MentoInfoActivity::class.java)
                             intent.putExtra("name",item.name)
                             intent.putExtra("starAverage",item.starAverage)
-                            intent.putExtra("solved",item.solved)
+                            intent.putExtra("solved",item.solved.toString())
                             intent.putExtra("id",item.id)
+                            intent.putExtra("imageUrl", item.imageUrl)
                             intent.putExtra("matchingCount",item.matchingCount)
                             startActivity(intent)
                         }

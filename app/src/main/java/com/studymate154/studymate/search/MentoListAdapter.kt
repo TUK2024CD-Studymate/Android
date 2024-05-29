@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.studymate154.studymate.databinding.MentoListBinding
 
 
@@ -24,6 +25,9 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
         fun bind(item: GetMatchingModel){
             binding.name.text = item.name
+            Glide.with(binding.root)
+                .load(item.imageUrl)
+                .into(binding.mentoImg)
 
             // 이미지 클릭 이벤트 설정
             binding.mentoInfo.setOnClickListener {
