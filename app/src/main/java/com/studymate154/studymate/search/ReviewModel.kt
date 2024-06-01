@@ -5,4 +5,5 @@ data class ReviewModel(
     var writer: String,
     var star: String,
     var createAt: String,
+    var imageUrl : String
 )

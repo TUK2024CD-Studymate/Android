@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.studymate154.studymate.R
 import com.studymate154.studymate.chatting.ChatMessageAdapter
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
@@ -107,6 +108,17 @@ class BoardInsideActivity : AppCompatActivity() {
                         binding.nickname.text = boardModel.nickname
                         binding.date.text = boardModel.createdAt
                         binding.content.text = boardModel.content
+
+                        val imageUrl = boardModel.profileUrl
+
+                        if(imageUrl == "프로필 사진이 없습니다."){
+                            binding.userImg.setImageResource(R.drawable.mento_image)
+                        }else {
+                            Glide.with(this@BoardInsideActivity)
+                                .load(imageUrl)
+                                .into(binding.userImg)
+                        }
+
                     }
 
 

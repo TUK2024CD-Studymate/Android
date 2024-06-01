@@ -1,6 +1,7 @@
 package com.studymate154.studymate.board
 
 import com.studymate154.studymate.MyPage.LogoutModel
+import com.studymate154.studymate.MyPage.PutUserModel
 import com.studymate154.studymate.StudyRecord.SubjectModel
 import com.studymate154.studymate.chatting.ChatRoom
 import com.studymate154.studymate.chatting.ReviewVO
@@ -194,6 +195,13 @@ interface PostService {
         @Part image: MultipartBody.Part // 이미지 파트
     ): Call<SignUpResponseBody>
 
+
+    //회원정보 수정
+    @PUT("/api/user")
+    fun putUserEnqueue(
+        @Header("Authorization") authorization: String,
+        @Body PutUserModel : PutUserModel
+    ):  Call<SignUpResponseBody>
 
 
 

@@ -3,6 +3,8 @@ package com.studymate154.studymate.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.studymate154.studymate.R
 import com.studymate154.studymate.databinding.MentoReviewItemBinding
 
 class MentoReviewAdapter :  RecyclerView.Adapter<MentoReviewAdapter.MyView>() {
@@ -15,6 +17,14 @@ class MentoReviewAdapter :  RecyclerView.Adapter<MentoReviewAdapter.MyView>() {
             binding.ratingBar.rating = reviewList[pos].star.toFloat()
             binding.createAt.text = reviewList[pos].createAt
             binding.content.text = reviewList[pos].content
+
+            if(reviewList[pos].imageUrl == "프로필 사진이 없습니다"){
+                binding.profileImage.setImageResource(R.drawable.mento_image)
+            }else {
+                Glide.with(binding.root)
+                    .load(reviewList[pos].imageUrl)
+                    .into(binding.profileImage)
+            }
         }
     }
 
