@@ -1,6 +1,7 @@
 package com.studymate154.studymate.board
 
 import com.studymate154.studymate.MyPage.LogoutModel
+import com.studymate154.studymate.MyPage.PutUserModel
 import com.studymate154.studymate.StudyRecord.SubjectModel
 import com.studymate154.studymate.chatting.ChatRoom
 import com.studymate154.studymate.chatting.ReviewVO
@@ -11,6 +12,8 @@ import com.studymate154.studymate.search.QuesModel
 import com.studymate154.studymate.search.ReviewModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import com.studymate154.studymate.signUp.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -79,7 +82,8 @@ interface PostService {
     @PUT("/api/posts/{post_id}")
     fun putPostByEnqueue(
         @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
+        @Path("post_id") postId: String,
+        @Body BoardModel : BoardWriteModel
     ):  Call<SignUpResponseBody>
 
     //인즌번호 전송
@@ -182,6 +186,23 @@ interface PostService {
     fun getMyHeartPostEnqueue(
         @Header("Authorization") authorization: String
     ): Call<List<GetBoardModel>>
+
+    //이미지 업로드
+    @Multipart
+    @PUT("/api/image/upload")
+    fun uploadImage(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part // 이미지 파트
+    ): Call<SignUpResponseBody>
+
+
+    //회원정보 수정
+    @PUT("/api/user")
+    fun putUserEnqueue(
+        @Header("Authorization") authorization: String,
+        @Body PutUserModel : PutUserModel
+    ):  Call<SignUpResponseBody>
+
 
 
 

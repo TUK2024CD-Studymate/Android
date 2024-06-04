@@ -16,7 +16,7 @@ android {
         applicationId "com.studymate154.studymate"
         minSdk 24
         targetSdk 34
-        versionCode 3
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -92,6 +92,8 @@ dependencies {
     implementation 'com.beust:klaxon:5.0.1'
 
     implementation("com.launchdarkly:okhttp-eventsource:4.1.0")
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 
 
 

@@ -1,6 +1,7 @@
 package com.studymate154.studymate.board
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.studymate154.studymate.R
+import com.studymate154.studymate.chatting.ChatMessageAdapter
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
 import com.studymate154.studymate.signUp.SignUpResponseBody
+import com.studymate154.studymate.signUp.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,6 +32,8 @@ class BoardInsideActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     var commentList = listOf<GetCommentModel>()
     private lateinit var boardId: String
+    private lateinit var boardNickname: String
+    private lateinit var nickname: String
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,15 +98,27 @@ class BoardInsideActivity : AppCompatActivity() {
         call.enqueue(object : Callback<GetBoardModel> {
             override fun onResponse(call: Call<GetBoardModel>, response: Response<GetBoardModel>) {
                 if (response.isSuccessful) {
-                    val boardModel: GetBoardModel? = response.body()
+                    val boardModel = response.body()
 
                     if(boardModel != null){
                         val korCategory = BoardCategory.fromEngName(boardModel.category ?: "")?.korName
+                        boardNickname = boardModel.nickname.toString()
                         binding.category.text =  korCategory
                         binding.title.text = boardModel.title
                         binding.nickname.text = boardModel.nickname
                         binding.date.text = boardModel.createdAt
                         binding.content.text = boardModel.content
+
+                        val imageUrl = boardModel.profileUrl
+
+                        if(imageUrl == "프로필 사진이 없습니다."){
+                            binding.userImg.setImageResource(R.drawable.mento_image)
+                        }else {
+                            Glide.with(this@BoardInsideActivity)
+                                .load(imageUrl)
+                                .into(binding.userImg)
+                        }
+
                     }
 
 
@@ -228,11 +246,48 @@ class BoardInsideActivity : AppCompatActivity() {
                     true
 
                 }
+                R.id.put -> {
+                    getUser()
+                    true
+                }
                 // 다른 메뉴 아이템에 대한 처리도 추가할 수 있습니다.
                 else -> false
             }
         }
         popupMenu.show()
+    }
+
+    private fun getUser() {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    nickname = user?.nickname.toString()
+
+                    // getUser 함수에서 닉네임을 성공적으로 받아온 후에 메뉴 처리 실행
+                    Log.d("boardName", nickname)
+                    Log.d("boardName", boardNickname)
+                    if (nickname == boardNickname) {
+                        val intent = Intent(this@BoardInsideActivity, BoardPutActivity::class.java)
+                        intent.putExtra("boardId",boardId)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@BoardInsideActivity, "수정 할 권한이 없습니다", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Handle failure to get user data
+                    Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                // Handle failure
+                Log.e("getUser", "Network request failed", t)
+            }
+        })
     }
 
 

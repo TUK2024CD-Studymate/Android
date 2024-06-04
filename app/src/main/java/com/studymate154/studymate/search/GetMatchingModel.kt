@@ -13,7 +13,9 @@ data class GetMatchingModel (
     var job: String,
     var heart: Int,
     var starAverage: Double, // 변경된 부분
-    var solved: Int,
-    var matchingCount: Int
+    var solved: Int?,
+    var imageUrl: String?,
+    var matchingCount: Int,
+    var matchingPercent : Double
 
 )

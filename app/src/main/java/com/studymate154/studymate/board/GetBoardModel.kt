@@ -10,5 +10,6 @@ class GetBoardModel(
     var interests: String? = null,
     var recruitmentStatus : String? = null,
     var likeCount : Int,
-    var commentCount : Int
+    var commentCount : Int,
+    var profileUrl : String
 )

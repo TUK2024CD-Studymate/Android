@@ -21,6 +21,7 @@ class InfoFragment : Fragment() {
             put("job", binding.editJob.text.toString())
             put("publicRelations", binding.editPublicRelations.text.toString())
             put("blogUrl", binding.editBlogUrl.text.toString())
+            put("expertiseField",binding.editExpertiseField.text.toString())
         }.toString()
 
         // ProfileSetting 액티비티의 receiveData 함수 호출

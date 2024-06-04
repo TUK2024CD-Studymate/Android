@@ -13,7 +13,7 @@ import com.launchdarkly.eventsource.background.BackgroundEventHandler
 import org.json.JSONObject
 import android.content.Context
 
-class SseEventHandler() : BackgroundEventHandler {
+class SseEventHandler(private val context: Context) : BackgroundEventHandler {
 
     override fun onOpen() {
         // SSE 연결 성공시 처리 로직 작성
@@ -30,6 +30,23 @@ class SseEventHandler() : BackgroundEventHandler {
         // SSE 이벤트 도착시 처리 로직 작성
 
         val data  = messageEvent?.data
+        val jsonObject = JSONObject(data!!)
+
+        val nickname = jsonObject.getString("nickname")
+
+        val builder = NotificationCompat.Builder(context, "channelId")
+            .setSmallIcon(R.drawable.mento_image)
+            .setContentTitle("New Message")
+            .setContentText("$nickname 님이 댓글을 남겼습니다")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        try {
+            notificationManager.notify(1, builder.build())
+            Log.d("Notification", "Notification created successfully")
+        } catch (e: Exception) {
+            Log.e("Notification", "Failed to create notification: ${e.message}")
+        }
 
     }
 

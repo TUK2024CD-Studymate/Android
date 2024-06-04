@@ -1,11 +1,18 @@
 package com.studymate154.studymate
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.*
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.studymate154.studymate.HomeFragment.*
 import com.studymate154.studymate.databinding.ActivityHomeBinding
@@ -28,10 +35,13 @@ class HomeActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         val userToken = sharedPreferences.getString("userToken", "")
 
+
+        createNotificationChannel()
+
         // SSE 연결
         val eventSource: BackgroundEventSource = BackgroundEventSource //백그라운드에서 이벤트를 처리하기위한 EVENTSOURCE의 하위 클래스
             .Builder(
-                SseEventHandler(),
+                SseEventHandler(this),
                 EventSource.Builder(
                     ConnectStrategy
                         .http(URL("https://studymate154.com/api/subscribe/${userToken}"))
@@ -46,6 +56,7 @@ class HomeActivity : AppCompatActivity() {
 
         // EventSource 연결 시작
         eventSource.start()
+
 
 
 
@@ -86,6 +97,21 @@ class HomeActivity : AppCompatActivity() {
         transaction.replace(R.id.container,fragment)
         transaction.commit()
     }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "My Channel Name"
+            val descriptionText = "My channel description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("channelId", name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
 
 
 }
