@@ -189,7 +189,7 @@ interface PostService {
 
     //이미지 업로드
     @Multipart
-    @PUT("/image/upload")
+    @PUT("/api/image/upload")
     fun uploadImage(
         @Header("Authorization") authorization: String,
         @Part image: MultipartBody.Part // 이미지 파트
