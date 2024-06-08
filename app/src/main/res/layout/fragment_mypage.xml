@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -291,7 +291,7 @@
             android:layout_weight="1"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -307,7 +307,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_marginStart="25dp"
             android:orientation="vertical">
 
@@ -317,6 +317,7 @@
                 android:layout_height="wrap_content"
                 android:text="내 게시글 조회"
                 android:textColor="@color/black"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="15dp"
                 android:textSize="15sp" />
 
@@ -355,7 +356,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_marginStart="25dp"
             android:orientation="vertical">
 
@@ -363,6 +364,7 @@
                 android:id="@+id/userDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="15dp"
                 android:text="회원탈퇴"
                 android:textColor="@color/black"

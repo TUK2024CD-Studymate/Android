@@ -28,13 +28,9 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
             binding.name.text = item.name
             binding.percent.text = item.matchingPercent.toInt().toString()
 
-            if(item.imageUrl == "프로필 사진이 없습니다"){
-                binding.mentoImg.setImageResource(R.drawable.mento_image)
-            }else {
-                Glide.with(binding.root)
-                    .load(item.imageUrl)
-                    .into(binding.mentoImg)
-            }
+            Glide.with(binding.root)
+                .load(item.imageUrl)
+                .into(binding.mentoImg)
 
             // 이미지 클릭 이벤트 설정
             binding.mentoInfo.setOnClickListener {

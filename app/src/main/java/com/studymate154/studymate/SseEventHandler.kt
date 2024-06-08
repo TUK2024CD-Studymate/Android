@@ -28,16 +28,24 @@ class SseEventHandler(private val context: Context) : BackgroundEventHandler {
 
         Log.d("SSE", "Received data: ${messageEvent?.data}")
         // SSE 이벤트 도착시 처리 로직 작성
-
         val data  = messageEvent?.data
         val jsonObject = JSONObject(data!!)
 
         val nickname = jsonObject.getString("nickname")
 
+        val message = when(event){
+            "Like" ->  "$nickname 님이 회원님의 게시글을 좋아합니다."
+            "Comment" -> "$nickname 님이 회원님의 게시글에 댓글을 남겼습니다"
+            "Matching" ->  "$nickname 님께서 매칭을 요청하였습니다"
+            else -> ""
+        }
+        Log.d("parkhwan",message)
+
+
         val builder = NotificationCompat.Builder(context, "channelId")
-            .setSmallIcon(R.drawable.mento_image)
-            .setContentTitle("New Message")
-            .setContentText("$nickname 님이 댓글을 남겼습니다")
+            .setSmallIcon(R.drawable.app_logo)
+            .setContentTitle("알림")
+            .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
