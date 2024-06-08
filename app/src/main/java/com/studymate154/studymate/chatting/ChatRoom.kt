@@ -7,6 +7,7 @@ data class Member(
     val expertiseField: String,
     val interests: List<String>,
     val login: Boolean,
+    val profileImageUrl : String
 )
 
 data class ChatRoom(

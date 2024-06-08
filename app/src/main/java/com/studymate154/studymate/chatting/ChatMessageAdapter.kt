@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
 import com.studymate154.studymate.databinding.GetMessageItemBinding
 import com.studymate154.studymate.databinding.SendMessageItemBinding
 
@@ -29,6 +30,7 @@ class ChatMessageAdapter(private val nickname: String) : RecyclerView.Adapter<Ch
                 // 상대방이 보낸 메시지 처리
                 binding.sender.text = messageModel.sender
                 binding.message.text = messageModel.content
+
                 Log.d("ChatMessageAdapter", "false")
             }
         }

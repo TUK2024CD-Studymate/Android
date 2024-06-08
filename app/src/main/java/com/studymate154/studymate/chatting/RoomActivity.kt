@@ -39,6 +39,8 @@ class RoomActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         Log.d("parkhwan", userToken)
 
+        chatMessageAdapter = ChatMessageAdapter("")
+
         //줌 로그인 이벤트
         binding.zoomLoginBtn.setOnClickListener {
             val intent = Intent(
@@ -65,6 +67,9 @@ class RoomActivity : AppCompatActivity() {
         val roomId = intent.getStringExtra("roomId").toString()
         Log.d("roomId", roomId)
 
+        //채팅 기록 불러오기
+        getChatContent(roomId)
+
 
         val url = "wss://studymate154.com/ws/chat"
 
@@ -72,7 +77,7 @@ class RoomActivity : AppCompatActivity() {
         val stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url)
 
 
-        stompClient.topic("/sub/chat/room/${roomId}").subscribe() { topicMessage ->
+        stompClient.topic("/exchange/chat.exchange/room.${roomId}").subscribe() { topicMessage ->
             Log.i("message Recieve", topicMessage.payload)
             try {
                 val messageData = JSONObject(topicMessage.payload)
@@ -96,12 +101,6 @@ class RoomActivity : AppCompatActivity() {
         stompClient.lifecycle().subscribe { lifecycleEvent ->
             when (lifecycleEvent.type) {
                 LifecycleEvent.Type.OPENED -> {
-//
-//                    jsonObject.put("type","ENTER")
-//                    jsonObject.put("chatRoomId", roomId)
-//                    jsonObject.put("sender", nickname)
-//                    jsonObject.put("content", "입장")
-//                    stompClient.send("/pub/chat/message/${roomId}", jsonObject.toString())
 
                     binding.sendBtn.setOnClickListener {
                         try {
@@ -113,7 +112,7 @@ class RoomActivity : AppCompatActivity() {
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
-                        stompClient.send("/pub/chat/message/${roomId}", jsonObject.toString())
+                        stompClient.send("/pub/chat.message.${roomId}", jsonObject.toString())
                             .subscribe {
                                 // 성공적으로 메시지를 전송한 경우
                                 Log.d("SendMessage", "Message sent successfully")
@@ -161,8 +160,8 @@ class RoomActivity : AppCompatActivity() {
         })
     }
 
+    //줌 링크 받아오기
     private fun getZoomLink() {
-//        val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getZoomLink()
 
         call.enqueue(object : Callback<ZoomLinkModel> {
@@ -176,6 +175,29 @@ class RoomActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<ZoomLinkModel>, t: Throwable) {
+                // Handle failure
+            }
+        })
+    }
+
+    private fun getChatContent(chatRoomId : String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.getChatRoomContent("Bearer $userToken",chatRoomId)
+
+        call.enqueue(object : Callback<List<GetMessageModel>> {
+            override fun onResponse(call: Call<List<GetMessageModel>>, response: Response<List<GetMessageModel>>) {
+                if (response.isSuccessful) {
+                    val messageList = response.body()
+                    messageList?.let {
+                        for (messageModel in it) {
+                            val message = MessageModel(messageModel.sender, messageModel.content)
+                            chatMessageAdapter.addMessage(message)
+                        }
+                    }
+                } else {
+                }
+            }
+            override fun onFailure(call: Call<List<GetMessageModel>>, t: Throwable) {
                 // Handle failure
             }
         })

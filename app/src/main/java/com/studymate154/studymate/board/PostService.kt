@@ -3,9 +3,7 @@ package com.studymate154.studymate.board
 import com.studymate154.studymate.MyPage.LogoutModel
 import com.studymate154.studymate.MyPage.PutUserModel
 import com.studymate154.studymate.StudyRecord.SubjectModel
-import com.studymate154.studymate.chatting.ChatRoom
-import com.studymate154.studymate.chatting.ReviewVO
-import com.studymate154.studymate.chatting.ZoomLinkModel
+import com.studymate154.studymate.chatting.*
 import com.studymate154.studymate.loginFragment.MessageVerifyModel
 import com.studymate154.studymate.search.GetMatchingModel
 import com.studymate154.studymate.search.QuesModel
@@ -203,8 +201,18 @@ interface PostService {
         @Body PutUserModel : PutUserModel
     ):  Call<SignUpResponseBody>
 
+    // 해당 방 채팅 내역 불러오기
+    @GET("/api/chat/rooms/{chatRoomId}/contents")
+    fun getChatRoomContent(
+        @Header("Authorization") authorization: String,
+        @Path("chatRoomId") chatRoomId : String
+    ): Call<List<GetMessageModel>>
 
-
+    @POST("/api/chat/rooms")
+    fun postChatRoom(
+        @Header("Authorization") authorization: String,
+        @Body targetNickname : String
+    ): Call<SignUpResponseBody>
 
 
 }
