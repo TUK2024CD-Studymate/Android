@@ -42,16 +42,6 @@
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:text="박환"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -83,13 +73,6 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이전 메시지 내용"
-                    android:layout_marginStart="15sp"
-                    android:textSize="17sp"
-                    android:layout_gravity="center"/>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -97,12 +80,15 @@
 
                 <TextView
                     android:id="@+id/readCount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="35dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edit_red"
                     android:text="1"
+                    android:gravity="center"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:layout_marginEnd="15dp"/>
 
 

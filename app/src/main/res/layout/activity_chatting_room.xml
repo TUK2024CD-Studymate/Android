@@ -21,16 +21,13 @@
             android:text="줌 로그인"
             android:textColor="@color/light_purple"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/getLinkBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/assign_button"
+            android:layout_marginStart="5dp"
             android:text="링크받기"
             android:textColor="@color/light_purple"/>
 

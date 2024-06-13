@@ -208,11 +208,13 @@ interface PostService {
         @Path("chatRoomId") chatRoomId : String
     ): Call<List<GetMessageModel>>
 
+    ///게시판에서 채팅방 생성하기
     @POST("/api/chat/rooms")
     fun postChatRoom(
         @Header("Authorization") authorization: String,
-        @Body targetNickname : String
+        @Query("targetNickname") targetNickname: String
     ): Call<SignUpResponseBody>
+
 
 
 }
