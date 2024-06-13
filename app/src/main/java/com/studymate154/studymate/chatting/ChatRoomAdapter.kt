@@ -20,7 +20,8 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(roomModel: ChatRoom) {
-            binding.name1.text = roomModel.members.joinToString(", ") { it.name }
+            val memberNames = roomModel.members.filter { it.name != "박환" }.joinToString(", ") { it.name }
+            binding.name1.text = memberNames
             binding.readCount.text = roomModel.unreadMessageCount.toString()
 
             val profileImageUrl = roomModel.members.firstOrNull()?.profileImageUrl

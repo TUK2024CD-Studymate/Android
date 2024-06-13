@@ -119,6 +119,10 @@ class BoardInsideActivity : AppCompatActivity() {
                                 .into(binding.userImg)
                         }
 
+                        binding.startChatBtn.setOnClickListener {
+                            postChatRoom(boardModel.nickname.toString())
+                        }
+
                     }
 
 
@@ -284,6 +288,30 @@ class BoardInsideActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
+                // Handle failure
+                Log.e("getUser", "Network request failed", t)
+            }
+        })
+    }
+
+    //채팅방 생성
+    private fun postChatRoom(targetNickname : String) {
+        val userToken = sharedPreferences.getString("userToken", "") ?: ""
+        val call = PostRetrofitAPI.emgMedService.postChatRoom("Bearer $userToken",targetNickname)
+
+        call.enqueue(object : Callback<SignUpResponseBody> {
+            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    Toast.makeText(this@BoardInsideActivity, "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
+                    Toast.makeText(this@BoardInsideActivity, "채팅방이 이미 존재 합니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
                 // Handle failure
                 Log.e("getUser", "Network request failed", t)
             }
