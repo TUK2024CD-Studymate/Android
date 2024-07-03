@@ -29,6 +29,10 @@ class LoginActivity : AppCompatActivity() {
 
         val intent = Intent(this, HomeActivity::class.java)
 
+        binding.Btn.setOnClickListener {
+            startActivity(intent)
+        }
+
         // SharedPreferences 초기화
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 

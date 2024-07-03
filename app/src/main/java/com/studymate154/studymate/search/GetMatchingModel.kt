@@ -8,6 +8,7 @@ data class GetMatchingModel (
     var part: String,
     var email: String,
     var interests: String,
+    var tel : String,
     var blogUrl: String,
     var publicRelations: String,
     var job: String,
@@ -16,6 +17,7 @@ data class GetMatchingModel (
     var solved: Int?,
     var imageUrl: String?,
     var matchingCount: Int,
+    var reviewCount : Int,
     var matchingPercent : Double
 
 )

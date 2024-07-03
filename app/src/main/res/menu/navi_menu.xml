@@ -15,10 +15,6 @@
         android:title="@string/board"
         android:icon="@drawable/board"/>
 
-    <item
-        android:id="@+id/record"
-        android:title="@string/record"
-        android:icon="@drawable/pencil"/>
 
     <item
         android:id="@+id/mypage"

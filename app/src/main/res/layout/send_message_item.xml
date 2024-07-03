@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="내가 할껄 라이즈 센터"
             android:background="@drawable/edit_purple"
+            android:textIsSelectable="true"
             android:padding="7dp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"

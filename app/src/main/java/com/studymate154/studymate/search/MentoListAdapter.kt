@@ -26,7 +26,6 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
         fun bind(item: GetMatchingModel){
             binding.name.text = item.name
-            binding.percent.text = item.matchingPercent.toInt().toString()
 
             Glide.with(binding.root)
                 .load(item.imageUrl)

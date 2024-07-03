@@ -8,8 +8,10 @@ import com.studymate154.studymate.loginFragment.MessageVerifyModel
 import com.studymate154.studymate.search.GetMatchingModel
 import com.studymate154.studymate.search.QuesModel
 import com.studymate154.studymate.search.ReviewModel
+import com.studymate154.studymate.signUp.LoginBackendResponse
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import com.studymate154.studymate.signUp.User
+import com.studymate154.studymate.signUp.UserModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -17,11 +19,17 @@ import retrofit2.http.*
 
 interface PostService {
 
+    //로그인
+    @POST("/api/login")
+    fun userLogin(
+        @Body jsonParams : UserModel,
+    ): Call<LoginBackendResponse>
+
     //본인 회원정보 조회
     @GET("/api/user")
     fun getUserByEnqueue(
         @Header("Authorization") authorization: String,
-    ): Call<User>
+    ): Call<GetMatchingModel>
 
     @POST("/api/posts")
     fun addPostByEnqueue(

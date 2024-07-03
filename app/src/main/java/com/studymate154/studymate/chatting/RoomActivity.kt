@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityChattingRoomBinding
+import com.studymate154.studymate.search.GetMatchingModel
 import com.studymate154.studymate.signUp.User
 import org.json.JSONException
 import org.json.JSONObject
@@ -47,7 +48,7 @@ class RoomActivity : AppCompatActivity() {
         binding.zoomLoginBtn.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2F3.36.177.42%2Fapi%2Fmeeting%2FzoomApi")
+                Uri.parse("https://zoom.us/oauth/authorize?response_type=code&client_id=Zgt89KiZRri8SkBqws0SRg&redirect_uri=http%3A%2F%2F34.64.61.117%2Fapi%2Fmeeting%2FzoomApi")
             )
             startActivity(intent)
         }
@@ -71,8 +72,9 @@ class RoomActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun connectToStomp(userToken: String, roomId: String) {
-        val url = "wss://studymate154.com/ws/chat"
+        val url = "wss://studymate154.kro.kr/ws/chat"
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, url)
 
         val headerList = arrayListOf<StompHeader>()
@@ -139,8 +141,8 @@ class RoomActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        call.enqueue(object : Callback<GetMatchingModel> {
+            override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
                     nickname = user!!.nickname.toString()
@@ -152,7 +154,7 @@ class RoomActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetMatchingModel>, t: Throwable) {
                 // Handle failure
             }
         })

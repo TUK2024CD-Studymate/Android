@@ -28,6 +28,7 @@ import com.studymate154.studymate.MyPage.MyPostActivity
 import com.studymate154.studymate.MyPage.PutMypageActivity
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentMypageBinding
+import com.studymate154.studymate.search.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import com.studymate154.studymate.signUp.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -118,12 +119,12 @@ class MypageFragment : Fragment() {
         val userToken = sharedPreferences.getString("userToken", "")
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        call.enqueue(object : Callback<GetMatchingModel> {
+            override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
 
-                   val imageUrl = user?.imageUrl
+                    val imageUrl = user?.imageUrl
 
                     Log.d("image",imageUrl.toString())
                     Glide.with(requireContext())
@@ -131,19 +132,14 @@ class MypageFragment : Fragment() {
                         .into(binding.profileImage)
 
 
-                        // 나머지 유저 정보 설정
+                    // 나머지 유저 정보 설정
                     binding.nameText.text = user?.name
-                    binding.idText.text = user?.nickname
-                    binding.interestsText.text = user?.interests
-                    binding.emailText.text = user?.email
-                    binding.phoneText.text = user?.tel
-                    binding.urlText.text = user?.blogUrl
-                    binding.jobText.text = user?.job
-                    binding.mentorInfoText.text = user?.publicRelations
+                    binding.matchingCount.text = user?.matchingCount.toString()
+                    binding.reviewCount.text = user?.reviewCount.toString()
 
                 }
             }
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetMatchingModel>, t: Throwable) {
                 // Handle failure
             }
         })

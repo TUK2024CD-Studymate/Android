@@ -9,14 +9,15 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LoginApi {
-    //@Headers("app/json")
+
     @POST("/api/login")
     fun userLogin(
         @Body jsonParams : UserModel,
     ): Call<LoginBackendResponse>
 
     companion object {
-        private const val BASE_URL = "https://studymate154.com"
+        // 기존 서버 주소 "https://studymate154.kro.kr"
+        private const val BASE_URL = "http://10.0.2.2:8080"
         val gson : Gson =   GsonBuilder().setLenient().create();
 
         fun create() : LoginApi {

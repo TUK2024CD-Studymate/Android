@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.studymate154.studymate.R
 import com.studymate154.studymate.chatting.ChatMessageAdapter
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
+import com.studymate154.studymate.search.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import com.studymate154.studymate.signUp.User
 import kotlinx.coroutines.Dispatchers
@@ -265,8 +266,8 @@ class BoardInsideActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        call.enqueue(object : Callback<GetMatchingModel> {
+            override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
                     nickname = user?.nickname.toString()
@@ -287,7 +288,7 @@ class BoardInsideActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetMatchingModel>, t: Throwable) {
                 // Handle failure
                 Log.e("getUser", "Network request failed", t)
             }
