@@ -1,9 +1,6 @@
 package com.studymate154.studymate.signUp
 
-import android.net.Uri
-import java.net.URL
-
-data class User(
+data class UserInfoModel(
     var email: String? = null,
     var password: String? = null,
     var name: String? = null,

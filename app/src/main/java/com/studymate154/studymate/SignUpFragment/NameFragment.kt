@@ -11,7 +11,7 @@ import com.studymate154.studymate.ProfileSetting
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentNameBinding
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
+import com.studymate154.studymate.signUp.UserInfoModel
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class NameFragment : Fragment() {
     lateinit var binding: FragmentNameBinding
-    private var signUpData = User(null, null, null,null, null, null, null,null,null,null)
+    private var signUpData = UserInfoModel(null, null, null,null, null, null, null,null,null,null)
     private var verifyData : MessageVerifyModel = MessageVerifyModel(null,null)
     override fun onStop() {
         super.onStop()
@@ -60,7 +60,7 @@ class NameFragment : Fragment() {
         return binding.root
     }
 
-    private fun postTel(userTel : User){
+    private fun postTel(userTel : UserInfoModel){
         val call = PostRetrofitAPI.emgMedService.postTelByEnqueue(userTel)
 
         call.enqueue(object : Callback<SignUpResponseBody> {
