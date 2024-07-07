@@ -3,7 +3,6 @@
 
 ## 기술 스택
 -Retrofit2   
--Okhttp3  
 -EventSource  
 -Stomp  
 -Coroutine  
