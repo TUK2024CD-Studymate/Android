@@ -1,4 +1,4 @@
-package com.studymate154.studymate.signUp
+package com.studymate154.studymate.Model
 
 data class UserInfoModel(
     var email: String? = null,

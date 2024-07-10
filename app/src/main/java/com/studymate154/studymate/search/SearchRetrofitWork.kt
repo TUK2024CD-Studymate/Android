@@ -1,6 +1,7 @@
 package com.studymate154.studymate.search
 
 import android.util.Log
+import com.studymate154.studymate.Model.QuesModel
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import retrofit2.Call

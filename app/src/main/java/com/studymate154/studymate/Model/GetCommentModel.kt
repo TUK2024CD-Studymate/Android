@@ -1,4 +1,4 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.Model
 
 data class GetCommentModel(
     var id: String? = null,

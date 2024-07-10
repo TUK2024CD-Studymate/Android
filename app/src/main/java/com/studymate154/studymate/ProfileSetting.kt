@@ -7,9 +7,9 @@ import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.studymate154.studymate.databinding.ActivityProfileSettingBinding
-import com.studymate154.studymate.loginFragment.*
+import com.studymate154.studymate.SignUpFragment.*
 import com.studymate154.studymate.signUp.RetrofitWork
-import com.studymate154.studymate.signUp.User
+import com.studymate154.studymate.Model.UserInfoModel
 import org.json.JSONObject
 
 class ProfileSetting : AppCompatActivity() {
@@ -42,7 +42,7 @@ class ProfileSetting : AppCompatActivity() {
         }
     }
 
-    private var signUpData: User = User(null, null,null, null,null, null, null, null,null,null,null,null)
+    private var signUpData: UserInfoModel = UserInfoModel(null, null,null, null,null, null, null, null,null,null,null,null)
 
     private val stepProgressAmount = 8
 

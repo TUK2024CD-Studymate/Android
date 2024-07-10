@@ -1,29 +1,46 @@
 package com.studymate154.studymate.board
 
-import com.studymate154.studymate.MyPage.LogoutModel
+import com.studymate154.studymate.Model.*
 import com.studymate154.studymate.MyPage.PutUserModel
-import com.studymate154.studymate.StudyRecord.SubjectModel
 import com.studymate154.studymate.chatting.*
-import com.studymate154.studymate.loginFragment.MessageVerifyModel
-import com.studymate154.studymate.search.GetMatchingModel
-import com.studymate154.studymate.search.QuesModel
-import com.studymate154.studymate.search.ReviewModel
+import com.studymate154.studymate.SignUpFragment.MessageVerifyModel
 import com.studymate154.studymate.signUp.LoginBackendResponse
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
-import com.studymate154.studymate.signUp.UserModel
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface PostService {
 
     //로그인
     @POST("/api/login")
-    fun userLogin(
-        @Body jsonParams : UserModel,
-    ): Call<LoginBackendResponse>
+    suspend fun userLogin(
+        @Body jsonParams : LoginModel,
+    ): Response<LoginBackendResponse>
+
+    //게시물 가져오기
+    @GET("/api/posts")
+    suspend fun getPostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Query("category") category: String // 카테고리를 추가한 부분
+    ): Response<List<GetBoardModel>>
+
+    //게시글 검색
+    @GET("/api/posts/search")
+    suspend fun getPostSearchEnqueue(
+        @Header("Authorization") authorization: String,
+        @Query("keyword") keyword: String
+    ): Response<List<GetBoardModel>>
+
+//    -------------------------------------------------------------------------------------------------------------------
+
+    //회원가입
+    @Headers("Content-Type: application/json")
+    @POST("/api/signIn")
+    fun addUserByEnqueue(
+        @Body userInfo: UserInfoModel
+    ): Call<SignUpResponseBody>
 
     //본인 회원정보 조회
     @GET("/api/user")
@@ -31,19 +48,12 @@ interface PostService {
         @Header("Authorization") authorization: String,
     ): Call<GetMatchingModel>
 
+    //게시글 올리기
     @POST("/api/posts")
     fun addPostByEnqueue(
         @Header("Authorization") authorization: String,
         @Body recordInfo: BoardWriteModel
     ): Call<SignUpResponseBody>
-
-    //게시물 가져오기
-    @GET("/api/posts")
-    fun getPostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Query("category") category: String // 카테고리를 추가한 부분
-    ): Call<List<GetBoardModel>>
-
 
     @GET("/api/posts/{id}")
     fun getPostIdByEnqueue(
@@ -95,7 +105,7 @@ interface PostService {
     //인즌번호 전송
     @POST("/api/signIn/message")
     fun postTelByEnqueue(
-        @Body userTel : User
+        @Body userTel : UserInfoModel
     ) : Call<SignUpResponseBody>
 
     //인즌번호 맞는지 확인
@@ -138,13 +148,6 @@ interface PostService {
         @Body logoutModel : LogoutModel
     ): Call<SignUpResponseBody>
 
-    //게시글 검색
-    @GET("/api/posts/search")
-    fun getPostSearchEnqueue(
-        @Header("Authorization") authorization: String,
-        @Query("keyword") keyword: String
-    ): Call<List<GetBoardModel>>
-
     //멘토 리뷰 가져오기
     @GET("/api/matching/review/{mentorId}")
     fun getMentorReview(
@@ -181,11 +184,6 @@ interface PostService {
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
 
-    @POST("/api/subject")
-    fun postRecordSub(
-        @Header("Authorization") authorization: String,
-        @Body subjectModel: SubjectModel
-    ): Call<SignUpResponseBody>
 
     //내가 좋아요 누른  게시물
     @GET("/api/user/post/heart")

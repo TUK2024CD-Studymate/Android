@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.bumptech.glide.Glide
+import com.studymate154.studymate.Model.MessageModel
 import com.studymate154.studymate.databinding.GetMessageItemBinding
 import com.studymate154.studymate.databinding.SendMessageItemBinding
 

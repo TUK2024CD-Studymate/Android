@@ -1,4 +1,4 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.Model
 
 class GetBoardModel(
     var post_id: String? = null,

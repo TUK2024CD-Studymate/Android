@@ -1,4 +1,4 @@
-package com.studymate154.studymate.loginFragment
+package com.studymate154.studymate.SignUpFragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import com.studymate154.studymate.ProfileSetting
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentNameBinding
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.UserInfoModel
+import com.studymate154.studymate.Model.UserInfoModel
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

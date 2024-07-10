@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.studymate154.studymate.R
+import com.studymate154.studymate.Model.ReviewModel
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityMentoInfoBinding
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.studymate154.studymate.loginFragment
+package com.studymate154.studymate.SignUpFragment
 
 data class MessageVerifyModel (
     var phoneNumber: String? = null, // 휴대폰 번호

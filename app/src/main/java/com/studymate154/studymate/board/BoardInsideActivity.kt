@@ -9,15 +9,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.studymate154.studymate.Model.GetBoardModel
+import com.studymate154.studymate.Model.GetCommentModel
 import com.studymate154.studymate.R
-import com.studymate154.studymate.chatting.ChatMessageAdapter
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
-import com.studymate154.studymate.search.GetMatchingModel
+import com.studymate154.studymate.Model.GetMatchingModel
+import com.studymate154.studymate.Model.PostCommentModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -185,7 +187,7 @@ class BoardInsideActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.deletePostByEnqueue("Bearer $userToken", boardId)
 
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {

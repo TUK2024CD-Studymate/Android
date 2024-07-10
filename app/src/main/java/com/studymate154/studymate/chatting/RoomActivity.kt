@@ -12,8 +12,10 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityChattingRoomBinding
-import com.studymate154.studymate.search.GetMatchingModel
-import com.studymate154.studymate.signUp.User
+import com.studymate154.studymate.Model.GetMatchingModel
+import com.studymate154.studymate.Model.GetMessageModel
+import com.studymate154.studymate.Model.MessageModel
+import com.studymate154.studymate.Model.ZoomLinkModel
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call

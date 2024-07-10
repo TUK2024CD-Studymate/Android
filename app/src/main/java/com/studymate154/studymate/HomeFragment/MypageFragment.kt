@@ -22,15 +22,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.studymate154.studymate.*
-import com.studymate154.studymate.MyPage.LogoutModel
+import com.studymate154.studymate.Model.LogoutModel
 import com.studymate154.studymate.MyPage.MyHeartPostActivity
 import com.studymate154.studymate.MyPage.MyPostActivity
 import com.studymate154.studymate.MyPage.PutMypageActivity
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentMypageBinding
-import com.studymate154.studymate.search.GetMatchingModel
+import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

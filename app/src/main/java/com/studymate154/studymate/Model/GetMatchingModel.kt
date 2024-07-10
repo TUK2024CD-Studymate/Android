@@ -1,4 +1,4 @@
-package com.studymate154.studymate.search
+package com.studymate154.studymate.Model
 
 
 data class GetMatchingModel (

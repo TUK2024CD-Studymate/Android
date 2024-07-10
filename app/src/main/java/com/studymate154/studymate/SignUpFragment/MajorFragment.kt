@@ -1,4 +1,4 @@
-package com.studymate154.studymate.loginFragment
+package com.studymate154.studymate.SignUpFragment
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import com.studymate154.studymate.ProfileSetting
 import com.studymate154.studymate.databinding.FragmentMajorBinding
 import org.json.JSONObject

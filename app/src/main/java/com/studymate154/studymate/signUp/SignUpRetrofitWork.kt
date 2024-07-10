@@ -1,12 +1,14 @@
 package com.studymate154.studymate.signUp
 
 import android.util.Log
+import com.studymate154.studymate.Model.UserInfoModel
+import com.studymate154.studymate.board.PostRetrofitAPI
 import retrofit2.Call
 import retrofit2.Response
 
-class RetrofitWork(private val userInfo: User) {
+class RetrofitWork(private val userInfo: UserInfoModel) {
     fun work() {
-        val service = RetrofitAPI.emgMedService
+        val service = PostRetrofitAPI.emgMedService
 
         service.addUserByEnqueue(userInfo)
             .enqueue(object : retrofit2.Callback<SignUpResponseBody> {

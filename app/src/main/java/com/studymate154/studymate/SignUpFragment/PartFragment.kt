@@ -1,4 +1,4 @@
-package com.studymate154.studymate.loginFragment
+package com.studymate154.studymate.SignUpFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

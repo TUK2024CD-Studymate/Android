@@ -1,4 +1,4 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.Model
 
 data class BoardWriteModel (
     var title: String? = null,

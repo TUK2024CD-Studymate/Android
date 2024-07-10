@@ -3,6 +3,7 @@ package com.studymate154.studymate.board
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.studymate154.studymate.Model.BoardWriteModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Response

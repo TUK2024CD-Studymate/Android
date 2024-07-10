@@ -1,6 +1,6 @@
-package com.studymate154.studymate.chatting
+package com.studymate154.studymate.Model
 
-data class RoomDto (
+data class RoomModel (
     var roomId: String? = null,
     var name: String? = null,
 )

@@ -9,13 +9,11 @@ import android.util.Log
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
-import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 
 import com.studymate154.studymate.databinding.ActivityPutMypageBinding
-import com.studymate154.studymate.search.GetMatchingModel
+import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

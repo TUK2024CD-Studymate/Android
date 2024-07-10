@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.studymate154.studymate.R
+import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.databinding.MentoListBinding
 
 

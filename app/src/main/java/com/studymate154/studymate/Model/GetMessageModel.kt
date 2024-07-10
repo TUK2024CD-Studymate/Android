@@ -1,4 +1,4 @@
-package com.studymate154.studymate.chatting
+package com.studymate154.studymate.Model
 
 data class GetMessageModel (
     var messageId: String? = null,
