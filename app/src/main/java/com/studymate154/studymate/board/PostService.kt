@@ -33,6 +33,42 @@ interface PostService {
         @Query("keyword") keyword: String
     ): Response<List<GetBoardModel>>
 
+    //해당 게시글 불러오기
+    @GET("/api/posts/{id}")
+    suspend fun getPostIdByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String // 또는 필요에 따라 다른 데이터 타입을 사용
+    ):  Response<GetBoardModel>
+
+    //게시글 댓글 불러오기
+    @GET("/api/posts/{post_id}/comments")
+    suspend fun getCommentByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String // post_id를 직접 전달
+    ): Response<List<GetCommentModel>>
+
+    //게시글 삭제
+    @DELETE("/api/posts/{post_id}")
+    suspend fun deletePostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
+    ):  Response<SignUpResponseBody>
+
+    // 게시글 좋아요 누르기
+    @POST("/api/post/heart/{postId}")
+    suspend fun postHeart(
+        @Header("Authorization") authorization: String,
+        @Path("postId") postId: String
+    ) : Response<SignUpResponseBody>
+
+    //게시판에서 채팅방 생성하기
+    @POST("/api/chat/rooms")
+    suspend fun postChatRoom(
+        @Header("Authorization") authorization: String,
+        @Query("targetNickname") targetNickname: String
+    ): Response<SignUpResponseBody>
+
+
 //    -------------------------------------------------------------------------------------------------------------------
 
     //회원가입
@@ -55,12 +91,6 @@ interface PostService {
         @Body recordInfo: BoardWriteModel
     ): Call<SignUpResponseBody>
 
-    @GET("/api/posts/{id}")
-    fun getPostIdByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("id") id: String // 또는 필요에 따라 다른 데이터 타입을 사용
-    ):  Call<GetBoardModel>
-
     @POST("/api/posts/{post_id}/comments")
     fun postCommentsByEnqueue(
         @Header("Authorization") authorization: String,
@@ -68,11 +98,6 @@ interface PostService {
         @Body postCommentModel: PostCommentModel
     ): Call<SignUpResponseBody>
 
-    @GET("/api/posts/{post_id}/comments")
-    fun getCommentByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String // post_id를 직접 전달
-    ): Call<List<GetCommentModel>>
 
     @POST("/api/question")
     fun addQuesByEnqueue(
@@ -86,13 +111,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
-
-    //게시글 삭제
-    @DELETE("/api/posts/{post_id}")
-    fun deletePostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
-    ):  Call<SignUpResponseBody>
 
     //게시글 수정
     @PUT("/api/posts/{post_id}")
@@ -113,16 +131,6 @@ interface PostService {
     fun postVerifyByEnqueue(
         @Body verifyModel : MessageVerifyModel
     ) : Call<SignUpResponseBody>
-
-
-    // 좋아요 보내기
-    @POST("/api/post/heart/{postId}")
-    fun postHeart(
-        @Header("Authorization") authorization: String,
-        @Path("postId") postId: String
-    ) : Call<SignUpResponseBody>
-
-
 
     //줌링크 생성
     @GET("/api/meeting/create")
@@ -214,12 +222,6 @@ interface PostService {
         @Path("chatRoomId") chatRoomId : String
     ): Call<List<GetMessageModel>>
 
-    ///게시판에서 채팅방 생성하기
-    @POST("/api/chat/rooms")
-    fun postChatRoom(
-        @Header("Authorization") authorization: String,
-        @Query("targetNickname") targetNickname: String
-    ): Call<SignUpResponseBody>
 
 
 
