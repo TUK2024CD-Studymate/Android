@@ -47,9 +47,9 @@
         app:tabGravity="center"
         app:tabBackground="@drawable/tab_background"
         app:tabTextAppearance="@style/tab_text"
-        app:tabTextColor="@color/lightGray"
+        app:tabTextColor="#7D7C7C"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="#915FC1"
+        app:tabSelectedTextColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">

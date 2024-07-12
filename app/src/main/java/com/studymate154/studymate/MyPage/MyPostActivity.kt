@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.board.BoardInsideActivity
 import com.studymate154.studymate.board.BoardListAdapter
-import com.studymate154.studymate.board.GetBoardModel
+import com.studymate154.studymate.Model.GetBoardModel
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityMyPostBinding
 import retrofit2.Call

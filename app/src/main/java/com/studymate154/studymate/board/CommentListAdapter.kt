@@ -3,6 +3,7 @@ package com.studymate154.studymate.board
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.studymate154.studymate.Model.GetCommentModel
 import com.studymate154.studymate.databinding.CommentItemBinding
 
 class CommentListAdapter() : RecyclerView.Adapter<CommentListAdapter.MyView>() {

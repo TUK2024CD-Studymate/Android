@@ -1,6 +1,7 @@
 package com.studymate154.studymate.board
 
 import android.util.Log
+import com.studymate154.studymate.Model.PostCommentModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Response

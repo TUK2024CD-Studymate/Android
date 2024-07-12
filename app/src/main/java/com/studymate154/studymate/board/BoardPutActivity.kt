@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.studymate154.studymate.Model.BoardWriteModel
 import com.studymate154.studymate.R
-import com.studymate154.studymate.StudyRecord.StudyRetrofitAPI
+
 import com.studymate154.studymate.databinding.ActivityBoardPutBinding
-import com.studymate154.studymate.databinding.ActivityChattingRoomBinding
 
 class BoardPutActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -112,7 +112,7 @@ class BoardPutActivity : AppCompatActivity() {
     }
 
     private fun updateBoardData(boardData: BoardWriteModel) {
-        val json = StudyRetrofitAPI.gson.toJson(boardData)
+        val json = PostRetrofitAPI.gson.toJson(boardData)
         Log.d("studymodel", json)
     }
 

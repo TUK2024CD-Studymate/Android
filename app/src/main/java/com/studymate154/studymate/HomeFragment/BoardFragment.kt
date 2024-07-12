@@ -10,12 +10,17 @@ import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.R
 import com.studymate154.studymate.board.*
 import com.studymate154.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout
+import com.studymate154.studymate.Model.GetBoardModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,9 +62,6 @@ class BoardFragment : Fragment() {
             showOptionMenu(it)
         }
 
-
-
-
         val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
 
         binding.recyclerView.apply {
@@ -92,28 +94,24 @@ class BoardFragment : Fragment() {
         //서취뷰
         initSearchView()
 
-
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
             startActivity(intent)
         }
 
-
-
-
-
         return binding.root
     }
 
-
-
+    //게시글 불러오기
     private fun getBoardList(category: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getPostByEnqueue("Bearer $userToken", category)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<List<GetBoardModel>> {
-            override fun onResponse(call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>) {
-                if (response.isSuccessful) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.getPostByEnqueue("Bearer $userToken", category)
+
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
                     val boardModelList: List<GetBoardModel>? = response.body()
 
                     if (boardModelList != null) {
@@ -131,12 +129,12 @@ class BoardFragment : Fragment() {
                     }
                 }
             }
+        }
 
-            override fun onFailure(call: Call<List<GetBoardModel>>, t: Throwable) {
-                Log.e("getBoardList", "Network request failed", t)
-            }
-        })
+
     }
+
+    //게시글 시간순으로 정렬
     @SuppressLint("NotifyDataSetChanged")
     private fun sortAndRefreshList() {
         // 시간순으로 정렬
@@ -171,31 +169,27 @@ class BoardFragment : Fragment() {
     //검색어 사용
     private fun getSearch(keyword: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getPostSearchEnqueue("Bearer $userToken", keyword)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<List<GetBoardModel>> {
-            override fun onResponse(call: Call<List<GetBoardModel>>, response: Response<List<GetBoardModel>>) {
-                if (response.isSuccessful) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.getPostSearchEnqueue("Bearer $userToken", keyword)
+
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
                     val boardModelList: List<GetBoardModel>? = response.body()
 
                     if (boardModelList != null) {
 
                         boardList = boardModelList
                         listAdapter.setList(boardList)
+                        binding.recyclerView.adapter = listAdapter
 
-                        activity?.runOnUiThread {
-                            binding.recyclerView.adapter = listAdapter
-                        }
                     } else {
                         Log.e("getBoardList", "Failed to convert response to List<GetBoardModel>")
                     }
                 }
             }
-
-            override fun onFailure(call: Call<List<GetBoardModel>>, t: Throwable) {
-                Log.e("getBoardList", "Network request failed", t)
-            }
-        })
+        }
     }
 
     //메뉴 아이템 클릭 이벤트

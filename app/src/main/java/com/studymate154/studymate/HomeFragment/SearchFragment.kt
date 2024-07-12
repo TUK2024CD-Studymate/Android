@@ -17,6 +17,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.studymate154.studymate.Model.GetMatchingModel
+import com.studymate154.studymate.Model.QuesModel
 import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentSearchBinding

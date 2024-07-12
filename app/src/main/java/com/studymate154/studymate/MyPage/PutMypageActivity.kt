@@ -9,12 +9,11 @@ import android.util.Log
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
-import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 
 import com.studymate154.studymate.databinding.ActivityPutMypageBinding
+import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,8 +56,8 @@ class PutMypageActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "")
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        call.enqueue(object : Callback<GetMatchingModel> {
+            override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
 
@@ -70,12 +69,11 @@ class PutMypageActivity : AppCompatActivity() {
                     binding.urlText.text = user?.blogUrl?.toEditable()
                     binding.jobText.text = user?.job?.toEditable()
                     binding.partText.text = user?.part?.toEditable()
-                    binding.mentorInfoText.text = user?.expertiseField?.toEditable()
 
 
                 }
             }
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetMatchingModel>, t: Throwable) {
                 // Handle failure
             }
         })

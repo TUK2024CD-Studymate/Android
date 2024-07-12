@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
                 SseEventHandler(this),
                 EventSource.Builder(
                     ConnectStrategy
-                        .http(URL("https://studymate154.com/api/subscribe/${userToken}"))
+                        .http(URL("https://studymate154.kro.kr/api/subscribe/${userToken}"))
                         // 서버와의 연결을 설정하는 타임아웃
                         .connectTimeout(3, TimeUnit.SECONDS)
                         // 서버로부터 데이터를 읽는 타임아웃 시간
@@ -77,10 +77,6 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.board->{
                     loadFragment(BoardFragment())
-                    true
-                }
-                R.id.record->{
-                    loadFragment(RecordFragment())
                     true
                 }
                 R.id.mypage->{

@@ -9,14 +9,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.studymate154.studymate.Model.GetBoardModel
+import com.studymate154.studymate.Model.GetCommentModel
 import com.studymate154.studymate.R
-import com.studymate154.studymate.chatting.ChatMessageAdapter
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
+import com.studymate154.studymate.Model.GetMatchingModel
+import com.studymate154.studymate.Model.PostCommentModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
-import com.studymate154.studymate.signUp.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -93,17 +96,20 @@ class BoardInsideActivity : AppCompatActivity() {
     //게시글 내용 불러오기
     private fun getBoardItem(id: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getPostIdByEnqueue("Bearer $userToken", id)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<GetBoardModel> {
-            override fun onResponse(call: Call<GetBoardModel>, response: Response<GetBoardModel>) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.getPostIdByEnqueue("Bearer $userToken", id)
+
+            withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val boardModel = response.body()
 
-                    if(boardModel != null){
-                        val korCategory = BoardCategory.fromEngName(boardModel.category ?: "")?.korName
+                    if (boardModel != null) {
+                        val korCategory =
+                            BoardCategory.fromEngName(boardModel.category ?: "")?.korName
                         boardNickname = boardModel.nickname.toString()
-                        binding.category.text =  korCategory
+                        binding.category.text = korCategory
                         binding.title.text = boardModel.title
                         binding.nickname.text = boardModel.nickname
                         binding.date.text = boardModel.createdAt
@@ -111,9 +117,9 @@ class BoardInsideActivity : AppCompatActivity() {
 
                         val imageUrl = boardModel.profileUrl
 
-                        if(imageUrl == "프로필 사진이 없습니다."){
+                        if (imageUrl == "프로필 사진이 없습니다.") {
                             binding.userImg.setImageResource(R.drawable.mento_image)
-                        }else {
+                        } else {
                             Glide.with(this@BoardInsideActivity)
                                 .load(imageUrl)
                                 .into(binding.userImg)
@@ -130,12 +136,7 @@ class BoardInsideActivity : AppCompatActivity() {
                     Log.e("getPostById", "게시글 세부 정보 가져오기 실패. 응답 코드: ${response.code()}")
                 }
             }
-
-            override fun onFailure(call: Call<GetBoardModel>, t: Throwable) {
-                // 네트워크 요청 실패 처리
-                Log.e("getPostById", "네트워크 요청 실패", t)
-            }
-        })
+        }
     }
 
     // 카테고리 한국어로 변경
@@ -154,15 +155,14 @@ class BoardInsideActivity : AppCompatActivity() {
     //댓글 목록 불러오기
     private fun getCommentList(postId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getCommentByEnqueue("Bearer $userToken", postId)
+        val call = PostRetrofitAPI.emgMedService
         val listAdapter = CommentListAdapter()
 
-        call.enqueue(object : Callback<List<GetCommentModel>> {
-            override fun onResponse(
-                call: Call<List<GetCommentModel>>,
-                response: Response<List<GetCommentModel>>
-            ) {
-                if (response.isSuccessful) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.getCommentByEnqueue("Bearer $userToken", postId)
+
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
                     val boardModelList: List<GetCommentModel>? = response.body()
 
                     if (boardModelList != null) {
@@ -173,20 +173,17 @@ class BoardInsideActivity : AppCompatActivity() {
                     }
                 }
             }
-
-            override fun onFailure(call: Call<List<GetCommentModel>>, t: Throwable) {
-            }
-        })
+        }
     }
 
     //게시글 삭제
     private fun deletePost(boardId: String, onPostDeleted: (Boolean) -> Unit) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.deletePostByEnqueue("Bearer $userToken", boardId)
+        val call = PostRetrofitAPI.emgMedService
 
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = call.execute()
+                val response = call.deletePostByEnqueue("Bearer $userToken", boardId)
                 if (response.isSuccessful) {
                     Log.d("deleteRecord", "Record deleted successfully")
                     withContext(Dispatchers.Main) {
@@ -208,22 +205,18 @@ class BoardInsideActivity : AppCompatActivity() {
     }
 
     // 좋아요 누르기
+    @SuppressLint("ShowToast")
     private fun postHeart(boardId : String){
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.postHeart("Bearer $userToken",boardId)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(
-                call: Call<SignUpResponseBody>,
-                response: Response<SignUpResponseBody>
-            ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.postHeart("Bearer $userToken",boardId)
 
+            if (response.isSuccessful){
+                Toast.makeText(this@BoardInsideActivity,"좋아요를 눌렀습니다!",Toast.LENGTH_SHORT).show()
             }
-
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                Log.d("로그인 통신 실패", t.message.toString())
-            }
-        })
+        }
     }
 
     //아이템 메뉴
@@ -265,8 +258,8 @@ class BoardInsideActivity : AppCompatActivity() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService.getUserByEnqueue("Bearer $userToken")
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        call.enqueue(object : Callback<GetMatchingModel> {
+            override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
                     nickname = user?.nickname.toString()
@@ -287,7 +280,7 @@ class BoardInsideActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetMatchingModel>, t: Throwable) {
                 // Handle failure
                 Log.e("getUser", "Network request failed", t)
             }
@@ -297,25 +290,19 @@ class BoardInsideActivity : AppCompatActivity() {
     //채팅방 생성
     private fun postChatRoom(targetNickname : String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.postChatRoom("Bearer $userToken",targetNickname)
 
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    Toast.makeText(this@BoardInsideActivity, "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = PostRetrofitAPI.emgMedService.postChatRoom("Bearer $userToken",targetNickname)
 
-                } else {
-                    Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
-                    Toast.makeText(this@BoardInsideActivity, "채팅방이 이미 존재 합니다.", Toast.LENGTH_SHORT).show()
-                }
+            if (response.isSuccessful) {
+                val user = response.body()
+                Toast.makeText(this@BoardInsideActivity, "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
+                Toast.makeText(this@BoardInsideActivity, "채팅방이 이미 존재 합니다.", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                // Handle failure
-                Log.e("getUser", "Network request failed", t)
-            }
-        })
+        }
     }
 
 

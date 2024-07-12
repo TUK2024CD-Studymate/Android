@@ -7,8 +7,9 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.studymate154.studymate.Model.BoardWriteModel
 import com.studymate154.studymate.R
-import com.studymate154.studymate.StudyRecord.StudyRetrofitAPI.gson
+import com.studymate154.studymate.board.PostRetrofitAPI.gson
 import com.studymate154.studymate.databinding.ActivityBoardWriteBinding
 
 class BoardWriteActivity : AppCompatActivity() {

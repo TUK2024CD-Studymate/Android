@@ -10,19 +10,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="25dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
@@ -33,8 +33,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/nameText"
                     android:layout_width="wrap_content"
@@ -42,9 +43,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="박환"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,249 +57,82 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="문제 해결 수"
-                        android:textSize="13sp"
-                        android:textColor="@color/lightGray" />
+                        android:textColor="@color/lightGray"
+                        android:textSize="13sp" />
+
                     <TextView
+                        android:id="@+id/reviewCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="1dp"
                         android:text="0"
-                        android:textSize="13sp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="매칭횟수"
-                        android:textSize="13sp"
-                        android:textColor="@color/lightGray" />
+                        android:textColor="@color/lightGray"
+                        android:textSize="13sp" />
+
                     <TextView
+                        android:id="@+id/matchingCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="1dp"
                         android:text="0"
-                        android:textSize="13sp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
 
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/putProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수정하기"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/logout"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:text="로그아웃"
+                android:textColor="@color/red"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
-
-        <View
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/putProfile"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="15dp"
-            android:background="#BFB8B8" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="#DDDADA"
             android:layout_marginStart="25dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="프로필"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
+            android:layout_marginEnd="25dp"
+            android:textSize="13sp"
+            android:text="프로필 수정"/>
 
         <LinearLayout
-            android:id="@+id/mypage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="닉네임"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/idText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="김선재재재재"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="분야"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/interestsText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="코딩"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="이메일"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/emailText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="pahw001129@naver.com"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="전화번호"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="01075575986"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="블로그 주소"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/urlText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="www.naver.com"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="직업"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/jobText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="개발자"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="수상내역"
-                    android:textColor="@color/Gray" />
-
-                <TextView
-                    android:id="@+id/mentorInfoText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="씨부엉 코딩대회 1등"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="게시글"
+                android:text="커뮤니티"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -306,9 +141,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:orientation="vertical">
 
             <TextView
@@ -317,29 +152,40 @@
                 android:layout_height="wrap_content"
                 android:text="내 게시글 조회"
                 android:textColor="@color/black"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#BFB8B8" />
 
             <TextView
                 android:id="@+id/myHeartPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="좋아요 누른 게시물"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#BFB8B8" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="25dp"
             android:orientation="horizontal">
 
             <TextView
@@ -356,36 +202,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:text="회원탈퇴"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
-                android:text="로그아웃"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
         </LinearLayout>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="15dp"
+            android:background="#BFB8B8" />
 
     </LinearLayout>
-
-
-
 </ScrollView>
