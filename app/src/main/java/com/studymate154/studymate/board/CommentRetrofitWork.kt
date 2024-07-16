@@ -3,6 +3,7 @@ package com.studymate154.studymate.board
 import android.util.Log
 import com.studymate154.studymate.Model.PostCommentModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -15,23 +16,12 @@ class CommentRetrofitWork(private val userToken: String, private val postId: Str
         }
         val service = PostRetrofitAPI.emgMedService
 
-        service.postCommentsByEnqueue("Bearer $userToken", postId, postInfo).enqueue(object : retrofit2.Callback<SignUpResponseBody> {
-                override fun onResponse(
-                    call: Call<SignUpResponseBody>,
-                    response: Response<SignUpResponseBody>
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = service.postCommentsByEnqueue("Bearer $userToken", postId, postInfo)
 
-                ) {
-                    Log.d("저장 통신 성공", response.toString())
-                    Log.d("저장 통신 성공", response.body().toString())
-                    if (response.isSuccessful) {
-                        val result = response.body()
-
-                    }
-                }
-
-                override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                    Log.d("데이터 저장 실패", t.message.toString())
-                }
-            })
+            if (response.isSuccessful){
+                Log.d("commentPost","댓글 post 성공")
+            }
+        }
     }
 }

@@ -68,6 +68,21 @@ interface PostService {
         @Query("targetNickname") targetNickname: String
     ): Response<SignUpResponseBody>
 
+    //게시글 작성하기
+    @POST("/api/posts")
+    suspend fun addPostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Body recordInfo: BoardWriteModel
+    ): Response<SignUpResponseBody>
+
+    // 댓글 post
+    @POST("/api/posts/{post_id}/comments")
+    suspend fun postCommentsByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String, // post_id를 직접 전달
+        @Body postCommentModel: PostCommentModel
+    ): Response<SignUpResponseBody>
+
 
 //    -------------------------------------------------------------------------------------------------------------------
 
@@ -84,19 +99,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
     ): Call<GetMatchingModel>
 
-    //게시글 올리기
-    @POST("/api/posts")
-    fun addPostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Body recordInfo: BoardWriteModel
-    ): Call<SignUpResponseBody>
-
-    @POST("/api/posts/{post_id}/comments")
-    fun postCommentsByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String, // post_id를 직접 전달
-        @Body postCommentModel: PostCommentModel
-    ): Call<SignUpResponseBody>
 
 
     @POST("/api/question")

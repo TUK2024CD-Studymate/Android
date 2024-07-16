@@ -3,6 +3,9 @@ package com.studymate154.studymate.board
 import android.util.Log
 import com.studymate154.studymate.Model.BoardWriteModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 
@@ -13,23 +16,17 @@ class StudyRetrofitWork(private val userToken: String, private val postInfo: Boa
             Log.d("userToken", "userToken이 없습니다.")
             return
         }
+
         val service = PostRetrofitAPI.emgMedService
 
-        service.addPostByEnqueue("Bearer $userToken", postInfo)
-            .enqueue(object : retrofit2.Callback<SignUpResponseBody> {
-                override fun onResponse(
-                    call: Call<SignUpResponseBody>,
-                    response: Response<SignUpResponseBody>
-                ) {
-                    if (response.isSuccessful) {
-                        val result = response.body()
-                        Log.d("데이터 저장 성공", "$result")
-                    }
-                }
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = service.addPostByEnqueue("Bearer $userToken", postInfo)
 
-                override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                    Log.d("데이터 저장 실패", t.message.toString())
-                }
-            })
+            if(response.isSuccessful){
+                Log.d("Login","로그인 통신 성공")
+            }
+
+        }
+
     }
 }
