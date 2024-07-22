@@ -92,7 +92,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
         }
 
-        // @post
+        // 게시글 post하기
         binding.postBtn.setOnClickListener {
             boardModel.title = binding.editTitle.text.toString()
             boardModel.content = binding.editContent.text.toString()

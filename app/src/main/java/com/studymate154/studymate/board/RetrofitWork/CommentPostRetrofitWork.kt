@@ -1,13 +1,11 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.board.RetrofitWork
 
 import android.util.Log
 import com.studymate154.studymate.Model.PostCommentModel
-import com.studymate154.studymate.signUp.SignUpResponseBody
+import com.studymate154.studymate.board.PostRetrofitAPI
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Response
 
-class CommentRetrofitWork(private val userToken: String, private val postId: String, private val postInfo: PostCommentModel) {
+class CommentPostRetrofitWork(private val userToken: String, private val postId: String, private val postInfo: PostCommentModel) {
     fun work() {
 
         if (userToken.isEmpty()) {

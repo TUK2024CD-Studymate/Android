@@ -1,4 +1,4 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.board.BoardAdapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -32,12 +32,12 @@ class BoardListAdapter(private val itemClickListener: OnItemClickListener) : Rec
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardListAdapter.MyView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val view = BoardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyView(view)
     }
 
-    override fun onBindViewHolder(holder: BoardListAdapter.MyView, position: Int) {
+    override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(boardList[position])
     }
 

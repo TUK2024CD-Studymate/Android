@@ -83,6 +83,14 @@ interface PostService {
         @Body postCommentModel: PostCommentModel
     ): Response<SignUpResponseBody>
 
+    //게시글 수정
+    @PUT("/api/posts/{post_id}")
+    suspend fun putPostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String,
+        @Body BoardModel : BoardWriteModel
+    ):  Response<SignUpResponseBody>
+
 
 //    -------------------------------------------------------------------------------------------------------------------
 
@@ -113,14 +121,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
-
-    //게시글 수정
-    @PUT("/api/posts/{post_id}")
-    fun putPostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String,
-        @Body BoardModel : BoardWriteModel
-    ):  Call<SignUpResponseBody>
 
     //인즌번호 전송
     @POST("/api/signIn/message")

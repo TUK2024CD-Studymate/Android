@@ -13,15 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.studymate154.studymate.Model.GetBoardModel
 import com.studymate154.studymate.Model.GetCommentModel
 import com.studymate154.studymate.R
 import com.studymate154.studymate.databinding.ActivityBoardInsideBinding
 import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.Model.PostCommentModel
-import com.studymate154.studymate.signUp.SignUpResponseBody
+import com.studymate154.studymate.board.BoardAdapter.CommentListAdapter
+import com.studymate154.studymate.board.RetrofitWork.CommentPostRetrofitWork
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -72,7 +71,7 @@ class BoardInsideActivity : AppCompatActivity() {
         // 댓글 post
         binding.postBtn.setOnClickListener {
             postCommentModel.content = binding.editComment.text.toString()
-            val retrofitWork = CommentRetrofitWork(userToken.toString(), boardId ,postCommentModel)
+            val retrofitWork = CommentPostRetrofitWork(userToken.toString(), boardId ,postCommentModel)
             retrofitWork.work()
             binding.editComment.text = null
             binding.recyclerView.apply { listAdapter.notifyDataSetChanged() }

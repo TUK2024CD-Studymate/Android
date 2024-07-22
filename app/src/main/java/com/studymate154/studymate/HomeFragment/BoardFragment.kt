@@ -18,12 +18,10 @@ import com.studymate154.studymate.board.*
 import com.studymate154.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout
 import com.studymate154.studymate.Model.GetBoardModel
+import com.studymate154.studymate.board.BoardAdapter.BoardListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class BoardFragment : Fragment() {
