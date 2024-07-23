@@ -16,6 +16,7 @@ import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.Model.GetMessageModel
 import com.studymate154.studymate.Model.MessageModel
 import com.studymate154.studymate.Model.ZoomLinkModel
+import com.studymate154.studymate.chatting.ChattingAdapter.ChatMessageAdapter
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -117,12 +118,15 @@ class RoomActivity : AppCompatActivity() {
         }
     }
 
+    //채팅방 재연결
     private fun reconnect(userToken: String, roomId: String) {
         Handler(Looper.getMainLooper()).postDelayed({
             connectToStomp(userToken, roomId)
         }, 5000)
     }
 
+    //채팅 메세지 전송
+    @SuppressLint("CheckResult")
     private fun sendMessage(roomId: String) {
         try {
             jsonObject.put("type", "TALK")
@@ -147,7 +151,7 @@ class RoomActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetMatchingModel>, response: Response<GetMatchingModel>) {
                 if (response.isSuccessful) {
                     val user = response.body()
-                    nickname = user!!.nickname.toString()
+                    nickname = user!!.nickname
                     chatMessageAdapter = ChatMessageAdapter(nickname)
                     binding.recyclerView.layoutManager = LinearLayoutManager(this@RoomActivity)
                     binding.recyclerView.adapter = chatMessageAdapter

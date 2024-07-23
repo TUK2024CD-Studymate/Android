@@ -1,4 +1,4 @@
-package com.studymate154.studymate.chatting
+package com.studymate154.studymate.chatting.ChattingAdapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.studymate154.studymate.R
+import com.studymate154.studymate.chatting.ChatRoom
 import com.studymate154.studymate.databinding.RoomItemListBinding
 
-class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
+class ChatRoomAdapter(private val itemClickListener: OnItemClickListener): RecyclerView.Adapter<ChatRoomAdapter.MyView>() {
 
     private var roomList = listOf<ChatRoom>()
 
@@ -45,12 +46,12 @@ class ChatRoomAdapter(private val itemClickListener:OnItemClickListener): Recycl
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatRoomAdapter.MyView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val view = RoomItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyView(view)
     }
 
-    override fun onBindViewHolder(holder: ChatRoomAdapter.MyView, position: Int) {
+    override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(roomList[position])
     }
 

@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.studymate154.studymate.*
 import com.studymate154.studymate.Model.LogoutModel
@@ -30,6 +31,8 @@ import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentMypageBinding
 import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -144,21 +147,20 @@ class MypageFragment : Fragment() {
         })
     }
 
-    //아이디 삭제
+    //회원탈퇴
     private fun deleteUser() {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.deleteUser("Bearer $userToken")
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                }
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.deleteUser("Bearer $userToken")
+
+            if(response.isSuccessful){
+                Log.d("deleteUser", "회원탈퇴 성공")
             }
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                // Handle failure
-            }
-        })
+        }
+
+
     }
 
     //로그아웃
@@ -167,18 +169,15 @@ class MypageFragment : Fragment() {
         val refreshToken = sharedPreferences.getString("refreshToken","")
         logoutModel.accessToken = userToken
         logoutModel.refreshToken = refreshToken
-        val call = PostRetrofitAPI.emgMedService.postLogout("Bearer $userToken",logoutModel)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object : Callback<SignUpResponseBody> {
-            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                }
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.postLogout("Bearer $userToken",logoutModel)
+
+            if(response.isSuccessful){
+                Log.d("logout","로그아웃 성공")
             }
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                // Handle failure
-            }
-        })
+        }
     }
 
     //회원탈퇴 다이얼로그
@@ -258,22 +257,17 @@ class MypageFragment : Fragment() {
     //이미지 put api
     private fun sendImage(body: MultipartBody.Part){
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.uploadImage("Bearer $userToken", body)
+        val call = PostRetrofitAPI.emgMedService
 
-        call.enqueue(object: Callback<SignUpResponseBody>{
-            override fun onResponse(call: Call<SignUpResponseBody>, response: Response<SignUpResponseBody>) {
-                if(response.isSuccessful){
-                    Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
-                }
-            }
+       lifecycleScope.launch(Dispatchers.IO) {
+           val response = call.uploadImage("Bearer $userToken", body)
 
-            override fun onFailure(call: Call<SignUpResponseBody>, t: Throwable) {
-                Log.d("testt", t.message.toString())
-            }
-
-        })
+           if(response.isSuccessful){
+               Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
+           }else{
+               Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+           }
+       }
     }
 
 

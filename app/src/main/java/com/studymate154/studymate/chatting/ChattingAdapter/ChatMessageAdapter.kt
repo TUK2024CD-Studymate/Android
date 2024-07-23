@@ -1,4 +1,4 @@
-package com.studymate154.studymate.chatting
+package com.studymate154.studymate.chatting.ChattingAdapter
 
 import android.util.Log
 import android.view.LayoutInflater

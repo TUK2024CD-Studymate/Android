@@ -1,4 +1,4 @@
-package com.studymate154.studymate.search
+package com.studymate154.studymate.search.SearchAdapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -47,12 +47,12 @@ class MentoListAdapter(): RecyclerView.Adapter<MentoListAdapter.MyView>() {
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MentoListAdapter.MyView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val view = MentoListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MyView(view)
     }
 
-    override fun onBindViewHolder(holder: MentoListAdapter.MyView, position: Int) {
+    override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(mentoList[position])
     }
 

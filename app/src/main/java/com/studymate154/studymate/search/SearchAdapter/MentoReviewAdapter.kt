@@ -1,4 +1,4 @@
-package com.studymate154.studymate.search
+package com.studymate154.studymate.search.SearchAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,12 +31,12 @@ class MentoReviewAdapter :  RecyclerView.Adapter<MentoReviewAdapter.MyView>() {
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MentoReviewAdapter.MyView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val view = MentoReviewItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MyView(view)
     }
 
-    override fun onBindViewHolder(holder: MentoReviewAdapter.MyView, position: Int) {
+    override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(position)
     }
 

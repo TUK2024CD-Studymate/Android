@@ -1,4 +1,4 @@
-package com.studymate154.studymate.MyPage
+package com.studymate154.studymate.Model
 
 data class PutUserModel(
     var name: String,

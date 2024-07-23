@@ -23,6 +23,7 @@ import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentSearchBinding
 import com.studymate154.studymate.search.*
+import com.studymate154.studymate.search.SearchAdapter.MentoListAdapter
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import retrofit2.Call
 import retrofit2.Callback
