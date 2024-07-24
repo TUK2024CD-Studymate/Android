@@ -55,7 +55,7 @@ class MyPostActivity : AppCompatActivity() {
 
         getMyPost()
 
-
+        onRefresh()
 
     }
 
@@ -76,6 +76,15 @@ class MyPostActivity : AppCompatActivity() {
                 listAdapter.setList(boardList)
                 binding.recyclerView.adapter = listAdapter
             }
+        }
+    }
+
+    //새로고침
+    private fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener {
+            getMyPost()
+
+            binding.refreshLayout.isRefreshing = false
         }
     }
 }

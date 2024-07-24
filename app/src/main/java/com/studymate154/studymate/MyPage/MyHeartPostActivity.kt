@@ -53,6 +53,7 @@ class MyHeartPostActivity : AppCompatActivity() {
 
         getMyPost()
 
+        onRefresh()
 
     }
 
@@ -74,5 +75,14 @@ class MyHeartPostActivity : AppCompatActivity() {
                binding.recyclerView.adapter = listAdapter
            }
        }
+    }
+
+    //새로고침
+    private fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener {
+            getMyPost()
+
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 }

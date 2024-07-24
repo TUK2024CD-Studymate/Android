@@ -92,6 +92,8 @@ class BoardFragment : Fragment() {
         //서취뷰
         initSearchView()
 
+        onRefresh()
+
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
             startActivity(intent)
@@ -210,6 +212,20 @@ class BoardFragment : Fragment() {
             }
         }
         popupMenu.show()
+    }
+
+    private fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener {
+
+            val category = when(binding.tabLayout.selectedTabPosition){
+                0 -> "FREE"
+                1 -> "QUESTION"
+                2 -> "STUDY"
+                else -> "FREE"
+            }
+            getBoardList(category)
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 
 }
