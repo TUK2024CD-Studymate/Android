@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.chatting.ChatRoom
-import com.studymate154.studymate.chatting.ChatRoomAdapter
+import com.studymate154.studymate.chatting.ChattingAdapter.ChatRoomAdapter
 import com.studymate154.studymate.chatting.RoomActivity
 import com.studymate154.studymate.databinding.FragmentChatBinding
 import retrofit2.Call

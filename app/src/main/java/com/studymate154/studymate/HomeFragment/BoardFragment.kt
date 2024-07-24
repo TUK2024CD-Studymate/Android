@@ -18,12 +18,10 @@ import com.studymate154.studymate.board.*
 import com.studymate154.studymate.databinding.FragmentBoardBinding
 import com.google.android.material.tabs.TabLayout
 import com.studymate154.studymate.Model.GetBoardModel
+import com.studymate154.studymate.board.BoardAdapter.BoardListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class BoardFragment : Fragment() {
@@ -93,6 +91,8 @@ class BoardFragment : Fragment() {
 
         //서취뷰
         initSearchView()
+
+        onRefresh()
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(requireContext(), BoardWriteActivity::class.java)
@@ -212,6 +212,20 @@ class BoardFragment : Fragment() {
             }
         }
         popupMenu.show()
+    }
+
+    private fun onRefresh(){
+        binding.refreshLayout.setOnRefreshListener {
+
+            val category = when(binding.tabLayout.selectedTabPosition){
+                0 -> "FREE"
+                1 -> "QUESTION"
+                2 -> "STUDY"
+                else -> "FREE"
+            }
+            getBoardList(category)
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 
 }

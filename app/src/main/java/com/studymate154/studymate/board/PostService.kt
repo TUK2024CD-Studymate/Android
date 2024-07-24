@@ -1,7 +1,7 @@
 package com.studymate154.studymate.board
 
 import com.studymate154.studymate.Model.*
-import com.studymate154.studymate.MyPage.PutUserModel
+import com.studymate154.studymate.Model.PutUserModel
 import com.studymate154.studymate.chatting.*
 import com.studymate154.studymate.SignUpFragment.MessageVerifyModel
 import com.studymate154.studymate.signUp.LoginBackendResponse
@@ -68,6 +68,69 @@ interface PostService {
         @Query("targetNickname") targetNickname: String
     ): Response<SignUpResponseBody>
 
+    //게시글 작성하기
+    @POST("/api/posts")
+    suspend fun addPostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Body recordInfo: BoardWriteModel
+    ): Response<SignUpResponseBody>
+
+    // 댓글 post
+    @POST("/api/posts/{post_id}/comments")
+    suspend fun postCommentsByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String, // post_id를 직접 전달
+        @Body postCommentModel: PostCommentModel
+    ): Response<SignUpResponseBody>
+
+    //게시글 수정
+    @PUT("/api/posts/{post_id}")
+    suspend fun putPostByEnqueue(
+        @Header("Authorization") authorization: String,
+        @Path("post_id") postId: String,
+        @Body BoardModel : BoardWriteModel
+    ):  Response<SignUpResponseBody>
+
+    //내가 좋아요 누른  게시물
+    @GET("/api/user/post/heart")
+    suspend fun getMyHeartPostEnqueue(
+        @Header("Authorization") authorization: String
+    ): Response<List<GetBoardModel>>
+
+    //내 게시물
+    @GET("/api/user/post")
+    suspend fun getMyPostEnqueue(
+        @Header("Authorization") authorization: String
+    ): Response<List<GetBoardModel>>
+
+    //회원탈퇴
+    @DELETE("/api/user")
+    suspend fun deleteUser(
+        @Header("Authorization") authorization: String
+    ): Response<SignUpResponseBody>
+
+    //로그아웃
+    @POST("/api/logout")
+    suspend fun postLogout(
+        @Header("Authorization") authorization: String,
+        @Body logoutModel : LogoutModel
+    ): Response<SignUpResponseBody>
+
+    //이미지 업로드
+    @Multipart
+    @PUT("/api/image/upload")
+    suspend fun uploadImage(
+        @Header("Authorization") authorization: String,
+        @Part image: MultipartBody.Part // 이미지 파트
+    ): Response<SignUpResponseBody>
+
+    //멘토 리뷰 가져오기
+    @GET("/api/matching/review/{mentorId}")
+    suspend fun getMentorReview(
+        @Header("Authorization") authorization: String,
+        @Path("mentorId") mentorId : String
+    ): Response<List<ReviewModel>>
+
 
 //    -------------------------------------------------------------------------------------------------------------------
 
@@ -84,21 +147,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
     ): Call<GetMatchingModel>
 
-    //게시글 올리기
-    @POST("/api/posts")
-    fun addPostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Body recordInfo: BoardWriteModel
-    ): Call<SignUpResponseBody>
-
-    @POST("/api/posts/{post_id}/comments")
-    fun postCommentsByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String, // post_id를 직접 전달
-        @Body postCommentModel: PostCommentModel
-    ): Call<SignUpResponseBody>
-
-
     @POST("/api/question")
     fun addQuesByEnqueue(
         @Header("Authorization") authorization: String,
@@ -111,14 +159,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
-
-    //게시글 수정
-    @PUT("/api/posts/{post_id}")
-    fun putPostByEnqueue(
-        @Header("Authorization") authorization: String,
-        @Path("post_id") postId: String,
-        @Body BoardModel : BoardWriteModel
-    ):  Call<SignUpResponseBody>
 
     //인즌번호 전송
     @POST("/api/signIn/message")
@@ -136,32 +176,6 @@ interface PostService {
     @GET("/api/meeting/create")
     fun getZoomLink(
     ): Call<ZoomLinkModel>
-
-    //회원탈퇴
-    @DELETE("/api/user")
-    fun deleteUser(
-        @Header("Authorization") authorization: String
-    ): Call<SignUpResponseBody>
-
-    //내 게시물
-    @GET("/api/user/post")
-    fun getMyPostEnqueue(
-        @Header("Authorization") authorization: String
-    ): Call<List<GetBoardModel>>
-
-    //로그아웃
-    @POST("/api/logout")
-    fun postLogout(
-        @Header("Authorization") authorization: String,
-        @Body logoutModel : LogoutModel
-    ): Call<SignUpResponseBody>
-
-    //멘토 리뷰 가져오기
-    @GET("/api/matching/review/{mentorId}")
-    fun getMentorReview(
-        @Header("Authorization") authorization: String,
-        @Path("mentorId") mentorId : String
-    ): Call<List<ReviewModel>>
 
     //리뷰 포스트
     @POST("/api/review/{mentorId}")
@@ -191,21 +205,6 @@ interface PostService {
         @Header("Authorization") authorization: String,
         @Path("question-id") questionId : String
     ): Call<List<GetMatchingModel>>
-
-
-    //내가 좋아요 누른  게시물
-    @GET("/api/user/post/heart")
-    fun getMyHeartPostEnqueue(
-        @Header("Authorization") authorization: String
-    ): Call<List<GetBoardModel>>
-
-    //이미지 업로드
-    @Multipart
-    @PUT("/api/image/upload")
-    fun uploadImage(
-        @Header("Authorization") authorization: String,
-        @Part image: MultipartBody.Part // 이미지 파트
-    ): Call<SignUpResponseBody>
 
 
     //회원정보 수정

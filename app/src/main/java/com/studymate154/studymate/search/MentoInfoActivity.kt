@@ -3,15 +3,16 @@ package com.studymate154.studymate.search
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.studymate154.studymate.Model.ReviewModel
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.ActivityMentoInfoBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.studymate154.studymate.search.SearchAdapter.MentoReviewAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MentoInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMentoInfoBinding
@@ -29,11 +30,6 @@ class MentoInfoActivity : AppCompatActivity() {
         val starAverage = intent.getDoubleExtra("starAverage",0.0) // 기본값을 0.0f로 설정합니다.
         val solved = intent.getIntExtra("solved",0)
         val matchingCount = intent.getIntExtra("matchingCount",0) // 기본값을 0으로 설정합니다.
-
-        Log.d("MentoInfoActivity", "Name: $name")
-        Log.d("MentoInfoActivity", "Star Average: $starAverage")
-        Log.d("MentoInfoActivity", "Solved: $solved")
-        Log.d("MentoInfoActivity", "Matching Count: $matchingCount")
 
         val id = intent.getStringExtra("id").toString()
         binding.nameText.text = name.toString()
@@ -59,29 +55,26 @@ class MentoInfoActivity : AppCompatActivity() {
 
     }
 
+    //해당 멘토 리뷰 불러오기
     private fun getReviewList(mentorId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
-        val call = PostRetrofitAPI.emgMedService.getMentorReview("Bearer $userToken", mentorId)
+        val call = PostRetrofitAPI.emgMedService
         val listAdapter = MentoReviewAdapter()
 
-        call.enqueue(object : Callback<List<ReviewModel>> {
-            override fun onResponse(
-                call: Call<List<ReviewModel>>,
-                response: Response<List<ReviewModel>>
-            ) {
-                if (response.isSuccessful) {
-                    val reviewModelList: List<ReviewModel>? = response.body()
+       lifecycleScope.launch(Dispatchers.IO) {
+           val response = call.getMentorReview("Bearer $userToken", mentorId)
 
-                    if (reviewModelList != null) {
-                        listAdapter.setList(reviewModelList)
+          withContext(Dispatchers.Main){
+              if (response.isSuccessful) {
+                  val reviewModelList: List<ReviewModel>? = response.body()
 
-                        binding.recyclerView.adapter = listAdapter
-                    }
-                }
-            }
+                  if (reviewModelList != null) {
+                      listAdapter.setList(reviewModelList)
 
-            override fun onFailure(call: Call<List<ReviewModel>>, t: Throwable) {
-            }
-        })
+                      binding.recyclerView.adapter = listAdapter
+                  }
+              }
+          }
+       }
     }
 }

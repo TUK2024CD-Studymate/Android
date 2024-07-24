@@ -1,4 +1,4 @@
-package com.studymate154.studymate.board
+package com.studymate154.studymate.board.BoardAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,12 +23,12 @@ class CommentListAdapter() : RecyclerView.Adapter<CommentListAdapter.MyView>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentListAdapter.MyView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
        val view = CommentItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MyView(view)
     }
 
-    override fun onBindViewHolder(holder: CommentListAdapter.MyView, position: Int) {
+    override fun onBindViewHolder(holder: MyView, position: Int) {
         holder.bind(position)
     }
 

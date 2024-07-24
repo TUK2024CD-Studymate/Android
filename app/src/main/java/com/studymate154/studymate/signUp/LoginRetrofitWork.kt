@@ -37,11 +37,7 @@ class LoginRetrofitWork(private val user: LoginModel, private val context: Conte
 
                             context.startActivity(intent)
                         }
-                        401 -> Toast.makeText(
-                            context,
-                            "로그인 실패 : 아이디나 비번이 올바르지 않습니다",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        401 -> Toast.makeText(context, "로그인 실패 : 아이디나 비번이 올바르지 않습니다", Toast.LENGTH_LONG).show()
                         500 -> Toast.makeText(
                             context,
                             "로그인 실패 : 서버 오류",

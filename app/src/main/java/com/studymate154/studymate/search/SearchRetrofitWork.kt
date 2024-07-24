@@ -28,8 +28,6 @@ class SearchRetrofitWork(private val userToken: String, private val quesInfo: Qu
                     response: Response<SignUpResponseBody>
 
                 ) {
-                    Log.d("저장 통신 성공", response.toString())
-                    Log.d("저장 통신 성공", response.body().toString())
                     if (response.isSuccessful) {
                         if (response.isSuccessful) {
                             val questionId = response.body()?.id
