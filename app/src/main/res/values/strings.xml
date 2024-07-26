@@ -6,9 +6,9 @@
     <string name="passwd">비밀번호</string>
     <string name="passwdHint">********</string>
     <string name="checkPasswd">비밀번호 확인</string>
-    <string name="logo1">다양한 멘티,멘토와의 협력을</string>
-    <string name="logo2">통해 함께 공부하고 성장하세요</string>
-    <string name="logo3">공부는 스터디메이트</string>
+    <string name="logo1">다양한 멘티,멘토와의 협력을 통해</string>
+    <string name="logo2">함께 공부하고 성장하세요.</string>
+    <string name="logo3">공부는 스터디메이트 !</string>
     <string name="emailSignUp">이메일 회원가입</string>
     <string name="emailLogin">이메일 로그인</string>
     <string name="hintEmail">123456@gmail.com</string>
@@ -61,7 +61,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     //매칭 프래그먼트
-    <string name="startMatching">질문에 맞는 \n 멘토를 추천해 드릴게요.</string>
+    <string name="startMatching">질문에 맞는 \n멘토를 추천해 드릴게요.</string>
     <string name="selectInterests">관심분야를 선택하세요</string>
     <string name="searchTitle">제목을 적어주세요</string>
     <string name="matchingStart">멘토찾기</string>
