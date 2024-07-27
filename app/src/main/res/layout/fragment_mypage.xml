@@ -142,7 +142,7 @@
                     android:id="@+id/putProfile"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
-                    android:background="#FFCB78"
+                    android:background="@drawable/edit_yellow"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
                     android:textSize="15sp"
@@ -214,7 +214,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="35dp"
             android:orientation="vertical">
 

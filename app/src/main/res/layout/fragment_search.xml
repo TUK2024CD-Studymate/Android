@@ -23,6 +23,7 @@
                 android:layout_width="10dp"
                 android:layout_height="75dp"
                 android:background="#ffa300"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="6dp"
                 android:orientation="vertical">
 
@@ -32,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/startMatching"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:textSize="28sp"
                 android:textColor="#ffa300"
                 android:textStyle="bold"/>
@@ -141,7 +143,7 @@
             android:paddingTop="15dp"
             android:textSize="14sp"
             android:gravity="top"
-            android:background="@drawable/edit_black"
+            android:background="@drawable/edit_orange"
             android:textColorHint="@color/lightGray"
             android:hint="@string/mentoQuestion"/>
 

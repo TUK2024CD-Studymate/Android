@@ -30,7 +30,7 @@
               android:layout_gravity="center"
               android:layout_marginStart="20dp"
               android:textSize="17sp"
-              android:textColor="#915FC1"/>
+              android:textColor="#ffa300"/>
 
           <View
               android:layout_width="0dp"
@@ -106,8 +106,8 @@
             android:id="@+id/startChatBtn"
             android:layout_width="75dp"
             android:layout_height="35dp"
-            android:background="@drawable/assign_button"
-            android:textColor="@color/light_purple"
+            android:background="@drawable/edit_yellow"
+            android:textColor="@color/white"
             android:layout_marginEnd="10dp"
             android:layout_gravity="center"
             android:textSize="10sp"
