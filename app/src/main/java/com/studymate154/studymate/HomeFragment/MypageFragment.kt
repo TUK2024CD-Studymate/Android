@@ -33,6 +33,7 @@ import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -262,10 +263,12 @@ class MypageFragment : Fragment() {
        lifecycleScope.launch(Dispatchers.IO) {
            val response = call.uploadImage("Bearer $userToken", body)
 
-           if(response.isSuccessful){
-               Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
-           }else{
-               Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+           withContext(Dispatchers.Main){
+               if(response.isSuccessful){
+                   Toast.makeText(requireContext(), "이미지 전송 성공", Toast.LENGTH_SHORT).show()
+               }else{
+                   Toast.makeText(requireContext(), "이미지 전송 실패", Toast.LENGTH_SHORT).show()
+               }
            }
        }
     }

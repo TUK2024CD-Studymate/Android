@@ -3,6 +3,7 @@ package com.studymate154.studymate.search
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,20 +62,24 @@ class MentoInfoActivity : AppCompatActivity() {
         val call = PostRetrofitAPI.emgMedService
         val listAdapter = MentoReviewAdapter()
 
-       lifecycleScope.launch(Dispatchers.IO) {
-           val response = call.getMentorReview("Bearer $userToken", mentorId)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val response = call.getMentorReview("Bearer $userToken", mentorId)
 
-          withContext(Dispatchers.Main){
-              if (response.isSuccessful) {
-                  val reviewModelList: List<ReviewModel>? = response.body()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val reviewModelResponse: ReviewModelResponse? = response.body()
 
-                  if (reviewModelList != null) {
-                      listAdapter.setList(reviewModelList)
-
-                      binding.recyclerView.adapter = listAdapter
-                  }
-              }
-          }
-       }
+                    if (reviewModelResponse != null) {
+                        val reviewModelList = reviewModelResponse.reviewResponses ?: emptyList() // 데이터가 null일 경우 빈 리스트로 대체
+                        listAdapter.setList(reviewModelList)
+                        binding.recyclerView.adapter = listAdapter
+                    } else {
+                        Log.e("getReviewList", "Response body is null")
+                    }
+                } else {
+                    Log.e("getReviewList", "Failed to get reviews. Response code: ${response.code()}")
+                }
+            }
+        }
     }
 }

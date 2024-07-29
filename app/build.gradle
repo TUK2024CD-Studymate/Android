@@ -105,7 +105,7 @@ dependencies {
     // Swiperefreshlayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
 
 
 }
