@@ -8,69 +8,168 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="@string/startMatching"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="10dp"
+                android:layout_height="75dp"
+                android:background="#ffa300"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/startMatching"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textSize="28sp"
+                android:textColor="#ffa300"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="관심분야"
+                android:textColor="#ffa300"/>
+        </LinearLayout>
 
 
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
             android:theme="@style/SpinnerTheme"
-            android:background="@drawable/edit_black"
-            android:layout_marginTop="10dp"
+            style="@style/CustomSpinnerStyle"
             android:layout_gravity="center_horizontal" />
-        
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#ffa300"
+            />
+
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="상세분야"
+                android:textColor="#ffa300"/>
+        </LinearLayout>
+
         <EditText
             android:id="@+id/specifyField"
             android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:paddingStart="15dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
             android:textSize="14sp"
-            android:background="@drawable/edit_black"
             android:textColorHint="@color/lightGray"
+            android:backgroundTint="#ffa300"
             android:hint="상세분야를 적어주세요"/>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="제목"
+                android:textColor="#ffa300"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/titleEdit"
             android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:textSize="14sp"
-            android:paddingStart="15sp"
-            android:background="@drawable/edit_black"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:hint="@string/searchTitle"
             android:textColorHint="@color/lightGray"
-            android:hint="@string/searchTitle"/>
+            android:backgroundTint="#ffa300"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="질문"
+                android:textColor="#ffa300"/>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/contentEdit"
             android:layout_width="300dp"
-            android:layout_height="180dp"
+            android:layout_height="0dp"
+            android:layout_weight="4"
             android:paddingStart="15dp"
-            android:layout_marginTop="20dp"
             android:paddingTop="15dp"
             android:textSize="14sp"
             android:gravity="top"
-            android:background="@drawable/edit_black"
+            android:background="@drawable/edit_orange"
             android:textColorHint="@color/lightGray"
             android:hint="@string/mentoQuestion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffa300"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="멘토 서치를 원하시나요?"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:orientation="horizontal">
 

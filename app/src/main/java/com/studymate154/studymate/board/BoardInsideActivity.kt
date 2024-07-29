@@ -293,14 +293,15 @@ class BoardInsideActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val response = PostRetrofitAPI.emgMedService.postChatRoom("Bearer $userToken",targetNickname)
 
-            if (response.isSuccessful) {
-                val user = response.body()
-                Toast.makeText(this@BoardInsideActivity, "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+           withContext(Dispatchers.Main){
+               if (response.isSuccessful) {
+                   Toast.makeText(this@BoardInsideActivity, "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show()
 
-            } else {
-                Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
-                Toast.makeText(this@BoardInsideActivity, "채팅방이 이미 존재 합니다.", Toast.LENGTH_SHORT).show()
-            }
+               } else {
+                   Log.e("getUser", "Failed to get user data. Response code: ${response.code()}")
+                   Toast.makeText(this@BoardInsideActivity, "채팅방이 이미 존재 합니다.", Toast.LENGTH_SHORT).show()
+               }
+           }
         }
     }
 

@@ -31,4 +31,8 @@
     <style name="SpinnerTheme">
         <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
     </style>
+    // 스피너 색상
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:backgroundTint">#ffa300</item>
+    </style>
 </resources>
