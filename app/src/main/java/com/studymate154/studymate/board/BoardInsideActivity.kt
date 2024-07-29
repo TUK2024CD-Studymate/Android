@@ -176,30 +176,18 @@ class BoardInsideActivity : AppCompatActivity() {
     }
 
     //게시글 삭제
-    private fun deletePost(boardId: String, onPostDeleted: (Boolean) -> Unit) {
+    private fun deletePost(boardId: String) {
         val userToken = sharedPreferences.getString("userToken", "") ?: ""
         val call = PostRetrofitAPI.emgMedService
 
         lifecycleScope.launch(Dispatchers.IO) {
-            try {
                 val response = call.deletePostByEnqueue("Bearer $userToken", boardId)
+
                 if (response.isSuccessful) {
                     Log.d("deleteRecord", "Record deleted successfully")
-                    withContext(Dispatchers.Main) {
-                        onPostDeleted(true) // 성공적으로 삭제되었을 때 true 전달
-                    }
                 } else {
                     Log.e("deleteRecord", "Failed to delete record. Response code: ${response.code()}")
-                    withContext(Dispatchers.Main) {
-                        onPostDeleted(false) // 삭제 실패 시 false 전달
-                    }
                 }
-            } catch (e: IOException) {
-                Log.e("deleteRecord", "Network request failed", e)
-                withContext(Dispatchers.Main) {
-                    onPostDeleted(false) // 삭제 실패 시 false 전달
-                }
-            }
         }
     }
 
@@ -212,8 +200,10 @@ class BoardInsideActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val response = call.postHeart("Bearer $userToken",boardId)
 
-            if (response.isSuccessful){
-                Toast.makeText(this@BoardInsideActivity,"좋아요를 눌렀습니다!",Toast.LENGTH_SHORT).show()
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
+                    Toast.makeText(this@BoardInsideActivity,"좋아요를 눌렀습니다!",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -226,15 +216,8 @@ class BoardInsideActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.delete -> {
-                    deletePost(boardId) { isSuccess ->
-                        if (isSuccess) {
-                            finish()
-                        } else {
-                            runOnUiThread {
-                                Toast.makeText(this, "삭제할 수 없습니다.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
+                    deletePost(boardId)
+                    finish()
                     true
                 }
                 R.id.like -> {

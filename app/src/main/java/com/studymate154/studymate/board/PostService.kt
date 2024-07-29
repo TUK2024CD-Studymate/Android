@@ -4,6 +4,7 @@ import com.studymate154.studymate.Model.*
 import com.studymate154.studymate.Model.PutUserModel
 import com.studymate154.studymate.chatting.*
 import com.studymate154.studymate.SignUpFragment.MessageVerifyModel
+import com.studymate154.studymate.search.ReviewModelResponse
 import com.studymate154.studymate.signUp.LoginBackendResponse
 import com.studymate154.studymate.signUp.SignUpResponseBody
 import okhttp3.MultipartBody
@@ -52,14 +53,14 @@ interface PostService {
     suspend fun deletePostByEnqueue(
         @Header("Authorization") authorization: String,
         @Path("post_id") postId: String // 또는 필요에 따라 다른 데이터 타입을 사용
-    ):  Response<SignUpResponseBody>
+    ):  Response<String>
 
     // 게시글 좋아요 누르기
     @POST("/api/post/heart/{postId}")
     suspend fun postHeart(
         @Header("Authorization") authorization: String,
         @Path("postId") postId: String
-    ) : Response<SignUpResponseBody>
+    ) : Response<String>
 
     //게시판에서 채팅방 생성하기
     @POST("/api/chat/rooms")
@@ -129,7 +130,7 @@ interface PostService {
     suspend fun getMentorReview(
         @Header("Authorization") authorization: String,
         @Path("mentorId") mentorId : String
-    ): Response<List<ReviewModel>>
+    ): Response<ReviewModelResponse>
 
 
 //    -------------------------------------------------------------------------------------------------------------------
