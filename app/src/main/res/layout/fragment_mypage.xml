@@ -192,15 +192,12 @@
                 android:layout_height="wrap_content"
                 android:text="내 게시글 조회"
                 android:textStyle="bold"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
                 android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/myHeartPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:text="좋아요 누른 게시물"
                 android:textStyle="bold"
@@ -247,8 +244,6 @@
                 android:id="@+id/userDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
                 android:text="회원탈퇴"
                 android:textStyle="bold"
                 android:textSize="17sp" />
@@ -257,7 +252,6 @@
                 android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:text="로그아웃"
