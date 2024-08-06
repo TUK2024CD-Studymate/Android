@@ -64,7 +64,7 @@
     <string name="startMatching">질문에 맞는 \n멘토를 추천해 드릴게요.</string>
     <string name="selectInterests">관심분야를 선택하세요</string>
     <string name="searchTitle">제목을 적어주세요</string>
-    <string name="matchingStart">멘토찾기</string>
+    <string name="matchingStart">멘토검색</string>
     <string name="mentoQuestion">질문 내용을 적어주세요</string>
 
 </resources>
