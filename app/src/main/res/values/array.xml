@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="interests_array">
-        <item></item>
         <item>웹/앱개발</item>
         <item>서버/네트워크</item>
         <item>AI/LOT</item>

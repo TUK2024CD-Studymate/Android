@@ -136,7 +136,6 @@ interface PostService {
 //    -------------------------------------------------------------------------------------------------------------------
 
     //회원가입
-    @Headers("Content-Type: application/json")
     @POST("/api/signIn")
     fun addUserByEnqueue(
         @Body userInfo: UserInfoModel

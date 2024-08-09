@@ -42,7 +42,7 @@ class ProfileSetting : AppCompatActivity() {
         }
     }
 
-    private var signUpData: UserInfoModel = UserInfoModel(null, null,null, null,null, null, null, null,null,null,null,null)
+    private var signUpData: UserInfoModel = UserInfoModel(null, null,null, null,null, null, null, null,null,null,null)
 
     private val stepProgressAmount = 8
 
