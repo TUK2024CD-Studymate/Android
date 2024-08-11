@@ -132,11 +132,16 @@ interface PostService {
         @Path("mentorId") mentorId : String
     ): Response<ReviewModelResponse>
 
+    //자기 자신 알림조회
+
+    @GET("/api/notification")
+    suspend fun getMyAlert(
+        @Header("Authorization") authorization: String
+    ): Response<List<GetMyAlertModel>>
 
 //    -------------------------------------------------------------------------------------------------------------------
 
     //회원가입
-    @Headers("Content-Type: application/json")
     @POST("/api/signIn")
     fun addUserByEnqueue(
         @Body userInfo: UserInfoModel

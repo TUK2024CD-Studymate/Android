@@ -15,14 +15,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/myAlertImg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ring" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="3"
-            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="75dp"
-                android:background="#ffa300"
+                android:background="@color/main_color"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="6dp"
                 android:orientation="vertical">
@@ -35,7 +55,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:textSize="28sp"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textStyle="bold"/>
 
         </LinearLayout>
@@ -52,7 +72,7 @@
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
                 android:text="관심분야"
-                android:textColor="#ffa300"/>
+                android:textColor="@color/main_color"/>
         </LinearLayout>
 
 
@@ -68,7 +88,7 @@
         <View
             android:layout_width="300dp"
             android:layout_height="1dp"
-            android:background="#ffa300"
+            android:background="@color/main_color"
             />
 
 
@@ -83,7 +103,7 @@
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
                 android:text="상세분야"
-                android:textColor="#ffa300"/>
+                android:textColor="@color/main_color"/>
         </LinearLayout>
 
         <EditText
@@ -93,7 +113,7 @@
             android:layout_weight="1.5"
             android:textSize="14sp"
             android:textColorHint="@color/lightGray"
-            android:backgroundTint="#ffa300"
+            android:backgroundTint="@color/main_color"
             android:hint="상세분야를 적어주세요"/>
 
         <LinearLayout
@@ -107,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="제목"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -118,7 +138,7 @@
             android:layout_weight="1.5"
             android:hint="@string/searchTitle"
             android:textColorHint="@color/lightGray"
-            android:backgroundTint="#ffa300"
+            android:backgroundTint="@color/main_color"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -132,7 +152,7 @@
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
                 android:text="질문"
-                android:textColor="#ffa300"/>
+                android:textColor="@color/main_color"/>
         </LinearLayout>
 
         <EditText
@@ -144,7 +164,7 @@
             android:paddingTop="15dp"
             android:textSize="14sp"
             android:gravity="top"
-            android:background="@drawable/edit_orange"
+            android:background="@drawable/edit_purple"
             android:textColorHint="@color/lightGray"
             android:hint="@string/mentoQuestion"/>
 
@@ -159,7 +179,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 android:text="멘토 서치를 원하시나요?"/>

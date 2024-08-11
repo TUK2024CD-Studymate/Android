@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.studymate154.studymate.Model.GetMatchingModel
 import com.studymate154.studymate.Model.QuesModel
+import com.studymate154.studymate.MyAlert.MyAlertActivity
 import com.studymate154.studymate.R
 import com.studymate154.studymate.board.PostRetrofitAPI
 import com.studymate154.studymate.databinding.FragmentSearchBinding
@@ -54,6 +55,12 @@ class SearchFragment : Fragment() {
         val items = resources.getStringArray(R.array.interests_array)
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         binding.spinner1.adapter = myAdapter
+
+        //알림 이미지 클릭시 이동
+        binding.myAlertImg.setOnClickListener {
+            val intent =  Intent(requireContext(),MyAlertActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

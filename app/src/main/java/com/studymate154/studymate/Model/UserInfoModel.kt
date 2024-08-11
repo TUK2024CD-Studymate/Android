@@ -11,7 +11,6 @@ data class UserInfoModel(
     var blogUrl: String? = null,
     var publicRelations: String? = null,
     var job: String? = null,
-    var imageUrl: String? = null,
     var expertiseField : String? = null
 
 )

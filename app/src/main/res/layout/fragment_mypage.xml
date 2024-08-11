@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:background="#ffa300"
+                android:background="@color/main_color"
                 android:orientation="vertical">
 
             </LinearLayout>
@@ -31,7 +31,7 @@
                 android:text="마이페이지"
                 android:layout_marginStart="5dp"
                 android:textSize="30sp"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textStyle="bold"/>
 
         </LinearLayout>
@@ -67,7 +67,7 @@
                        android:layout_marginStart="1dp"
                        android:layout_marginBottom="7dp"
                        android:text="0"
-                       android:textColor="#ffa300"
+                       android:textColor="@color/main_color"
                        android:textSize="20sp" />
 
                    <TextView
@@ -109,7 +109,7 @@
                       android:layout_marginStart="1dp"
                       android:layout_marginBottom="7dp"
                       android:text="0"
-                      android:textColor="#ffa300"
+                      android:textColor="@color/main_color"
                       android:textSize="20sp" />
 
                   <TextView
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="커뮤니티"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -174,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffa300" />
+                android:background="@color/main_color" />
 
         </LinearLayout>
 
@@ -218,14 +218,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기타"
-                android:textColor="#ffa300"
+                android:textColor="@color/main_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffa300" />
+                android:background="@color/main_color" />
 
 
         </LinearLayout>
