@@ -36,6 +36,12 @@ class MyAlertActivity : AppCompatActivity() {
 
         listAdapter = MyAlertAdapter()
 
+        //뒤로가기
+        binding.backImg.setOnClickListener {
+            finish()
+        }
+
+        //리싸이클러부 연결
         binding.recyclerView.apply {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(this@MyAlertActivity)
@@ -43,6 +49,7 @@ class MyAlertActivity : AppCompatActivity() {
             addItemDecoration(itemDecoration)
         }
 
+        //알림 리스트 가지고오기
         getMyAlert()
 
 
