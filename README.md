@@ -13,3 +13,7 @@
 - Coroutine
 - ViewBinding
 
+## ERD
+![erd](https://github.com/user-attachments/assets/42424b81-8793-4490-a6ef-b13c3af95286)
+<br><br>
+
