@@ -11,8 +11,6 @@
 | 분야             | 사용 기술                        |
 |------------------|-----------------------------------|
 | **네트워크**     | `Retrofit`, `OkHttp3`             |
-| **아키텍처**     | `MVVM`, `LiveData`                |
-| **의존성 주입**  | `Hilt`                          |
 | **비동기 처리**  | `Coroutine`                       |
 | **실시간 통신**  | `EventSource`, `Stomp`            |
 | **데이터 저장**  | `SharedPreferences`, `Room`      |
