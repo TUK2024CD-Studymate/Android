@@ -7,22 +7,61 @@
 
 
 ## 기술 스택
-- Retrofit2, Okhttp3
-- EventSource  
-- Stomp  
-- Coroutine
-- ViewBinding
+
+| 분야             | 사용 기술                        |
+|------------------|-----------------------------------|
+| **네트워크**     | `Retrofit`, `OkHttp3`             |
+| **아키텍처**     | `MVVM`, `LiveData`                |
+| **의존성 주입**  | `Hilt`                          |
+| **비동기 처리**  | `Coroutine`                       |
+| **실시간 통신**  | `EventSource`, `Stomp`            |
+| **데이터 저장**  | `SharedPreferences`, `Room`      |
+| **이미지 로딩**  | `Glide`, `Circleimageview`          |
+
 
 ## ERD
 ![erd](https://github.com/user-attachments/assets/42424b81-8793-4490-a6ef-b13c3af95286)
 <br><br>
-
 ## Demo
-| 분야| 사용기술  |
-|:----:|:------:|
-| **메인 페이지**|  <img src="https://github.com/user-attachments/assets/a65654d9-9546-493c-90d8-070af08f2ac7" alt="alt text" width="50%"> |
-| **게시판 페이지**  |  <img src="https://github.com/user-attachments/assets/1735469c-2261-4e3d-a0ef-7c18774789a0" alt="alt text" width="50%"> |
-| **온라인 매칭 페이지**  |   <img src="https://github.com/user-attachments/assets/ce07ceba-5ab9-4189-ab87-3c396e00c17b" alt="alt text" width="50%">|
-| **채팅 페이지**  |  <img src="https://github.com/user-attachments/assets/3243c21f-1f72-44fe-a6e3-329fb97e1244" alt="alt text" width="50%"> |
-| **마이 페이지** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  <img src="https://github.com/user-attachments/assets/a18778fd-568e-44ff-b0e3-5a83bc318143" alt="alt text" width="50%">|
 
+<table>
+  <tr>
+    <td align="center">
+      <strong>메인 화면</strong><br>
+      <img src="https://github.com/user-attachments/assets/ac8aec4a-dc28-4c8d-91ff-498b7d727b92" alt="메인 화면" width="300"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>게시판 화면</strong><br>
+      <img src="https://github.com/user-attachments/assets/18e9564a-634a-4ce4-b00b-3e8075ab5da8" alt="게시판 1" width="300"/>
+      <img src="https://github.com/user-attachments/assets/368248bc-32e9-4ff4-8773-e8b81ff93d5c" alt="게시판 2" width="300"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>온라인 매칭 화면</strong><br>
+      <img src="https://github.com/user-attachments/assets/40088a26-ed86-4f32-84ae-6b04d5525dc9" alt="온라인 매칭 1" width="300"/>
+      <img src="https://github.com/user-attachments/assets/035c9180-d390-428b-9067-55ef43407d39" alt="온라인 매칭 2" width="300"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>채팅 화면</strong><br>
+      <img src="https://github.com/user-attachments/assets/aa7934d4-55ff-4960-92df-5a6347316ec2" alt="채팅 1" width="300"/>
+      <img src="https://github.com/user-attachments/assets/37042bdb-3037-4541-a5d7-aab35262a626" alt="채팅 2" width="300"/>
+    </td>
+  </tr>
+   <tr>
+    <td align="center">
+      <strong>알림 화면</strong><br>
+      <img src="https://github.com/user-attachments/assets/9b72151f-e603-4245-b2ff-2fb452c8c8bd" alt="알림 1" width="300"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>마이 페이지</strong><br>
+      <img src="https://github.com/user-attachments/assets/a7c474db-60a5-4072-acff-848a7d62703d" alt="마이 페이지" width="300"/>
+    </td>
+  </tr>
+</table>
